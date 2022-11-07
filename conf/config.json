@@ -4,8 +4,8 @@
   },
   "db" : {
     "url": "jdbc:h2:./db-11",
-    "username": "",
-    "password": "",
+    "username": "group-11",
+    "password": "re5ul3zwKqV",
     "webconsole.port": 9000
   },
   "api" : {
