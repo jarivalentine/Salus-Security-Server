@@ -40,7 +40,7 @@ public class Response {
                 .end();
     }
 
-    private static void sendJsonResponse(RoutingContext ctx, int statusCode, Object response) {
+    public static void sendJsonResponse(RoutingContext ctx, int statusCode, Object response) {
         ctx.response()
                 .putHeader(HttpHeaders.CONTENT_TYPE, "application/json")
                 .setStatusCode(statusCode)
