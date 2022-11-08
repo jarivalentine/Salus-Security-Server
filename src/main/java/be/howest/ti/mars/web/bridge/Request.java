@@ -31,6 +31,7 @@ public class Request {
     private static final Logger LOGGER = Logger.getLogger(Request.class.getName());
     public static final String SPEC_QUOTE_ID = "quoteId";
     public static final String SPEC_QUOTE = "quote";
+    public static final String SPEC_USER_ID = "id";
     private final RequestParameters params;
 
     public static Request from(RoutingContext ctx) {
@@ -54,5 +55,9 @@ public class Request {
             LOGGER.log(Level.INFO, "Unable to decipher the data in the body", ex);
             throw new MalformedRequestException("Unable to decipher the data in the request body. See logs for details.");
         }
+    }
+
+    public String getUserId() {
+        return params.pathParameter(SPEC_USER_ID).getString();
     }
 }
