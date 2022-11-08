@@ -1,6 +1,7 @@
 package be.howest.ti.mars.logic.controller;
 
 import be.howest.ti.mars.logic.domain.Quote;
+import be.howest.ti.mars.logic.domain.User;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
 
@@ -23,6 +24,11 @@ public class MockMarsController implements MarsController {
 
     @Override
     public void deleteQuote(int quoteId) {
+    }
+
+    @Override
+    public User getUser(String id) {
+        return new User(id, "firstname", "lastname", false);
     }
 
 }
