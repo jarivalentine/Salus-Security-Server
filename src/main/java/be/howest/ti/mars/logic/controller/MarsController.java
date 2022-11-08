@@ -1,5 +1,6 @@
 package be.howest.ti.mars.logic.controller;
 
+import be.howest.ti.mars.logic.domain.Incident;
 import be.howest.ti.mars.logic.domain.Quote;
 
 public interface MarsController {
@@ -10,4 +11,5 @@ public interface MarsController {
     Quote updateQuote(int quoteId, String quote);
 
     void deleteQuote(int quoteId);
+    Incident getIncident();
 }

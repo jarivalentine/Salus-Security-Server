@@ -1,5 +1,6 @@
 package be.howest.ti.mars.logic.data;
 
+import be.howest.ti.mars.logic.domain.Incident;
 import be.howest.ti.mars.logic.domain.Quote;
 import be.howest.ti.mars.logic.exceptions.RepositoryException;
 import org.h2.tools.Server;
@@ -27,6 +28,8 @@ public class MarsH2Repository {
     private static final String SQL_INSERT_QUOTE = "insert into quotes (`quote`) values (?);";
     private static final String SQL_UPDATE_QUOTE = "update quotes set quote = ? where id = ?;";
     private static final String SQL_DELETE_QUOTE = "delete from quotes where id = ?;";
+
+    private static final String SQL_SELECT_INCIDENTS = "select * from incidents;";
     private final Server dbWebConsole;
     private final String username;
     private final String password;
@@ -46,6 +49,10 @@ public class MarsH2Repository {
             LOGGER.log(Level.SEVERE, "DB configuration failed", ex);
             throw new RepositoryException("Could not configure MarsH2repository");
         }
+    }
+
+    public Incident getIncident() {
+        return null; // need incidents database
     }
 
     public Quote getQuote(int id) {
