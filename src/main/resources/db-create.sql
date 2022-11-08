@@ -1,5 +1,50 @@
+drop table if exists quotes;
 create table quotes
 (
     id    int auto_increment,
     quote varchar(255)
+);
+
+drop table if exists bystander_incidents;
+drop table if exists aggressor_incidents;
+drop table if exists incidents;
+drop table if exists users;
+
+create table users
+(
+    id          varchar(16) not null,
+    firstname   varchar(255),
+    lastname    varchar(255),
+    subscribed  boolean default false,
+    primary key (id)
+);
+
+create table incidents
+(
+    id          int auto_increment,
+    type        varchar(255),
+    longitude   varchar(255),
+    latitude    varchar(255),
+    datetime    datetime,
+    validated   boolean,
+    reporterId  varchar(16) not null,
+    labels      varchar(255),
+    primary key (id),
+    foreign key (reporterId) references users(id)
+);
+
+create table bystander_incidents (
+    userId  varchar(16) not null,
+    incidentId  int not null,
+    primary key (userId, incidentId),
+    foreign key (userId) references users(id),
+    foreign key (incidentId) references incidents(id)
+);
+
+create table aggressor_incidents (
+    userId  varchar(16) not null,
+    incidentId  int not null,
+    primary key (userId, incidentId),
+    foreign key (userId) references users(id),
+    foreign key (incidentId) references incidents(id)
 );
