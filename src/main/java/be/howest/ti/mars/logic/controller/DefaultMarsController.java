@@ -2,6 +2,7 @@ package be.howest.ti.mars.logic.controller;
 
 import be.howest.ti.mars.logic.data.Repositories;
 import be.howest.ti.mars.logic.domain.Quote;
+import be.howest.ti.mars.logic.domain.User;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.NoSuchElementException;
@@ -18,6 +19,7 @@ import java.util.NoSuchElementException;
  */
 public class DefaultMarsController implements MarsController {
     private static final String MSG_QUOTE_ID_UNKNOWN = "No quote with id: %d";
+    private static final String MSG_USER_ID_UNKNOWN = "No user with id: %d";
 
     @Override
     public Quote getQuote(int quoteId) {
@@ -56,5 +58,13 @@ public class DefaultMarsController implements MarsController {
             throw new NoSuchElementException(String.format(MSG_QUOTE_ID_UNKNOWN, quoteId));
 
         Repositories.getH2Repo().deleteQuote(quoteId);
+    }
+
+    @Override
+    public User getUser(String id) {
+        if (null == Repositories.getH2Repo().getUser(id))
+            throw new NoSuchElementException(String.format(MSG_USER_ID_UNKNOWN, id));
+
+        return Repositories.getH2Repo().getUser(id);
     }
 }

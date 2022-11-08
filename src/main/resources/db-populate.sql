@@ -1,6 +1,7 @@
 INSERT INTO quotes VALUES (0, 'You must accept that you might fail.');
 INSERT INTO quotes VALUES (1, 'Everyone enjoys doing the kind of work for which he is best suited.');
 
+
 insert into users (id, firstname, lastname)
 values ('1989-01-28_AL', 'Adison', 'Lopez'),
        ('1992-02-04_SH', 'Sandra', 'Haney'),

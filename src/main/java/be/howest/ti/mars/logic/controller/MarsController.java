@@ -1,6 +1,7 @@
 package be.howest.ti.mars.logic.controller;
 
 import be.howest.ti.mars.logic.domain.Quote;
+import be.howest.ti.mars.logic.domain.User;
 
 public interface MarsController {
     Quote getQuote(int quoteId);
@@ -10,4 +11,6 @@ public interface MarsController {
     Quote updateQuote(int quoteId, String quote);
 
     void deleteQuote(int quoteId);
+
+    User getUser(String id);
 }
