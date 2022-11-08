@@ -63,7 +63,7 @@ public class MarsOpenApiBridge {
 
 
     public void getIncidents(RoutingContext ctx){
-        Response.sendJsonResponse(ctx, 200, controller.getIncident());
+        Response.sendJsonResponse(ctx, 200, controller.getIncidents());
     }
 
     public void getQuote(RoutingContext ctx) {

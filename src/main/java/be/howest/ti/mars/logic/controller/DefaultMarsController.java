@@ -5,6 +5,7 @@ import be.howest.ti.mars.logic.domain.Incident;
 import be.howest.ti.mars.logic.domain.Quote;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -59,11 +60,11 @@ public class DefaultMarsController implements MarsController {
         Repositories.getH2Repo().deleteQuote(quoteId);
     }
     @Override
-    public Incident getIncident() {
-        Incident incident = Repositories.getH2Repo().getIncident();
-        if (null == incident)
+    public List<Incident> getIncidents() {
+        List<Incident> incidents = Repositories.getH2Repo().getIncidents();
+        if (incidents.isEmpty())
             throw new NoSuchElementException("Could not retrieve incidents");
 
-        return incident;
+        return incidents;
     }
 }

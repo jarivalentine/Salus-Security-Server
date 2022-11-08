@@ -11,6 +11,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.*;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,8 +53,8 @@ public class MarsH2Repository {
         }
     }
 
-    public Incident getIncident() {
-        return null; // need incidents database
+    public List<Incident> getIncidents() {
+        return Collections.emptyList(); // need incidents database
     }
 
     public Quote getQuote(int id) {

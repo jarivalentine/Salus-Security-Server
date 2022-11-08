@@ -1,8 +1,11 @@
 package be.howest.ti.mars.logic.controller;
 
+import be.howest.ti.mars.logic.domain.Incident;
 import be.howest.ti.mars.logic.domain.Quote;
-import io.vertx.core.Future;
-import io.vertx.core.Promise;
+import be.howest.ti.mars.logic.domain.User;
+
+import java.util.Collections;
+import java.util.List;
 
 public class MockMarsController implements MarsController {
     private static final String SOME_QUOTE = "quote";
@@ -23,6 +26,12 @@ public class MockMarsController implements MarsController {
 
     @Override
     public void deleteQuote(int quoteId) {
+    }
+
+    @Override
+    public List<Incident> getIncidents() {
+        User user = new User();
+        return List.of(new Incident("53", "3", user)); //these are random values
     }
 
 }
