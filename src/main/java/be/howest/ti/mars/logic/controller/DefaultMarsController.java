@@ -77,4 +77,9 @@ public class DefaultMarsController implements MarsController {
 
         return Repositories.getH2Repo().getUser(id);
     }
+
+    @Override
+    public Incident createIncident(String reportedId, String latitude, String longitude) {
+        return Repositories.getH2Repo().insertIncident(reportedId, latitude, longitude);
+    }
 }

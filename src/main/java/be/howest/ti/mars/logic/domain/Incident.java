@@ -1,6 +1,8 @@
 package be.howest.ti.mars.logic.domain;
 
 import java.security.SecureRandom;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,14 +11,14 @@ import java.util.Objects;
 public class Incident {
     private int id;
     private final String type;
-    private final LocalDateTime datetime;
+    private Timestamp datetime;
     private final String longitude;
     private final String latitude;
     private final boolean validated;
     private List<String> labels;
     private final String reporter;
     private static final int NO_ID = -1;
-    private static final LocalDateTime NO_DATE = null;
+    private static final Timestamp NO_DATE = null;
     private static final List<String> RANDOM_TYPES_LIST = List.of("Murder", "Theft", "Vandalism", "Assault");
     private static final List<String> RANDOM_LABELS_LIST = List.of("Armed", "Child Danger", "Critical Condition", "Under Control");
     private final SecureRandom random = new SecureRandom();
@@ -33,7 +35,7 @@ public class Incident {
         this.reporter = Objects.requireNonNull(reporter);
     }
 
-    public Incident(int id, String type, String longitude, String latitude, LocalDateTime datetime, boolean validated, String reporterId) {
+    public Incident(int id, String type, String longitude, String latitude, Timestamp datetime, boolean validated, String reporterId) {
         this.id = id;
         this.type = type;
         this.datetime = datetime;
@@ -50,6 +52,10 @@ public class Incident {
 
     public void setId(int newID) {
         this.id = newID;
+    }
+
+    public void setDateTime(Timestamp timestamp) {
+        datetime = timestamp;
     }
 
     private String getRandomType() {

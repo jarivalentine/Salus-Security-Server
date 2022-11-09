@@ -22,8 +22,8 @@ values  ('Armed'),
 
 -- new incident
 
-insert into incidents (type, longitude, latitude, datetime, validated, reporterId)
-values ('Murder', '51.19162', '3.214377', current_timestamp, true, '1989-01-28_AL');
+insert into incidents (type, longitude, latitude, validated, reporterId)
+values ('Murder', '51.19162', '3.214377', true, '1989-01-28_AL');
 
 insert into incidents_labels (label, incidentId)
 values ('Armed', (select max(id) from incidents)),
@@ -32,8 +32,8 @@ values ('Armed', (select max(id) from incidents)),
 
 -- new incident
 
-insert into incidents (type, longitude, latitude, datetime, validated, reporterId)
-values ('Assault', '51.19162', '3.214377', current_timestamp, true, '2003-06-30_CM');
+insert into incidents (type, longitude, latitude, validated, reporterId)
+values ('Assault', '51.19162', '3.214377', true, '2003-06-30_CM');
 
 insert into incidents_labels (label, incidentId)
 values ('Armed', (select max(id) from incidents)),
@@ -41,8 +41,8 @@ values ('Armed', (select max(id) from incidents)),
 
 -- new incident
 
-insert into incidents (type, longitude, latitude, datetime, validated, reporterId)
-values ('Theft', '51.19162', '3.214377', current_timestamp, true, '1978-12-22_JVD');
+insert into incidents (type, longitude, latitude, validated, reporterId)
+values ('Theft', '51.19162', '3.214377', true, '1978-12-22_JVD');
 
 insert into incidents_labels (label, incidentId)
 values ('Armed', (select max(id) from incidents)),

@@ -28,7 +28,7 @@ create table incidents
     type        varchar(255),
     longitude   varchar(255),
     latitude    varchar(255),
-    datetime    datetime,
+    datetime    datetime default current_timestamp,
     validated   boolean,
     reporterId  varchar(16) not null,
     primary key (id),

@@ -39,4 +39,9 @@ public class MockMarsController implements MarsController {
         return new User(id, "firstname", "lastname", false);
     }
 
+    @Override
+    public Incident createIncident(String reportedId, String latitude, String longitude) {
+        return new Incident(longitude, latitude, reportedId);
+    }
+
 }
