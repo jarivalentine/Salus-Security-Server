@@ -34,6 +34,19 @@ create table incidents
     foreign key (reporterId) references users(id)
 );
 
+create table labels (
+    label       varchar(255) not null,
+    primary key (label)
+);
+
+create table incidents_labels (
+    label       varchar(255) not null,
+    incidentId  int not null,
+    primary key (label, incidentId),
+    foreign key (label) references labels(label),
+    foreign key (incidentId) references incidents(id)
+);
+
 create table bystander_incidents (
     userId  varchar(16) not null,
     incidentId  int not null,
