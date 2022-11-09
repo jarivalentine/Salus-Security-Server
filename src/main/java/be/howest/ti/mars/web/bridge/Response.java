@@ -39,7 +39,7 @@ public class Response {
     }
 
     public static void sendIncidents(RoutingContext ctx, List<Incident> incidents) {
-        sendOkJsonResponse(ctx, JsonObject.mapFrom(incidents));
+        sendJsonResponse(ctx, 200, incidents);
     }
 
     public static void sendIncident(RoutingContext ctx, Incident incident) {

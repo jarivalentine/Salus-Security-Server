@@ -77,11 +77,6 @@ public class Incident {
         return randomLabels;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Incident %s %s %s", type, validated, labels);
-    }
-
     public int getId() {
         return id;
     }
@@ -91,7 +86,7 @@ public class Incident {
     }
 
     public String getDatetime() {
-        return datetime.toString();
+        return datetime.toLocalDateTime().toString();
     }
 
     public String getLongitude() {
@@ -125,5 +120,19 @@ public class Incident {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Incident{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", datetime='" + getDatetime() + '\'' +
+                ", longitude='" + longitude + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", validated=" + validated +
+                ", labels=" + labels +
+                ", reporter='" + reporter + '\'' +
+                '}';
     }
 }

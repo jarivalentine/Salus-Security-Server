@@ -75,6 +75,7 @@ public class MarsH2Repository {
                             rs.getString("reporterId")
                             );
                     newIncident.setLabels(getLabelsFromIncidents(newIncident.getId()));
+                    System.out.println(newIncident);
                     incidents.add(newIncident);
                 }
             }
@@ -123,6 +124,56 @@ public class MarsH2Repository {
         } catch (SQLException ex) {
             LOGGER.log(Level.SEVERE, "Failed to get user.", ex);
             throw new RepositoryException("Could not get user.");
+        }
+    }
+
+    public Incident insertIncident(String reportedId, String latitude, String longitude) {
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(SQL_INSERT_INCIDENT, Statement.RETURN_GENERATED_KEYS))
+        {
+            Incident newIncident = new Incident(longitude, latitude, reportedId);
+
+            stmt.setString(1, newIncident.getType());
+            stmt.setString(2, newIncident.getLongitude());
+            stmt.setString(3, newIncident.getLatitude());
+            stmt.setBoolean(4, newIncident.isValidated());
+            stmt.setString(5, newIncident.getReporter());
+
+            int affectedRows = stmt.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    newIncident.setId(generatedKeys.getInt(1));
+                    newIncident.setDateTime(generatedKeys.getTimestamp(2));
+                    insertLabels(newIncident.getLabels(), newIncident.getId());
+                    return newIncident;
+                }
+                else {
+                    throw new SQLException("Creating quote failed, no ID obtained.");
+                }
+            }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Failed to create incident.", ex);
+            throw new RepositoryException("Could not create incident.");
+        }
+    }
+
+    private void insertLabels(List<String> labels, int id) {
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(SQL_INSERT_LABELS))
+        {
+            for (String label : labels) {
+                stmt.setString(1, label);
+                stmt.setInt(2, id);
+                stmt.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Failed to create incident label.", ex);
+            throw new RepositoryException("Could not create incident label.");
         }
     }
 
@@ -242,57 +293,5 @@ public class MarsH2Repository {
 
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(url, username, password);
-    }
-
-    public Incident insertIncident(String reportedId, String latitude, String longitude) {
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(SQL_INSERT_INCIDENT, Statement.RETURN_GENERATED_KEYS))
-        {
-            Incident newIncident = new Incident(longitude, latitude, reportedId);
-
-            stmt.setString(1, newIncident.getType());
-            stmt.setString(2, newIncident.getLongitude());
-            stmt.setString(3, newIncident.getLatitude());
-            stmt.setBoolean(4, newIncident.isValidated());
-            stmt.setString(5, newIncident.getReporter());
-
-            stmt.executeUpdate();
-
-            int affectedRows = stmt.executeUpdate();
-
-            if (affectedRows == 0) {
-                throw new SQLException("Creating user failed, no rows affected.");
-            }
-
-            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    newIncident.setId(generatedKeys.getInt(1));
-                    newIncident.setDateTime(generatedKeys.getTimestamp(2));
-                    insertLabels(newIncident.getLabels(), newIncident.getId());
-                    return newIncident;
-                }
-                else {
-                    throw new SQLException("Creating quote failed, no ID obtained.");
-                }
-            }
-        } catch (SQLException ex) {
-            LOGGER.log(Level.SEVERE, "Failed to create incident.", ex);
-            throw new RepositoryException("Could not create incident.");
-        }
-    }
-
-    private void insertLabels(List<String> labels, int id) {
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(SQL_INSERT_LABELS))
-        {
-            for (String label : labels) {
-                stmt.setString(1, label);
-                stmt.setInt(2, id);
-                stmt.executeUpdate();
-            }
-        } catch (SQLException ex) {
-            LOGGER.log(Level.SEVERE, "Failed to create incident label.", ex);
-            throw new RepositoryException("Could not create incident label.");
-        }
     }
 }
