@@ -1,7 +1,6 @@
 package be.howest.ti.mars.logic.domain;
 
 import java.security.SecureRandom;
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,8 +84,8 @@ public class Incident {
         return type;
     }
 
-    public LocalDateTime getDatetime() {
-        return datetime;
+    public String getDatetime() {
+        return datetime.toString();
     }
 
     public String getLongitude() {
@@ -107,10 +106,6 @@ public class Incident {
 
     public String getReporter() {
         return reporter;
-    }
-
-    public SecureRandom getRandom() {
-        return random;
     }
 
     @Override

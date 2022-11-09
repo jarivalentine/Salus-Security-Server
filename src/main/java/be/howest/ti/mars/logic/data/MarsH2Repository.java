@@ -13,7 +13,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +32,7 @@ public class MarsH2Repository {
     private static final String SQL_UPDATE_QUOTE = "update quotes set quote = ? where id = ?;";
     private static final String SQL_DELETE_QUOTE = "delete from quotes where id = ?;";
     private static final String SQL_SELECT_INCIDENTS = "select * from incidents;";
-    private static final String SQL_SELECT_LABELS_BY_INCIDENT_ID = "select * from labels where incidentId = ?;";
+    private static final String SQL_SELECT_LABELS_BY_INCIDENT_ID = "select * from incidents_labels where incidentId = ?;";
     private static final String SQL_USER_BY_ID = "select * from users where id = ?;";
     private final Server dbWebConsole;
     private final String username;
