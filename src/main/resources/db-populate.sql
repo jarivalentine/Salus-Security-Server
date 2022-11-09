@@ -13,3 +13,10 @@ values ('1989-01-28_AL', 'Adison', 'Lopez'),
        ('2000-10-31_LS', 'Laura', 'Schneider'),
        ('1976-11-09_MA', 'Makai', 'Armstrong'),
        ('1978-12-22_JVD', 'Johanna', 'Van Dyke');
+
+insert into labels (label)
+values  ('Armed'),
+        ('Child Danger'),
+        ('Critical Condition'),
+        ('Under Control');
+

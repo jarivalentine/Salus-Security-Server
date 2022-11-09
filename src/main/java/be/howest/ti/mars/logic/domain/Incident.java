@@ -14,7 +14,7 @@ public class Incident {
     private final String longitude;
     private final String latitude;
     private final boolean validated;
-    private final List<String> labels;
+    private List<String> labels;
     private final String reporter;
     private static final int NO_ID = -1;
     private static final List<String> RANDOM_TYPES_LIST = List.of("Murder", "Theft", "Vandalism", "Assault");
@@ -33,15 +33,19 @@ public class Incident {
         this.reporter = Objects.requireNonNull(reporter);
     }
 
-    public Incident(int id, String type, String longitude, String latitude, LocalDateTime datetime, boolean validated, String reporterId, String labels) {
+    public Incident(int id, String type, String longitude, String latitude, LocalDateTime datetime, boolean validated, String reporterId) {
         this.id = id;
         this.type = type;
         this.datetime = datetime;
         this.longitude = longitude;
         this.latitude = latitude;
         this.validated = validated;
-        this.labels = labels;
+        this.labels = new ArrayList<>();
         this.reporter = reporterId;
+    }
+
+    public void setLabels(List<String> newLabels){
+        labels = newLabels;
     }
 
     public void setId(int newID) {

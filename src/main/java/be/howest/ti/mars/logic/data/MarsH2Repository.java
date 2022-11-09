@@ -32,8 +32,8 @@ public class MarsH2Repository {
     private static final String SQL_INSERT_QUOTE = "insert into quotes (`quote`) values (?);";
     private static final String SQL_UPDATE_QUOTE = "update quotes set quote = ? where id = ?;";
     private static final String SQL_DELETE_QUOTE = "delete from quotes where id = ?;";
-
     private static final String SQL_SELECT_INCIDENTS = "select * from incidents;";
+    private static final String SQL_SELECT_LABELS_BY_INCIDENT_ID = "select * from labels where incidentId = ?;";
     private static final String SQL_USER_BY_ID = "select * from users where id = ?;";
     private final Server dbWebConsole;
     private final String username;
@@ -64,22 +64,42 @@ public class MarsH2Repository {
         ) {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    incidents.add(new Incident(
+                    Incident newIncident = new Incident(
                             rs.getInt("id"),
                             rs.getString("type"),
                             rs.getString("longitude"),
                             rs.getString("latitude"),
                             rs.getTimestamp("datetime").toLocalDateTime(),
                             rs.getBoolean("validated"),
-                            rs.getString("labels"),
-                            rs.getString("reporterId"))
-                    );
+                            rs.getString("reporterId")
+                            );
+                    newIncident.setLabels(getLabelsFromIncidents(newIncident.getId()));
+                    incidents.add(newIncident);
                 }
             }
             return incidents;
         } catch (SQLException ex) {
             LOGGER.log(Level.SEVERE, "Failed to get incidents.", ex);
             throw new RepositoryException("Could not get incidents.");
+        }
+    }
+
+    private List<String> getLabelsFromIncidents(int incidentId){
+        List<String> labels = new ArrayList<>();
+        try (
+                Connection conn = getConnection();
+                PreparedStatement stmt = conn.prepareStatement(SQL_SELECT_LABELS_BY_INCIDENT_ID)
+        ) {
+            stmt.setInt(1, incidentId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    labels.add(rs.getString("label"));
+                }
+            }
+            return labels;
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Failed to get user.", ex);
+            throw new RepositoryException("Could not get user.");
         }
     }
 
