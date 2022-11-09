@@ -17,6 +17,7 @@ public class Incident {
     private List<String> labels;
     private final String reporter;
     private static final int NO_ID = -1;
+    private static final LocalDateTime NO_DATE = null;
     private static final List<String> RANDOM_TYPES_LIST = List.of("Murder", "Theft", "Vandalism", "Assault");
     private static final List<String> RANDOM_LABELS_LIST = List.of("Armed", "Child Danger", "Critical Condition", "Under Control");
     private final SecureRandom random = new SecureRandom();
@@ -25,7 +26,7 @@ public class Incident {
     public Incident(String longitude, String latitude, String reporter) {
         this.id = NO_ID;
         this.type = getRandomType();
-        this.datetime = LocalDateTime.now();
+        this.datetime = NO_DATE;
         this.longitude = Objects.requireNonNull(longitude);
         this.latitude = Objects.requireNonNull(latitude);
         this.validated = getSuperComplexAISHA256HashedAndDecryptedAILabels();
