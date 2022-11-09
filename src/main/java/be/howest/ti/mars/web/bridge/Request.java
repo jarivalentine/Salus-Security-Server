@@ -32,6 +32,9 @@ public class Request {
     public static final String SPEC_QUOTE_ID = "quoteId";
     public static final String SPEC_QUOTE = "quote";
     public static final String SPEC_USER_ID = "id";
+    public static final String SPEC_INCIDENT_USER_ID = "reporterId";
+    public static final String SPEC_INCIDENT_LONGITUDE = "longitude";
+    public static final String SPEC_INCIDENT_LATITUDE = "latitude";
     private final RequestParameters params;
 
     public static Request from(RoutingContext ctx) {
@@ -59,5 +62,17 @@ public class Request {
 
     public String getUserId() {
         return params.pathParameter(SPEC_USER_ID).getString();
+    }
+
+    public String getReportedId() {
+        return params.body().getJsonObject().getString(SPEC_INCIDENT_USER_ID);
+    }
+
+    public String getLatitude() {
+        return params.body().getJsonObject().getString(SPEC_INCIDENT_LONGITUDE);
+    }
+
+    public String getLongitude() {
+        return params.body().getJsonObject().getString(SPEC_INCIDENT_LATITUDE);
     }
 }

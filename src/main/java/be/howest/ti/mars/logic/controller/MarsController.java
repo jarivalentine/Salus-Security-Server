@@ -16,4 +16,6 @@ public interface MarsController {
     void deleteQuote(int quoteId);
     List<Incident> getIncidents();
     User getUser(String id);
+
+    Incident createIncident(String reportedId, String latitude, String longitude);
 }

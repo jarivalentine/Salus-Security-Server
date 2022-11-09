@@ -1,11 +1,14 @@
 package be.howest.ti.mars.web.bridge;
 
+import be.howest.ti.mars.logic.domain.Incident;
 import be.howest.ti.mars.logic.domain.Quote;
 import be.howest.ti.mars.logic.domain.User;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
+
+import java.util.List;
 
 /**
  * The Response class is responsible for translating the result of the controller into
@@ -33,6 +36,14 @@ public class Response {
 
     public static void sendUser(RoutingContext ctx, User user) {
         sendOkJsonResponse(ctx, JsonObject.mapFrom(user));
+    }
+
+    public static void sendIncidents(RoutingContext ctx, List<Incident> incidents) {
+        sendOkJsonResponse(ctx, JsonObject.mapFrom(incidents));
+    }
+
+    public static void sendIncident(RoutingContext ctx, Incident incident) {
+        sendOkJsonResponse(ctx, JsonObject.mapFrom(incident));
     }
 
     private static void sendOkJsonResponse(RoutingContext ctx, JsonObject response) {
