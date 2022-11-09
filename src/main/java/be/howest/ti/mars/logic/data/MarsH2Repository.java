@@ -98,8 +98,8 @@ public class MarsH2Repository {
             }
             return labels;
         } catch (SQLException ex) {
-            LOGGER.log(Level.SEVERE, "Failed to get user.", ex);
-            throw new RepositoryException("Could not get user.");
+            LOGGER.log(Level.SEVERE, "Failed to get labels.", ex);
+            throw new RepositoryException("Could not get labels.");
         }
     }
 

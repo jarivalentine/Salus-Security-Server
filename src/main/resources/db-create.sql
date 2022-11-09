@@ -8,9 +8,9 @@ create table quotes
 
 drop table if exists bystander_incidents;
 drop table if exists aggressor_incidents;
+drop table if exists incidents_labels;
 drop table if exists incidents;
 drop table if exists labels;
-drop table if exists incidents_labels;
 drop table if exists users;
 
 create table users
