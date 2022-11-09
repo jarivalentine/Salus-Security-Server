@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
@@ -56,7 +57,52 @@ public class MarsH2Repository {
     }
 
     public List<Incident> getIncidents() {
-        return Collections.emptyList(); // need incidents database
+        List<Incident> incidents = new ArrayList<>();
+        try (
+                Connection conn = getConnection();
+                PreparedStatement stmt = conn.prepareStatement(SQL_SELECT_INCIDENTS)
+        ) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    incidents.add(new Incident(
+                            rs.getInt("id"),
+                            rs.getString("type"),
+                            rs.getString("longitude"),
+                            rs.getString("latitude"),
+                            rs.getTimestamp("datetime").toLocalDateTime(),
+                            rs.getBoolean("validated"),
+                            rs.getString("labels"),
+                            rs.getString("reporterId"))
+                    );
+                }
+            }
+            return incidents;
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Failed to get incidents.", ex);
+            throw new RepositoryException("Could not get incidents.");
+        }
+    }
+
+    public User getUser(String id) {
+        try (
+                Connection conn = getConnection();
+                PreparedStatement stmt = conn.prepareStatement(SQL_USER_BY_ID)
+        ) {
+            stmt.setString(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new User(rs.getString("id"),
+                            rs.getString("firstname"),
+                            rs.getString("lastname"),
+                            rs.getBoolean("subscribed"));
+                } else {
+                    return null;
+                }
+            }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Failed to get user.", ex);
+            throw new RepositoryException("Could not get user.");
+        }
     }
 
     public Quote getQuote(int id) {
@@ -129,28 +175,6 @@ public class MarsH2Repository {
         } catch (SQLException ex) {
             LOGGER.log(Level.SEVERE, "Failed to delete quote.", ex);
             throw new RepositoryException("Could not delete quote.");
-        }
-    }
-
-    public User getUser(String id) {
-        try (
-                Connection conn = getConnection();
-                PreparedStatement stmt = conn.prepareStatement(SQL_USER_BY_ID)
-        ) {
-            stmt.setString(1, id);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return new User(rs.getString("id"),
-                                    rs.getString("firstname"),
-                                    rs.getString("lastname"),
-                                    rs.getBoolean("subscribed"));
-                } else {
-                    return null;
-                }
-            }
-        } catch (SQLException ex) {
-            LOGGER.log(Level.SEVERE, "Failed to get user.", ex);
-            throw new RepositoryException("Could not get user.");
         }
     }
 

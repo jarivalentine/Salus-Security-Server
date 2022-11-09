@@ -1,6 +1,7 @@
 package be.howest.ti.mars.logic.domain;
 
 import java.security.SecureRandom;
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +15,14 @@ public class Incident {
     private final String latitude;
     private final boolean validated;
     private final List<String> labels;
-    private final User reporter;
+    private final String reporter;
     private static final int NO_ID = -1;
     private static final List<String> RANDOM_TYPES_LIST = List.of("Murder", "Theft", "Vandalism", "Assault");
     private static final List<String> RANDOM_LABELS_LIST = List.of("Armed", "Child Danger", "Critical Condition", "Under Control");
     private final SecureRandom random = new SecureRandom();
     private static final int INDEX_CORRECTION = 1;
 
-    public Incident(String longitude, String latitude, User reporter) {
+    public Incident(String longitude, String latitude, String reporter) {
         this.id = NO_ID;
         this.type = getRandomType();
         this.datetime = LocalDateTime.now();
@@ -30,6 +31,17 @@ public class Incident {
         this.validated = getSuperComplexAISHA256HashedAndDecryptedAILabels();
         this.labels = getRandomLabels();
         this.reporter = Objects.requireNonNull(reporter);
+    }
+
+    public Incident(int id, String type, String longitude, String latitude, LocalDateTime datetime, boolean validated, String reporterId, String labels) {
+        this.id = id;
+        this.type = type;
+        this.datetime = datetime;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.validated = validated;
+        this.labels = labels;
+        this.reporter = reporterId;
     }
 
     public void setId(int newID) {
@@ -88,7 +100,7 @@ public class Incident {
         return labels;
     }
 
-    public User getReporter() {
+    public String getReporter() {
         return reporter;
     }
 
