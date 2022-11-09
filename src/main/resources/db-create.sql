@@ -5,6 +5,7 @@ create table quotes
     quote varchar(255)
 );
 
+
 drop table if exists bystander_incidents;
 drop table if exists aggressor_incidents;
 drop table if exists incidents;

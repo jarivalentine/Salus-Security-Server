@@ -2,6 +2,7 @@ package be.howest.ti.mars.logic.controller;
 
 import be.howest.ti.mars.logic.domain.Incident;
 import be.howest.ti.mars.logic.domain.Quote;
+import be.howest.ti.mars.logic.domain.User;
 
 import java.util.List;
 
@@ -14,4 +15,5 @@ public interface MarsController {
 
     void deleteQuote(int quoteId);
     List<Incident> getIncidents();
+    User getUser(String id);
 }

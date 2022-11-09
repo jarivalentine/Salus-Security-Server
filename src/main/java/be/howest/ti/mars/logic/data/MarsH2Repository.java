@@ -2,6 +2,7 @@ package be.howest.ti.mars.logic.data;
 
 import be.howest.ti.mars.logic.domain.Incident;
 import be.howest.ti.mars.logic.domain.Quote;
+import be.howest.ti.mars.logic.domain.User;
 import be.howest.ti.mars.logic.exceptions.RepositoryException;
 import org.h2.tools.Server;
 
@@ -32,6 +33,7 @@ public class MarsH2Repository {
     private static final String SQL_DELETE_QUOTE = "delete from quotes where id = ?;";
 
     private static final String SQL_SELECT_INCIDENTS = "select * from incidents;";
+    private static final String SQL_USER_BY_ID = "select * from users where id = ?;";
     private final Server dbWebConsole;
     private final String username;
     private final String password;
@@ -127,6 +129,28 @@ public class MarsH2Repository {
         } catch (SQLException ex) {
             LOGGER.log(Level.SEVERE, "Failed to delete quote.", ex);
             throw new RepositoryException("Could not delete quote.");
+        }
+    }
+
+    public User getUser(String id) {
+        try (
+                Connection conn = getConnection();
+                PreparedStatement stmt = conn.prepareStatement(SQL_USER_BY_ID)
+        ) {
+            stmt.setString(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new User(rs.getString("id"),
+                                    rs.getString("firstname"),
+                                    rs.getString("lastname"),
+                                    rs.getBoolean("subscribed"));
+                } else {
+                    return null;
+                }
+            }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Failed to get user.", ex);
+            throw new RepositoryException("Could not get user.");
         }
     }
 

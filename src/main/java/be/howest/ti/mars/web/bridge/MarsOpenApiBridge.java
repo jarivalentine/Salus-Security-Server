@@ -49,6 +49,9 @@ public class MarsOpenApiBridge {
         LOGGER.log(Level.INFO, "Installing handler for: deleteQuote");
         routerBuilder.operation("deleteQuote").handler(this::deleteQuote);
 
+        LOGGER.log(Level.INFO, "Installing handler for: getAllUser");
+        routerBuilder.operation("getAllUser").handler(this::getAllUser);
+
         LOGGER.log(Level.INFO, "All handlers are installed, creating router.");
         return routerBuilder.createRouter();
     }
@@ -92,6 +95,12 @@ public class MarsOpenApiBridge {
         controller.deleteQuote(quoteId);
 
         Response.sendQuoteDeleted(ctx);
+    }
+
+    private void getAllUser(RoutingContext ctx) {
+        String id = Request.from(ctx).getUserId();
+
+        Response.sendUser(ctx, controller.getUser(id));
     }
 
     private void onFailedRequest(RoutingContext ctx) {
