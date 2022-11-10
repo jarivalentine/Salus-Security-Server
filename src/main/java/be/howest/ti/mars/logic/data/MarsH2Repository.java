@@ -1,5 +1,6 @@
 package be.howest.ti.mars.logic.data;
 
+import be.howest.ti.mars.logic.domain.Incident;
 import be.howest.ti.mars.logic.domain.Quote;
 import be.howest.ti.mars.logic.domain.User;
 import be.howest.ti.mars.logic.exceptions.RepositoryException;
@@ -11,6 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,7 +31,11 @@ public class MarsH2Repository {
     private static final String SQL_INSERT_QUOTE = "insert into quotes (`quote`) values (?);";
     private static final String SQL_UPDATE_QUOTE = "update quotes set quote = ? where id = ?;";
     private static final String SQL_DELETE_QUOTE = "delete from quotes where id = ?;";
+    private static final String SQL_SELECT_INCIDENTS = "select * from incidents;";
+    private static final String SQL_SELECT_LABELS_BY_INCIDENT_ID = "select * from incidents_labels where incidentId = ?;";
     private static final String SQL_USER_BY_ID = "select * from users where id = ?;";
+    private static final String SQL_INSERT_INCIDENT = "insert into incidents (`type`, `longitude`, `latitude`, `validated`, `reporterId`) values (?, ?, ?, ?, ?);";
+    private static final String SQL_INSERT_LABELS = "insert into incidents_labels (label, incidentId) values (?, ?);";
     private final Server dbWebConsole;
     private final String username;
     private final String password;
@@ -47,6 +54,125 @@ public class MarsH2Repository {
         } catch (SQLException ex) {
             LOGGER.log(Level.SEVERE, "DB configuration failed", ex);
             throw new RepositoryException("Could not configure MarsH2repository");
+        }
+    }
+
+    public List<Incident> getIncidents() {
+        List<Incident> incidents = new ArrayList<>();
+        try (
+                Connection conn = getConnection();
+                PreparedStatement stmt = conn.prepareStatement(SQL_SELECT_INCIDENTS)
+        ) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Incident newIncident = new Incident(
+                            rs.getInt("id"),
+                            rs.getString("type"),
+                            rs.getString("longitude"),
+                            rs.getString("latitude"),
+                            rs.getTimestamp("datetime"),
+                            rs.getBoolean("validated"),
+                            rs.getString("reporterId")
+                            );
+                    newIncident.setLabels(getLabelsFromIncidents(newIncident.getId()));
+                    incidents.add(newIncident);
+                }
+            }
+            return incidents;
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Failed to get incidents.", ex);
+            throw new RepositoryException("Could not get incidents.");
+        }
+    }
+
+    private List<String> getLabelsFromIncidents(int incidentId){
+        List<String> labels = new ArrayList<>();
+        try (
+                Connection conn = getConnection();
+                PreparedStatement stmt = conn.prepareStatement(SQL_SELECT_LABELS_BY_INCIDENT_ID)
+        ) {
+            stmt.setInt(1, incidentId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    labels.add(rs.getString("label"));
+                }
+            }
+            return labels;
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Failed to get labels.", ex);
+            throw new RepositoryException("Could not get labels.");
+        }
+    }
+
+    public User getUser(String id) {
+        try (
+                Connection conn = getConnection();
+                PreparedStatement stmt = conn.prepareStatement(SQL_USER_BY_ID)
+        ) {
+            stmt.setString(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new User(rs.getString("id"),
+                            rs.getString("firstname"),
+                            rs.getString("lastname"),
+                            rs.getBoolean("subscribed"));
+                } else {
+                    return null;
+                }
+            }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Failed to get user.", ex);
+            throw new RepositoryException("Could not get user.");
+        }
+    }
+
+    public Incident insertIncident(String reportedId, String latitude, String longitude) {
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(SQL_INSERT_INCIDENT, Statement.RETURN_GENERATED_KEYS))
+        {
+            Incident newIncident = new Incident(reportedId, longitude, latitude);
+
+            stmt.setString(1, newIncident.getType());
+            stmt.setString(2, newIncident.getLongitude());
+            stmt.setString(3, newIncident.getLatitude());
+            stmt.setBoolean(4, newIncident.isValidated());
+            stmt.setString(5, newIncident.getReporterId());
+
+            int affectedRows = stmt.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    newIncident.setId(generatedKeys.getInt(1));
+                    newIncident.setDateTime(generatedKeys.getTimestamp(2));
+                    insertLabels(newIncident.getLabels(), newIncident.getId());
+                    return newIncident;
+                }
+                else {
+                    throw new SQLException("Creating quote failed, no ID obtained.");
+                }
+            }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Failed to create incident.", ex);
+            throw new RepositoryException("Could not create incident.");
+        }
+    }
+
+    private void insertLabels(List<String> labels, int id) {
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(SQL_INSERT_LABELS))
+        {
+            for (String label : labels) {
+                stmt.setString(1, label);
+                stmt.setInt(2, id);
+                stmt.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Failed to create incident label.", ex);
+            throw new RepositoryException("Could not create incident label.");
         }
     }
 
@@ -71,7 +197,8 @@ public class MarsH2Repository {
 
     public Quote insertQuote(String quoteValue) {
         try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(SQL_INSERT_QUOTE, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement stmt = conn.prepareStatement(SQL_INSERT_QUOTE, Statement.RETURN_GENERATED_KEYS))
+        {
 
             stmt.setString(1, quoteValue);
 
@@ -120,28 +247,6 @@ public class MarsH2Repository {
         } catch (SQLException ex) {
             LOGGER.log(Level.SEVERE, "Failed to delete quote.", ex);
             throw new RepositoryException("Could not delete quote.");
-        }
-    }
-
-    public User getUser(String id) {
-        try (
-                Connection conn = getConnection();
-                PreparedStatement stmt = conn.prepareStatement(SQL_USER_BY_ID)
-        ) {
-            stmt.setString(1, id);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return new User(rs.getString("id"),
-                                    rs.getString("firstname"),
-                                    rs.getString("lastname"),
-                                    rs.getBoolean("subscribed"));
-                } else {
-                    return null;
-                }
-            }
-        } catch (SQLException ex) {
-            LOGGER.log(Level.SEVERE, "Failed to get user.", ex);
-            throw new RepositoryException("Could not get user.");
         }
     }
 

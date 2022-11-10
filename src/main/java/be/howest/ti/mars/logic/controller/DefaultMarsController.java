@@ -1,10 +1,11 @@
 package be.howest.ti.mars.logic.controller;
 
 import be.howest.ti.mars.logic.data.Repositories;
+import be.howest.ti.mars.logic.domain.Incident;
 import be.howest.ti.mars.logic.domain.Quote;
 import be.howest.ti.mars.logic.domain.User;
 import org.apache.commons.lang3.StringUtils;
-
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -19,7 +20,7 @@ import java.util.NoSuchElementException;
  */
 public class DefaultMarsController implements MarsController {
     private static final String MSG_QUOTE_ID_UNKNOWN = "No quote with id: %d";
-    private static final String MSG_USER_ID_UNKNOWN = "No user with id: %d";
+    private static final String MSG_USER_ID_UNKNOWN = "No user with id: %s";
 
     @Override
     public Quote getQuote(int quoteId) {
@@ -61,10 +62,24 @@ public class DefaultMarsController implements MarsController {
     }
 
     @Override
+    public List<Incident> getIncidents() {
+        List<Incident> incidents = Repositories.getH2Repo().getIncidents();
+        if (incidents.isEmpty())
+            throw new NoSuchElementException("Could not retrieve incidents");
+
+        return incidents;
+    }
+
+    @Override
     public User getUser(String id) {
         if (null == Repositories.getH2Repo().getUser(id))
             throw new NoSuchElementException(String.format(MSG_USER_ID_UNKNOWN, id));
 
         return Repositories.getH2Repo().getUser(id);
+    }
+
+    @Override
+    public Incident createIncident(String reportedId, String latitude, String longitude) {
+        return Repositories.getH2Repo().insertIncident(reportedId, latitude, longitude);
     }
 }

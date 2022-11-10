@@ -48,8 +48,14 @@ public class MarsOpenApiBridge {
         LOGGER.log(Level.INFO, "Installing handler for: deleteQuote");
         routerBuilder.operation("deleteQuote").handler(this::deleteQuote);
 
-        LOGGER.log(Level.INFO, "Installing handler for: getAllUser");
-        routerBuilder.operation("getAllUser").handler(this::getAllUser);
+        LOGGER.log(Level.INFO, "Installing handler for: getUser");
+        routerBuilder.operation("getUser").handler(this::getUser);
+
+        LOGGER.log(Level.INFO, "Installing handler for: getIncidents");
+        routerBuilder.operation("getIncidents").handler(this::getIncidents);
+
+        LOGGER.log(Level.INFO, "Installing handler for: createIncident");
+        routerBuilder.operation("createIncident").handler(this::createIncident);
 
         LOGGER.log(Level.INFO, "All handlers are installed, creating router.");
         return routerBuilder.createRouter();
@@ -61,6 +67,24 @@ public class MarsOpenApiBridge {
 
     public MarsOpenApiBridge(MarsController controller) {
         this.controller = controller;
+    }
+
+    private void getUser(RoutingContext ctx) {
+        String id = Request.from(ctx).getUserId();
+
+        Response.sendUser(ctx, controller.getUser(id));
+    }
+
+    private void createIncident(RoutingContext ctx) {
+        String reportedId = Request.from(ctx).getReportedId();
+        String latitude = Request.from(ctx).getLatitude();
+        String longitude = Request.from(ctx).getLongitude();
+
+        Response.sendIncident(ctx, controller.createIncident(reportedId, latitude, longitude));
+    }
+
+    public void getIncidents(RoutingContext ctx){
+        Response.sendIncidents(ctx, controller.getIncidents());
     }
 
     public void getQuote(RoutingContext ctx) {
@@ -89,12 +113,6 @@ public class MarsOpenApiBridge {
         controller.deleteQuote(quoteId);
 
         Response.sendQuoteDeleted(ctx);
-    }
-
-    private void getAllUser(RoutingContext ctx) {
-        String id = Request.from(ctx).getUserId();
-
-        Response.sendUser(ctx, controller.getUser(id));
     }
 
     private void onFailedRequest(RoutingContext ctx) {

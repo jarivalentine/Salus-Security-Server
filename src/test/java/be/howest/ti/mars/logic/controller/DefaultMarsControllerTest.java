@@ -1,7 +1,9 @@
 package be.howest.ti.mars.logic.controller;
 
 import be.howest.ti.mars.logic.data.Repositories;
+import be.howest.ti.mars.logic.domain.Incident;
 import be.howest.ti.mars.logic.domain.Quote;
+import be.howest.ti.mars.logic.domain.User;
 import io.vertx.core.json.JsonObject;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeAll;
@@ -32,6 +34,42 @@ class DefaultMarsControllerTest {
     @BeforeEach
     void setupTest() {
         Repositories.getH2Repo().generateData();
+    }
+
+    @Test
+    void getUser() {
+        // Arrange
+        MarsController sut = new DefaultMarsController();
+
+        // Act
+        User user = sut.getUser("1989-01-28_AL");
+
+        //Assert
+        assertTrue(user != null && StringUtils.isNoneBlank(user.getId()));
+    }
+
+    @Test
+    void getIncidents() {
+        // Arrange
+        MarsController sut = new DefaultMarsController();
+
+        // Act
+        var incidents = sut.getIncidents();
+
+        //Assert
+        assertTrue(incidents != null && incidents.size() > 0);
+    }
+
+    @Test
+    void createIncident() {
+        // Arrange
+        MarsController sut = new DefaultMarsController();
+
+        // Act
+        Incident createdIncident = sut.createIncident("1989-01-28_AL", "50", "50");
+
+        //Assert
+        assertTrue(createdIncident != null && StringUtils.isNoneBlank(createdIncident.getReporterId()));
     }
 
     @Test

@@ -8,7 +8,9 @@ create table quotes
 
 drop table if exists bystander_incidents;
 drop table if exists aggressor_incidents;
+drop table if exists incidents_labels;
 drop table if exists incidents;
+drop table if exists labels;
 drop table if exists users;
 
 create table users
@@ -26,12 +28,24 @@ create table incidents
     type        varchar(255),
     longitude   varchar(255),
     latitude    varchar(255),
-    datetime    datetime,
+    datetime    datetime default current_timestamp,
     validated   boolean,
     reporterId  varchar(16) not null,
-    labels      varchar(255),
     primary key (id),
     foreign key (reporterId) references users(id)
+);
+
+create table labels (
+                        label       varchar(255) not null,
+                        primary key (label)
+);
+
+create table incidents_labels (
+                                  label       varchar(255) not null,
+                                  incidentId  int not null,
+                                  primary key (label, incidentId),
+                                  foreign key (label) references labels(label),
+                                  foreign key (incidentId) references incidents(id)
 );
 
 create table bystander_incidents (

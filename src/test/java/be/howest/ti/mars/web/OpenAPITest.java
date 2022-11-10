@@ -54,6 +54,55 @@ class OpenAPITest {
     }
 
     @Test
+    void getUser(final VertxTestContext testContext) {
+        webClient.get(PORT, HOST, "/api/users/1989-01-28_AL").send()
+                .onFailure(testContext::failNow)
+                .onSuccess(response -> testContext.verify(() -> {
+                    assertEquals(200, response.statusCode(), MSG_200_EXPECTED);
+                    System.out.println(response.bodyAsString());
+                    assertTrue(
+                            StringUtils.isNotBlank(response.bodyAsJsonObject().getString("firstname")),
+                            "Adison"
+                    );
+                    testContext.completeNow();
+                }));
+    }
+
+    @Test
+    void getIncidents(final VertxTestContext testContext) {
+        webClient.get(PORT, HOST, "/api/incidents").send()
+                .onFailure(testContext::failNow)
+                .onSuccess(response -> testContext.verify(() -> {
+                    assertEquals(200, response.statusCode(), MSG_200_EXPECTED);
+                    System.out.println(response.bodyAsString());
+                    assertTrue(
+                            StringUtils.isNotBlank(response.bodyAsJsonArray().getJsonObject(0).getString("reporterId")),
+                            "1989-01-28_AL"
+                    );
+                    testContext.completeNow();
+                }));
+    }
+
+    @Test
+    void createIncident(final VertxTestContext testContext) {
+        JsonObject body = new JsonObject()
+                .put("latitude", "53")
+                .put("longitude", "3")
+                .put("reporterId", "1989-01-28_AL");
+        webClient.post(PORT, HOST, "/api/incidents").sendJsonObject(body)
+                .onFailure(testContext::failNow)
+                .onSuccess(response -> testContext.verify(() -> {
+                    assertEquals(200, response.statusCode(), MSG_200_EXPECTED);
+                    System.out.println(response.bodyAsString());
+                    assertTrue(
+                            StringUtils.isNotBlank(response.bodyAsJsonObject().getString("reporterId")),
+                            "1989-01-28_AL"
+                    );
+                    testContext.completeNow();
+                }));
+    }
+
+    @Test
     void getQuote(final VertxTestContext testContext) {
         webClient.get(PORT, HOST, "/api/quotes/2").send()
                 .onFailure(testContext::failNow)
