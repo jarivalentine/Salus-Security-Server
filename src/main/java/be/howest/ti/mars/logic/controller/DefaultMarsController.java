@@ -7,6 +7,8 @@ import be.howest.ti.mars.logic.domain.User;
 import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static java.lang.Integer.parseInt;
 
@@ -94,5 +96,13 @@ public class DefaultMarsController implements MarsController {
                 .filter(incident -> incident.getId() == incidentId)
                 .findAny()
                 .orElseThrow(() -> new NoSuchElementException(String.format(MSG_INCIDENT_ID_UNKNOWN, incidentId)));
+    }
+
+    @Override
+    public List<Incident> getIncidentsFromUser(String id) {
+        return getIncidents()
+                .stream()
+                .filter(incident -> Objects.equals(incident.getReporterId(), id))
+                .collect(Collectors.toList());
     }
 }
