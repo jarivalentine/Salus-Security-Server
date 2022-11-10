@@ -18,4 +18,5 @@ public interface MarsController {
     User getUser(String id);
 
     Incident createIncident(String reportedId, String latitude, String longitude);
+    Incident getIncident(int incidentId);
 }
