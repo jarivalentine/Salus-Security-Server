@@ -20,7 +20,9 @@ values  ('Armed'),
         ('Critical Condition'),
         ('Under Control');
 
--- new incident
+
+-- ################################################
+-- BEGIN INCIDENTS WHERE REPORTERID = 1989-01-28_AL
 
 insert into incidents (type, longitude, latitude, validated, reporterId)
 values ('Murder', '51.19162', '3.214377', true, '1989-01-28_AL');
@@ -30,7 +32,33 @@ values ('Armed', (select max(id) from incidents)),
         ('Child Danger', (select max(id) from incidents)),
        ('Critical Condition', (select max(id) from incidents));
 
--- new incident
+insert into incidents (type, longitude, latitude, validated, reporterId)
+values ('Theft', '51.19162', '3.214377', true, '1989-01-28_AL');
+
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents)),
+       ('Armed', (select max(id) from incidents)),
+       ('Under Control', (select max(id) from incidents));
+
+insert into incidents (type, longitude, latitude, validated, reporterId)
+values ('Vandalism', '51.19162', '3.214377', true, '1989-01-28_AL');
+
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents)),
+       ('Critical Condition', (select max(id) from incidents));
+
+insert into incidents (type, longitude, latitude, validated, reporterId)
+values ('Assault', '51.19162', '3.214377', false, '1989-01-28_AL');
+
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents)),
+       ('Child Danger', (select max(id) from incidents)),
+       ('Critical Condition', (select max(id) from incidents)),
+       ('Under Control', (select max(id) from incidents));
+
+-- END INCIDENTS WHERE REPORTERID = 1989-01-28_AL
+-- ################################################
+-- BEGIN INCIDENTS WHERE REPORTERID = 2003-06-30_CM
 
 insert into incidents (type, longitude, latitude, validated, reporterId)
 values ('Assault', '51.19162', '3.214377', true, '2003-06-30_CM');
@@ -39,13 +67,21 @@ insert into incidents_labels (label, incidentId)
 values ('Armed', (select max(id) from incidents)),
        ('Child Danger', (select max(id) from incidents));
 
--- new incident
-
 insert into incidents (type, longitude, latitude, validated, reporterId)
-values ('Theft', '51.19162', '3.214377', true, '1978-12-22_JVD');
+values ('Theft', '51.19162', '3.214377', false, '2003-06-30_CM');
 
 insert into incidents_labels (label, incidentId)
-values ('Armed', (select max(id) from incidents)),
-       ('Child Danger', (select max(id) from incidents)),
+values ('Under Control', (select max(id) from incidents)),
        ('Critical Condition', (select max(id) from incidents));
 
+-- END INCIDENTS WHERE REPORTERID = 2003-06-30_CM
+-- ################################################
+-- BEGIN INCIDENTS WHERE REPORTERID = 1978-12-22_JVD
+
+insert into incidents (type, longitude, latitude, validated, reporterId)
+values ('Theft', '51.19162', '3.214377', false, '1978-12-22_JVD');
+
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents));
+
+-- END INCIDENTS WHERE REPORTERID = 1978-12-22_JVD
