@@ -59,7 +59,6 @@ class OpenAPITest {
                 .onFailure(testContext::failNow)
                 .onSuccess(response -> testContext.verify(() -> {
                     assertEquals(200, response.statusCode(), MSG_200_EXPECTED);
-                    System.out.println(response.bodyAsString());
                     assertTrue(
                             StringUtils.isNotBlank(response.bodyAsJsonObject().getString("firstname")),
                             "Adison"
@@ -74,9 +73,23 @@ class OpenAPITest {
                 .onFailure(testContext::failNow)
                 .onSuccess(response -> testContext.verify(() -> {
                     assertEquals(200, response.statusCode(), MSG_200_EXPECTED);
-                    System.out.println(response.bodyAsString());
                     assertTrue(
                             StringUtils.isNotBlank(response.bodyAsJsonArray().getJsonObject(0).getString("reporterId")),
+                            "1989-01-28_AL"
+                    );
+                    testContext.completeNow();
+                }));
+    }
+
+    @Test
+    void getIncident(final VertxTestContext testContext) {
+        webClient.get(PORT, HOST, "/api/incidents/1").send()
+                .onFailure(testContext::failNow)
+                .onSuccess(response -> testContext.verify(() -> {
+                    assertEquals(200, response.statusCode(), MSG_200_EXPECTED);
+                    System.out.println(response.bodyAsJsonObject());
+                    assertTrue(
+                            StringUtils.isNotBlank(response.bodyAsJsonObject().getString("reporterId")),
                             "1989-01-28_AL"
                     );
                     testContext.completeNow();

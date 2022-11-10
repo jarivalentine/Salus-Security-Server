@@ -44,4 +44,9 @@ public class MockMarsController implements MarsController {
         return new Incident(longitude, latitude, reportedId);
     }
 
+    @Override
+    public Incident getIncident(int incidentId) {
+        return getIncidents().get(incidentId);
+    }
+
 }
