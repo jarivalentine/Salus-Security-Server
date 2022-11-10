@@ -6,6 +6,8 @@ import be.howest.ti.mars.logic.domain.User;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
@@ -51,6 +53,14 @@ public class MockMarsController implements MarsController {
         Incident incident = getIncidents().get(0);
         incident.setId(1);
         return incident;
+    }
+
+    @Override
+    public List<Incident> getIncidentsFromUser(String id){
+        return getIncidents()
+                .stream()
+                .filter(incident -> Objects.equals(incident.getReporterId(), id))
+                .collect(Collectors.toList());
     }
 
 }
