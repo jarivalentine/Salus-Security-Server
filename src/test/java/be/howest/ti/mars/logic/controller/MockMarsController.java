@@ -63,4 +63,11 @@ public class MockMarsController implements MarsController {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public User subscribeUser(String id) {
+        User user = getUser(id);
+        user.subscribe();
+        return user;
+    }
+
 }
