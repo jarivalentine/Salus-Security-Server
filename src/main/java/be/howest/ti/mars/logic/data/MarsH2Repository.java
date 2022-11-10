@@ -75,7 +75,6 @@ public class MarsH2Repository {
                             rs.getString("reporterId")
                             );
                     newIncident.setLabels(getLabelsFromIncidents(newIncident.getId()));
-                    System.out.println(newIncident);
                     incidents.add(newIncident);
                 }
             }
