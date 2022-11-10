@@ -8,6 +8,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import static java.lang.Integer.parseInt;
+
 /**
  * DefaultMarsController is the default implementation for the MarsController interface.
  * The controller shouldn't even know that it is used in an API context..
@@ -21,6 +23,8 @@ import java.util.NoSuchElementException;
 public class DefaultMarsController implements MarsController {
     private static final String MSG_QUOTE_ID_UNKNOWN = "No quote with id: %d";
     private static final String MSG_USER_ID_UNKNOWN = "No user with id: %s";
+
+    private static final String MSG_INCIDENT_ID_UNKNOWN = "No such incident with incidentId: %d";
 
     @Override
     public Quote getQuote(int quoteId) {
@@ -81,5 +85,14 @@ public class DefaultMarsController implements MarsController {
     @Override
     public Incident createIncident(String reportedId, String latitude, String longitude) {
         return Repositories.getH2Repo().insertIncident(reportedId, latitude, longitude);
+    }
+
+    @Override
+    public Incident getIncident(int incidentId) {
+        return getIncidents()
+                .stream()
+                .filter(incident -> incident.getId() == incidentId)
+                .findAny()
+                .orElseThrow(() -> new NoSuchElementException(String.format(MSG_INCIDENT_ID_UNKNOWN, incidentId)));
     }
 }

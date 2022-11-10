@@ -35,6 +35,7 @@ public class Request {
     public static final String SPEC_INCIDENT_USER_ID = "reporterId";
     public static final String SPEC_INCIDENT_LONGITUDE = "longitude";
     public static final String SPEC_INCIDENT_LATITUDE = "latitude";
+    private static final String SPEC_INCIDENT_ID = "incidentId";
     private final RequestParameters params;
 
     public static Request from(RoutingContext ctx) {
@@ -75,4 +76,6 @@ public class Request {
     public String getLongitude() {
         return params.body().getJsonObject().getString(SPEC_INCIDENT_LATITUDE);
     }
+
+    public int getIncidentId() {return  params.pathParameter(SPEC_INCIDENT_ID).getInteger();}
 }
