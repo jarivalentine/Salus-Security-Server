@@ -4,14 +4,14 @@ import java.util.Objects;
 
 public class User {
     private final String id;
-    private final String firstName;
-    private final String lastName;
+    private final String firstname;
+    private final String lastname;
     private boolean subscribed;
 
-    public User(String id, String firstName, String lastName, boolean subscribed) {
+    public User(String id, String firstname, String lastname, boolean subscribed) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.subscribed = subscribed;
     }
 
@@ -27,12 +27,12 @@ public class User {
         return id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
     public boolean isSubscribed() {

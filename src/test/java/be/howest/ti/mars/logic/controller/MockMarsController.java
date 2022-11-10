@@ -32,11 +32,11 @@ public class MockMarsController implements MarsController {
     @Override
 
     public List<Incident> getIncidents() {
-        return List.of(new Incident("53", "3", "user")); //these are random values
+        return List.of(new Incident("53", "3", "1989-01-28_AL")); //these are random values
     }
 
     public User getUser(String id) {
-        return new User(id, "firstname", "lastname", false);
+        return new User(id, "Adison", "Lopez", false);
     }
 
     @Override

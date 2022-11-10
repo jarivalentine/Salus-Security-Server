@@ -54,6 +54,21 @@ class OpenAPITest {
     }
 
     @Test
+    void getUser(final VertxTestContext testContext) {
+        webClient.get(PORT, HOST, "/api/users/1989-01-28_AL").send()
+                .onFailure(testContext::failNow)
+                .onSuccess(response -> testContext.verify(() -> {
+                    assertEquals(200, response.statusCode(), MSG_200_EXPECTED);
+                    System.out.println(response.bodyAsString());
+                    assertTrue(
+                            StringUtils.isNotBlank(response.bodyAsJsonObject().getString("firstname")),
+                            "Adison"
+                    );
+                    testContext.completeNow();
+                }));
+    }
+
+    @Test
     void getQuote(final VertxTestContext testContext) {
         webClient.get(PORT, HOST, "/api/quotes/2").send()
                 .onFailure(testContext::failNow)
