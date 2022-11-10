@@ -105,4 +105,12 @@ public class DefaultMarsController implements MarsController {
                 .filter(incident -> Objects.equals(incident.getReporterId(), id))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public User subscribeUser(String id) {
+        if (Repositories.getH2Repo().getUser(id) == null)
+            throw new NoSuchElementException(String.format(MSG_USER_ID_UNKNOWN, id));
+
+        return Repositories.getH2Repo().subscribeUser(id);
+    }
 }

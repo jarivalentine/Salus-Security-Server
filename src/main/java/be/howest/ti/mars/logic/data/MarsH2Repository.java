@@ -36,6 +36,8 @@ public class MarsH2Repository {
     private static final String SQL_USER_BY_ID = "select * from users where id = ?;";
     private static final String SQL_INSERT_INCIDENT = "insert into incidents (`type`, `longitude`, `latitude`, `validated`, `reporterId`) values (?, ?, ?, ?, ?);";
     private static final String SQL_INSERT_LABELS = "insert into incidents_labels (label, incidentId) values (?, ?);";
+
+    private static final String SQL_UPDATE_SUBSCRIPTION_TRUE = "update users set subscribed = ? where id = ?;";
     private final Server dbWebConsole;
     private final String username;
     private final String password;
@@ -123,6 +125,21 @@ public class MarsH2Repository {
         } catch (SQLException ex) {
             LOGGER.log(Level.SEVERE, "Failed to get user.", ex);
             throw new RepositoryException("Could not get user.");
+        }
+    }
+
+    public User subscribeUser(String id) {
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(SQL_UPDATE_SUBSCRIPTION_TRUE)) {
+
+            stmt.setBoolean(1, true);
+            stmt.setString(2, id);
+            stmt.executeUpdate();
+            return getUser(id);
+
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Failed to update quote.", ex);
+            throw new RepositoryException("Could not update quote.");
         }
     }
 
