@@ -137,7 +137,7 @@ public class MarsH2Repository {
             stmt.setString(2, newIncident.getLongitude());
             stmt.setString(3, newIncident.getLatitude());
             stmt.setBoolean(4, newIncident.isValidated());
-            stmt.setString(5, newIncident.getReporter());
+            stmt.setString(5, newIncident.getReporterId());
 
             int affectedRows = stmt.executeUpdate();
 

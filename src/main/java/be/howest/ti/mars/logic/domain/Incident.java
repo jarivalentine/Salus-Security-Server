@@ -1,7 +1,6 @@
 package be.howest.ti.mars.logic.domain;
 
 import java.security.SecureRandom;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,9 +15,9 @@ public class Incident {
     private final String latitude;
     private final boolean validated;
     private List<String> labels;
-    private final String reporter;
+    private final String reporterId;
     private static final int NO_ID = -1;
-    private static final Timestamp NO_DATE = null;
+    private static final Timestamp NO_DATE = Timestamp.valueOf(LocalDateTime.of(1970, 1, 1, 0, 0, 0));
     private static final List<String> RANDOM_TYPES_LIST = List.of("Murder", "Theft", "Vandalism", "Assault");
     private static final List<String> RANDOM_LABELS_LIST = List.of("Armed", "Child Danger", "Critical Condition", "Under Control");
     private final SecureRandom random = new SecureRandom();
@@ -32,7 +31,7 @@ public class Incident {
         this.latitude = Objects.requireNonNull(latitude);
         this.validated = getSuperComplexAISHA256HashedAndDecryptedAILabels();
         this.labels = getRandomLabels();
-        this.reporter = Objects.requireNonNull(reporter);
+        this.reporterId = Objects.requireNonNull(reporter);
     }
 
     public Incident(int id, String type, String longitude, String latitude, Timestamp datetime, boolean validated, String reporterId) {
@@ -43,7 +42,7 @@ public class Incident {
         this.latitude = latitude;
         this.validated = validated;
         this.labels = new ArrayList<>();
-        this.reporter = reporterId;
+        this.reporterId = reporterId;
     }
 
     public void setLabels(List<String> newLabels){
@@ -105,8 +104,8 @@ public class Incident {
         return labels;
     }
 
-    public String getReporter() {
-        return reporter;
+    public String getReporterId() {
+        return reporterId;
     }
 
     @Override
@@ -132,7 +131,7 @@ public class Incident {
                 ", latitude='" + latitude + '\'' +
                 ", validated=" + validated +
                 ", labels=" + labels +
-                ", reporter='" + reporter + '\'' +
+                ", reporter='" + reporterId + '\'' +
                 '}';
     }
 }
