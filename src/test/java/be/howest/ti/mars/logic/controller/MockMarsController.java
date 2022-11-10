@@ -5,6 +5,8 @@ import be.howest.ti.mars.logic.domain.Quote;
 import be.howest.ti.mars.logic.domain.User;
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
+
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
 
@@ -30,11 +32,11 @@ public class MockMarsController implements MarsController {
     }
 
     @Override
-
     public List<Incident> getIncidents() {
-        return List.of(new Incident("53", "3", "1989-01-28_AL")); //these are random values
+        return List.of(new Incident("1989-01-28_AL", "3", "53"));
     }
 
+    @Override
     public User getUser(String id) {
         return new User(id, "Adison", "Lopez", false);
     }
@@ -46,7 +48,9 @@ public class MockMarsController implements MarsController {
 
     @Override
     public Incident getIncident(int incidentId) {
-        return getIncidents().get(incidentId);
+        Incident incident = getIncidents().get(0);
+        incident.setId(1);
+        return incident;
     }
 
 }

@@ -87,7 +87,6 @@ class OpenAPITest {
                 .onFailure(testContext::failNow)
                 .onSuccess(response -> testContext.verify(() -> {
                     assertEquals(200, response.statusCode(), MSG_200_EXPECTED);
-                    System.out.println(response.bodyAsJsonObject());
                     assertTrue(
                             StringUtils.isNotBlank(response.bodyAsJsonObject().getString("reporterId")),
                             "1989-01-28_AL"
