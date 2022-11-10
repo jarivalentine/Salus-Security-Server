@@ -54,8 +54,8 @@ public class MarsOpenApiBridge {
         LOGGER.log(Level.INFO, "Installing handler for: getIncidents");
         routerBuilder.operation("getIncidents").handler(this::getIncidents);
 
-        LOGGER.log(Level.INFO, "Installing handler for: CreateIncident");
-        routerBuilder.operation("CreateIncident").handler(this::CreateIncident);
+        LOGGER.log(Level.INFO, "Installing handler for: createIncident");
+        routerBuilder.operation("createIncident").handler(this::createIncident);
 
         LOGGER.log(Level.INFO, "All handlers are installed, creating router.");
         return routerBuilder.createRouter();
@@ -75,7 +75,7 @@ public class MarsOpenApiBridge {
         Response.sendUser(ctx, controller.getUser(id));
     }
 
-    private void CreateIncident(RoutingContext ctx) {
+    private void createIncident(RoutingContext ctx) {
         String reportedId = Request.from(ctx).getReportedId();
         String latitude = Request.from(ctx).getLatitude();
         String longitude = Request.from(ctx).getLongitude();

@@ -23,7 +23,7 @@ public class Incident {
     private final SecureRandom random = new SecureRandom();
     private static final int INDEX_CORRECTION = 1;
 
-    public Incident(String longitude, String latitude, String reporter) {
+    public Incident(String reporter, String longitude, String latitude) {
         this.id = NO_ID;
         this.type = getRandomType();
         this.datetime = NO_DATE;

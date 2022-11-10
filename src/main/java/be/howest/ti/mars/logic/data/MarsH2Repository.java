@@ -130,7 +130,7 @@ public class MarsH2Repository {
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(SQL_INSERT_INCIDENT, Statement.RETURN_GENERATED_KEYS))
         {
-            Incident newIncident = new Incident(longitude, latitude, reportedId);
+            Incident newIncident = new Incident(reportedId, longitude, latitude);
 
             stmt.setString(1, newIncident.getType());
             stmt.setString(2, newIncident.getLongitude());
