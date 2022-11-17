@@ -49,6 +49,18 @@ class DefaultMarsControllerTest {
     }
 
     @Test
+    void subscribeUser() {
+        // Arrange
+        MarsController sut = new DefaultMarsController();
+
+        // Act
+        User user = sut.subscribeUser("1989-01-28_AL");
+
+        //Assert
+        assertTrue(user != null && user.isSubscribed());
+    }
+
+    @Test
     void getIncidents() {
         // Arrange
         MarsController sut = new DefaultMarsController();

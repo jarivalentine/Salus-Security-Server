@@ -29,7 +29,7 @@ public class Incident {
         this.datetime = NO_DATE;
         this.longitude = Objects.requireNonNull(longitude);
         this.latitude = Objects.requireNonNull(latitude);
-        this.validated = getSuperComplexAISHA256HashedAndDecryptedAILabels();
+        this.validated = getSuperComplexAISHA256HashedAndDecryptedAIValidation();
         this.labels = getRandomLabels();
         this.reporterId = Objects.requireNonNull(reporter);
     }
@@ -61,7 +61,7 @@ public class Incident {
         return Incident.RANDOM_TYPES_LIST.get(random.nextInt(Incident.RANDOM_TYPES_LIST.size()));
     }
 
-    private boolean getSuperComplexAISHA256HashedAndDecryptedAILabels() { // Quantum AI calculating the complex validity of an incident
+    private boolean getSuperComplexAISHA256HashedAndDecryptedAIValidation() { // Quantum AI calculating the complex validity of an incident
         int odds = random.nextInt(10); // 0-8 = true, 9 = false
         return odds <= 8;
     }
