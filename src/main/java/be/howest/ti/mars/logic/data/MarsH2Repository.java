@@ -45,6 +45,9 @@ public class MarsH2Repository {
     private static final String SQL_SELECT_BYSTANDERS_BY_INCIDENT_ID =
             "select u.* from users u join bystander_incidents bi on bi.userId = u.id where bi.incidentId = ?;";
 
+    private static final String SQL_SELECT_AGGRESSORS_BY_INCIDENT_ID =
+            "select u.* from users u join aggressor_incidents bi on bi.userId = u.id where bi.incidentId = ?;";
+
     private static final String MSG_CANT_GET_INCIDENTS = "Failed to retrieve incidents.";
     private final Server dbWebConsole;
     private final String username;
@@ -263,6 +266,19 @@ public class MarsH2Repository {
                 users.add(newUser);
             }
             return users;
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, MSG_CANT_GET_INCIDENTS, ex);
+            throw new RepositoryException(MSG_CANT_GET_INCIDENTS);
+        }
+    }
+
+    public List<User> getAggressorFromIncident(int incidentId) {
+        try (
+                Connection conn = getConnection();
+                PreparedStatement stmt = conn.prepareStatement(SQL_SELECT_AGGRESSORS_BY_INCIDENT_ID)
+        ) {
+            stmt.setInt(1, incidentId);
+            return createUsers(stmt);
         } catch (SQLException ex) {
             LOGGER.log(Level.SEVERE, MSG_CANT_GET_INCIDENTS, ex);
             throw new RepositoryException(MSG_CANT_GET_INCIDENTS);

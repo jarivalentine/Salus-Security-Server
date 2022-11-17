@@ -50,7 +50,7 @@ class MarsH2RepositoryExceptionsTest {
         Assertions.assertThrows(RepositoryException.class, () -> repo.unSubscribeUser("1989-01-28_AL"));
         Assertions.assertThrows(RepositoryException.class, () -> repo.getHelpedIncidents("1989-01-28_AL"));
         Assertions.assertThrows(RepositoryException.class, () -> repo.getBystandersFromIncident(1));
-
+        Assertions.assertThrows(RepositoryException.class, () -> repo.getAggressorFromIncident(1));
     }
 
 

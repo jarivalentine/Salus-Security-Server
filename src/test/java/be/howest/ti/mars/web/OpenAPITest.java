@@ -146,7 +146,21 @@ class OpenAPITest {
                     assertEquals(200, response.statusCode(), MSG_200_EXPECTED);
                     assertTrue(
                             StringUtils.isNotBlank(String.valueOf(response.bodyAsJsonArray().getJsonObject(0).getString("id"))),
-                            "1"
+                            "2000-08-12_DJ"
+                    );
+                    testContext.completeNow();
+                }));
+    }
+
+    @Test
+    void getAggressorsFromIncident(final VertxTestContext testContext) {
+        webClient.get(PORT, HOST, "/api/incidents/1/aggressors").send()
+                .onFailure(testContext::failNow)
+                .onSuccess(response -> testContext.verify(() -> {
+                    assertEquals(200, response.statusCode(), MSG_200_EXPECTED);
+                    assertTrue(
+                            StringUtils.isNotBlank(String.valueOf(response.bodyAsJsonArray().getJsonObject(0).getString("id"))),
+                            "1976-11-09_MA"
                     );
                     testContext.completeNow();
                 }));
