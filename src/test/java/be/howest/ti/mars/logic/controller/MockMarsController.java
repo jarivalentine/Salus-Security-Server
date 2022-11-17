@@ -79,7 +79,7 @@ public class MockMarsController implements MarsController {
 
     @Override
     public List<Incident> getHelpedIncidents(String id) {
-        return null;
+        return List.of(new Incident("1989-01-28_AL", "3", "53"));
     }
 
 }
