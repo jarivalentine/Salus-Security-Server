@@ -113,4 +113,12 @@ public class DefaultMarsController implements MarsController {
 
         return Repositories.getH2Repo().subscribeUser(id);
     }
+
+    @Override
+    public User unSubscribeUser(String id) {
+        if (Repositories.getH2Repo().getUser(id) == null)
+            throw new NoSuchElementException(String.format(MSG_USER_ID_UNKNOWN, id));
+
+        return Repositories.getH2Repo().unSubscribeUser(id);
+    }
 }

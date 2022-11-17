@@ -37,7 +37,7 @@ public class MarsH2Repository {
     private static final String SQL_INSERT_INCIDENT = "insert into incidents (`type`, `longitude`, `latitude`, `validated`, `reporterId`) values (?, ?, ?, ?, ?);";
     private static final String SQL_INSERT_LABELS = "insert into incidents_labels (label, incidentId) values (?, ?);";
 
-    private static final String SQL_UPDATE_SUBSCRIPTION_TRUE = "update users set subscribed = ? where id = ?;";
+    private static final String SQL_UPDATE_SUBSCRIPTION = "update users set subscribed = ? where id = ?;";
     private final Server dbWebConsole;
     private final String username;
     private final String password;
@@ -130,16 +130,31 @@ public class MarsH2Repository {
 
     public User subscribeUser(String id) {
         try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(SQL_UPDATE_SUBSCRIPTION_TRUE)) {
+             PreparedStatement stmt = conn.prepareStatement(SQL_UPDATE_SUBSCRIPTION)) {
 
-            stmt.setBoolean(1, true);
+            stmt.setBoolean(1, true); //subscribe
             stmt.setString(2, id);
             stmt.executeUpdate();
             return getUser(id);
 
         } catch (SQLException ex) {
-            LOGGER.log(Level.SEVERE, "Failed to update quote.", ex);
-            throw new RepositoryException("Could not update quote.");
+            LOGGER.log(Level.SEVERE, "Failed to update subscription.", ex);
+            throw new RepositoryException("Could not update subscription.");
+        }
+    }
+
+    public User unSubscribeUser(String id) {
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(SQL_UPDATE_SUBSCRIPTION)) {
+
+            stmt.setBoolean(1, false); //unsubscribe
+            stmt.setString(2, id);
+            stmt.executeUpdate();
+            return getUser(id);
+
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Failed to update subscription.", ex);
+            throw new RepositoryException("Could not update subscription.");
         }
     }
 
