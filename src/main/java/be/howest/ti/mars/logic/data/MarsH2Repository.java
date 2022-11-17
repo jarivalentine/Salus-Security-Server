@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,7 +37,7 @@ public class MarsH2Repository {
     private static final String SQL_USER_BY_ID = "select * from users where id = ?;";
     private static final String SQL_INSERT_INCIDENT = "insert into incidents (`type`, `longitude`, `latitude`, `validated`, `reporterId`) values (?, ?, ?, ?, ?);";
     private static final String SQL_INSERT_LABELS = "insert into incidents_labels (label, incidentId) values (?, ?);";
-
+    private static final String SQL_INSERT_BYSTANDER = "insert into bystander_incidents (userId, incidentId) values (?, ?);";
     private static final String SQL_UPDATE_SUBSCRIPTION = "update users set subscribed = ? where id = ?;";
     private final Server dbWebConsole;
     private final String username;
@@ -206,6 +207,33 @@ public class MarsH2Repository {
             LOGGER.log(Level.SEVERE, "Failed to create incident label.", ex);
             throw new RepositoryException("Could not create incident label.");
         }
+    }
+
+    public Incident helpIncident(String userId, int incidentId){
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(SQL_INSERT_BYSTANDER))
+        {
+            stmt.setString(1, userId);
+            stmt.setInt(2, incidentId);
+
+            int affectedRows = stmt.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating bystander failed, no rows affected.");
+            }
+            return getIncidentWithId(incidentId);
+
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Failed to create bystander.", ex);
+            throw new RepositoryException("Could not create bystander.");
+        }
+    }
+
+    private Incident getIncidentWithId(int incidentId) {
+        return getIncidents()
+                .stream()
+                .filter(incident -> incident.getId() == incidentId)
+                .findAny()
+                .orElseThrow(() -> new NoSuchElementException("Incident doesn't exist with such id"));
     }
 
     public Quote getQuote(int id) {

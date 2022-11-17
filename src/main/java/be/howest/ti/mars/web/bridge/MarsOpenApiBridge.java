@@ -69,6 +69,9 @@ public class MarsOpenApiBridge {
         LOGGER.log(Level.INFO, "Installing handler for: unSubscribeUser");
         routerBuilder.operation("unSubscribeUser").handler(this::unSubscribeUser);
 
+        LOGGER.log(Level.INFO, "Installing handler for: helpUserByIdByIncidentId");
+        routerBuilder.operation("helpUserByIdByIncidentId").handler(this::helpUserByIdByIncidentId);
+
         LOGGER.log(Level.INFO, "All handlers are installed, creating router.");
         return routerBuilder.createRouter();
     }
@@ -101,6 +104,12 @@ public class MarsOpenApiBridge {
     private void getAllIncidentsByUserId(RoutingContext ctx) {
         String id = Request.from(ctx).getUserId();
         Response.sendIncidents(ctx, controller.getIncidentsFromUser(id));
+    }
+
+    private void helpUserByIdByIncidentId(RoutingContext ctx) {
+        String id = Request.from(ctx).getUserId();
+        int incidentId = Request.from(ctx).getIncidentId();
+        Response.sendIncident(ctx, controller.helpIncident(id, incidentId));
     }
 
     private void createIncident(RoutingContext ctx) {
