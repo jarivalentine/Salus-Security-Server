@@ -11,8 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -94,6 +93,18 @@ class DefaultMarsControllerTest {
 
         //Assert
         assertTrue(createdIncident != null && StringUtils.isNoneBlank(createdIncident.getReporterId()));
+    }
+
+    @Test
+    void getAllHelpedIncidentsFromUser() {
+        // Arrange
+        MarsController sut = new DefaultMarsController();
+
+        // Act
+        List<Incident> helpedIncidents = sut.getHelpedIncidents("1989-01-28_AL");
+
+        //Assert
+        assertEquals(Collections.EMPTY_LIST, helpedIncidents);
     }
 
     @Test

@@ -39,6 +39,10 @@ public class MarsH2Repository {
     private static final String SQL_INSERT_LABELS = "insert into incidents_labels (label, incidentId) values (?, ?);";
     private static final String SQL_INSERT_BYSTANDER = "insert into bystander_incidents (userId, incidentId) values (?, ?);";
     private static final String SQL_UPDATE_SUBSCRIPTION = "update users set subscribed = ? where id = ?;";
+    private static final String SQL_SELECT_BYSTANDERS_BY_USER_ID =
+            "select i.* from bystander_incidents join incidents i on bystander_incidents.incidentId = i.id where userId = ?;";
+
+    private static final String MSG_CANT_GET_INCIDENTS = "Failed to retrieve incidents.";
     private final Server dbWebConsole;
     private final String username;
     private final String password;
@@ -61,30 +65,14 @@ public class MarsH2Repository {
     }
 
     public List<Incident> getIncidents() {
-        List<Incident> incidents = new ArrayList<>();
         try (
                 Connection conn = getConnection();
                 PreparedStatement stmt = conn.prepareStatement(SQL_SELECT_INCIDENTS)
         ) {
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    Incident newIncident = new Incident(
-                            rs.getInt("id"),
-                            rs.getString("type"),
-                            rs.getString("longitude"),
-                            rs.getString("latitude"),
-                            rs.getTimestamp("datetime"),
-                            rs.getBoolean("validated"),
-                            rs.getString("reporterId")
-                            );
-                    newIncident.setLabels(getLabelsFromIncidents(newIncident.getId()));
-                    incidents.add(newIncident);
-                }
-            }
-            return incidents;
+            return createIncidents(stmt);
         } catch (SQLException ex) {
-            LOGGER.log(Level.SEVERE, "Failed to get incidents.", ex);
-            throw new RepositoryException("Could not get incidents.");
+            LOGGER.log(Level.SEVERE, MSG_CANT_GET_INCIDENTS, ex);
+            throw new RepositoryException(MSG_CANT_GET_INCIDENTS);
         }
     }
 
@@ -216,10 +204,7 @@ public class MarsH2Repository {
             stmt.setString(1, userId);
             stmt.setInt(2, incidentId);
 
-            int affectedRows = stmt.executeUpdate();
-            if (affectedRows == 0) {
-                throw new SQLException("Creating bystander failed, no rows affected.");
-            }
+            stmt.executeUpdate();
             return getIncidentWithId(incidentId);
 
         } catch (SQLException ex) {
@@ -235,6 +220,43 @@ public class MarsH2Repository {
                 .findAny()
                 .orElseThrow(() -> new NoSuchElementException("Incident doesn't exist with such id"));
     }
+
+    public List<Incident> getHelpedIncidents(String userId) {
+            try (
+                    Connection conn = getConnection();
+                    PreparedStatement stmt = conn.prepareStatement(SQL_SELECT_BYSTANDERS_BY_USER_ID)
+            ) {
+                stmt.setString(1, userId);
+                return createIncidents(stmt);
+            } catch (SQLException ex) {
+                LOGGER.log(Level.SEVERE, MSG_CANT_GET_INCIDENTS, ex);
+                throw new RepositoryException(MSG_CANT_GET_INCIDENTS);
+            }
+    }
+
+    private List<Incident> createIncidents(PreparedStatement stmt){
+        List<Incident> incidents = new ArrayList<>();
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Incident newIncident = new Incident(
+                        rs.getInt("id"),
+                        rs.getString("type"),
+                        rs.getString("longitude"),
+                        rs.getString("latitude"),
+                        rs.getTimestamp("datetime"),
+                        rs.getBoolean("validated"),
+                        rs.getString("reporterId")
+                );
+                newIncident.setLabels(getLabelsFromIncidents(newIncident.getId()));
+                incidents.add(newIncident);
+            }
+            return incidents;
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, MSG_CANT_GET_INCIDENTS, ex);
+            throw new RepositoryException(MSG_CANT_GET_INCIDENTS);
+        }
+    }
+
 
     public Quote getQuote(int id) {
         try (
