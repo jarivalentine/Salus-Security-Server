@@ -77,4 +77,9 @@ public class MockMarsController implements MarsController {
         return getIncident(incidentId);
     }
 
+    @Override
+    public List<Incident> getHelpedIncidents(String id) {
+        return null;
+    }
+
 }

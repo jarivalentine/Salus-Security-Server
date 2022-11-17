@@ -42,6 +42,10 @@ public class Response {
         sendJsonResponse(ctx, 200, incidents);
     }
 
+    public static void sendUsers(RoutingContext ctx, List<User> users) {
+        sendJsonResponse(ctx, 200, users);
+    }
+
     public static void sendIncident(RoutingContext ctx, Incident incident) {
         sendOkJsonResponse(ctx, JsonObject.mapFrom(incident));
     }

@@ -2,6 +2,7 @@ package be.howest.ti.mars.web.bridge;
 
 import be.howest.ti.mars.logic.controller.DefaultMarsController;
 import be.howest.ti.mars.logic.controller.MarsController;
+import be.howest.ti.mars.logic.domain.Incident;
 import be.howest.ti.mars.logic.domain.Quote;
 import be.howest.ti.mars.web.exceptions.MalformedRequestException;
 import io.vertx.core.http.HttpMethod;
@@ -10,6 +11,7 @@ import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.CorsHandler;
 import io.vertx.ext.web.openapi.RouterBuilder;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -72,6 +74,9 @@ public class MarsOpenApiBridge {
         LOGGER.log(Level.INFO, "Installing handler for: helpUserByIdByIncidentId");
         routerBuilder.operation("helpUserByIdByIncidentId").handler(this::helpUserByIdByIncidentId);
 
+        LOGGER.log(Level.INFO, "Installing handler for: getAllHelpedIncidentsByUserId");
+        routerBuilder.operation("getAllHelpedIncidentsByUserId").handler(this::getAllHelpedIncidentsByUserId);
+
         LOGGER.log(Level.INFO, "All handlers are installed, creating router.");
         return routerBuilder.createRouter();
     }
@@ -104,6 +109,11 @@ public class MarsOpenApiBridge {
     private void getAllIncidentsByUserId(RoutingContext ctx) {
         String id = Request.from(ctx).getUserId();
         Response.sendIncidents(ctx, controller.getIncidentsFromUser(id));
+    }
+
+    private void getAllHelpedIncidentsByUserId(RoutingContext ctx) {
+        String id = Request.from(ctx).getUserId();
+        Response.sendIncidents(ctx, controller.getHelpedIncidents(id));
     }
 
     private void helpUserByIdByIncidentId(RoutingContext ctx) {

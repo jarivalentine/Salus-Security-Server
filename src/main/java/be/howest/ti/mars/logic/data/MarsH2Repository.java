@@ -39,6 +39,8 @@ public class MarsH2Repository {
     private static final String SQL_INSERT_LABELS = "insert into incidents_labels (label, incidentId) values (?, ?);";
     private static final String SQL_INSERT_BYSTANDER = "insert into bystander_incidents (userId, incidentId) values (?, ?);";
     private static final String SQL_UPDATE_SUBSCRIPTION = "update users set subscribed = ? where id = ?;";
+    private static final String SQL_SELECT_BYSTANDERS_BY_USER_ID =
+            "select i.* from bystander_incidents join incidents i on bystander_incidents.incidentId = i.id where userId = ?;";
     private final Server dbWebConsole;
     private final String username;
     private final String password;
@@ -235,6 +237,35 @@ public class MarsH2Repository {
                 .findAny()
                 .orElseThrow(() -> new NoSuchElementException("Incident doesn't exist with such id"));
     }
+
+    public List<Incident> getHelpedIncidents(String userId) {
+            try (
+                    Connection conn = getConnection();
+                    PreparedStatement stmt = conn.prepareStatement(SQL_SELECT_BYSTANDERS_BY_USER_ID)
+            ) {
+                stmt.setString(1, userId);
+                List<Incident> incidents = new ArrayList<>();
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        Incident newIncident = new Incident(
+                                rs.getInt("id"),
+                                rs.getString("type"),
+                                rs.getString("longitude"),
+                                rs.getString("latitude"),
+                                rs.getTimestamp("datetime"),
+                                rs.getBoolean("validated"),
+                                rs.getString("reporterId")
+                        );
+                        incidents.add(newIncident);
+                    }
+                    return incidents;
+                }
+            } catch (SQLException ex) {
+                LOGGER.log(Level.SEVERE, "Failed to get incidents.", ex);
+                throw new RepositoryException("Could not get incidents.");
+            }
+    }
+
 
     public Quote getQuote(int id) {
         try (
