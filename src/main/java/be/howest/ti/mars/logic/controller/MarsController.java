@@ -21,4 +21,5 @@ public interface MarsController {
     Incident getIncident(int incidentId);
     List<Incident> getIncidentsFromUser(String id);
     User subscribeUser(String id);
+    User unSubscribeUser(String id);
 }

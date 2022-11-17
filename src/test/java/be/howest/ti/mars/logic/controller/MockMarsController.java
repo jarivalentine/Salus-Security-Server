@@ -70,4 +70,11 @@ public class MockMarsController implements MarsController {
         return user;
     }
 
+    @Override
+    public User unSubscribeUser(String id) {
+        User user = getUser(id);
+        user.unsubscribe();
+        return user;
+    }
+
 }

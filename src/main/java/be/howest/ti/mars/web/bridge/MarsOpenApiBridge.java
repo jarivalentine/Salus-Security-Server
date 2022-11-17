@@ -66,6 +66,9 @@ public class MarsOpenApiBridge {
         LOGGER.log(Level.INFO, "Installing handler for: subscribeUser");
         routerBuilder.operation("subscribeUser").handler(this::subscribeUser);
 
+        LOGGER.log(Level.INFO, "Installing handler for: unSubscribeUser");
+        routerBuilder.operation("unSubscribeUser").handler(this::unSubscribeUser);
+
         LOGGER.log(Level.INFO, "All handlers are installed, creating router.");
         return routerBuilder.createRouter();
     }
@@ -84,10 +87,14 @@ public class MarsOpenApiBridge {
         Response.sendUser(ctx, controller.subscribeUser(id));
     }
 
+    private void unSubscribeUser(RoutingContext ctx) {
+        Request request = Request.from(ctx);
+        String id = request.getUserId();
+        Response.sendUser(ctx, controller.unSubscribeUser(id));
+    }
 
     private void getUser(RoutingContext ctx) {
         String id = Request.from(ctx).getUserId();
-
         Response.sendUser(ctx, controller.getUser(id));
     }
 
