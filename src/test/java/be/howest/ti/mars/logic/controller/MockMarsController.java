@@ -82,4 +82,9 @@ public class MockMarsController implements MarsController {
         return List.of(new Incident("1989-01-28_AL", "3", "53"));
     }
 
+    @Override
+    public List<User> getBystandersFromIncident(int incidentId) {
+        return null;
+    }
+
 }

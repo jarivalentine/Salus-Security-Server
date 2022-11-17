@@ -42,6 +42,9 @@ public class MarsH2Repository {
     private static final String SQL_SELECT_BYSTANDERS_BY_USER_ID =
             "select i.* from bystander_incidents join incidents i on bystander_incidents.incidentId = i.id where userId = ?;";
 
+    private static final String SQL_SELECT_BYSTANDERS_BY_INCIDENT_ID =
+            "select u.* from users u join bystander_incidents bi on bi.userId = u.id where bi.incidentId = ?;";
+
     private static final String MSG_CANT_GET_INCIDENTS = "Failed to retrieve incidents.";
     private final Server dbWebConsole;
     private final String username;
@@ -232,6 +235,38 @@ public class MarsH2Repository {
                 LOGGER.log(Level.SEVERE, MSG_CANT_GET_INCIDENTS, ex);
                 throw new RepositoryException(MSG_CANT_GET_INCIDENTS);
             }
+    }
+
+    public List<User> getBystandersFromIncident(int incidentId) {
+        try (
+                Connection conn = getConnection();
+                PreparedStatement stmt = conn.prepareStatement(SQL_SELECT_BYSTANDERS_BY_INCIDENT_ID)
+        ) {
+            stmt.setInt(1, incidentId);
+            return createUsers(stmt);
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, MSG_CANT_GET_INCIDENTS, ex);
+            throw new RepositoryException(MSG_CANT_GET_INCIDENTS);
+        }
+    }
+
+    private List<User> createUsers(PreparedStatement stmt){
+        List<User> users = new ArrayList<>();
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                User newUser = new User(
+                        rs.getString("id"),
+                        rs.getString("firstname"),
+                        rs.getString("lastname"),
+                        rs.getBoolean("subscribed")
+                );
+                users.add(newUser);
+            }
+            return users;
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, MSG_CANT_GET_INCIDENTS, ex);
+            throw new RepositoryException(MSG_CANT_GET_INCIDENTS);
+        }
     }
 
     private List<Incident> createIncidents(PreparedStatement stmt){
