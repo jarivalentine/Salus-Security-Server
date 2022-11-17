@@ -11,12 +11,15 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.SecureRandom;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /*
 This is only a starter class to use an H2 database.
@@ -38,17 +41,21 @@ public class MarsH2Repository {
     private static final String SQL_INSERT_INCIDENT = "insert into incidents (`type`, `longitude`, `latitude`, `validated`, `reporterId`) values (?, ?, ?, ?, ?);";
     private static final String SQL_INSERT_LABELS = "insert into incidents_labels (label, incidentId) values (?, ?);";
     private static final String SQL_INSERT_BYSTANDER = "insert into bystander_incidents (userId, incidentId) values (?, ?);";
+    private static final String SQL_INSERT_AGGRESSORS = "insert into aggressor_incidents (userId, incidentId) values(? ,?);";
     private static final String SQL_UPDATE_SUBSCRIPTION = "update users set subscribed = ? where id = ?;";
     private static final String SQL_SELECT_BYSTANDERS_BY_USER_ID =
             "select i.* from bystander_incidents join incidents i on bystander_incidents.incidentId = i.id where userId = ?;";
-
     private static final String SQL_SELECT_BYSTANDERS_BY_INCIDENT_ID =
             "select u.* from users u join bystander_incidents bi on bi.userId = u.id where bi.incidentId = ?;";
 
     private static final String SQL_SELECT_AGGRESSORS_BY_INCIDENT_ID =
             "select u.* from users u join aggressor_incidents bi on bi.userId = u.id where bi.incidentId = ?;";
 
+    private static final String SQL_SELECT_USERS = "select * from users";
+
     private static final String MSG_CANT_GET_INCIDENTS = "Failed to retrieve incidents.";
+    private static final String MSG_CANT_GET_USERS = "Failed to retrieve users";
+    private static final int INDEX_CORRECTION = 1;
     private final Server dbWebConsole;
     private final String username;
     private final String password;
@@ -176,6 +183,7 @@ public class MarsH2Repository {
                     newIncident.setId(generatedKeys.getInt(1));
                     newIncident.setDateTime(generatedKeys.getTimestamp(2));
                     insertLabels(newIncident.getLabels(), newIncident.getId());
+                    addAggressors(newIncident.getId(), newIncident.getReporterId());
                     return newIncident;
                 }
                 else {
@@ -308,6 +316,48 @@ public class MarsH2Repository {
         }
     }
 
+    private void addAggressors(int incidentId, String reporterId) {
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(SQL_INSERT_AGGRESSORS))
+        {
+            List<String> users = getRandomUsersIds(reporterId);
+            for (String userId : users) {
+                stmt.setString(1, userId);
+                stmt.setInt(2, incidentId);
+                stmt.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Failed to create aggressors for incidents.", ex);
+            throw new RepositoryException("Could not create aggressors for incidents.");
+        }
+    }
+
+    private List<String> getRandomUsersIds(String reporterId) {
+        SecureRandom random = new SecureRandom();
+        int bound = random.nextInt(getUsers().size() + INDEX_CORRECTION);
+        List<String> randomUsers = new ArrayList<>();
+        List<User> usersWithoutReporter = getUsers().stream()
+                .filter(user -> !Objects.equals(user.getId(), reporterId))
+                .collect(Collectors.toList());
+
+        for (int i = 0; i < bound; i++) {
+            User newUser = usersWithoutReporter.get(random.nextInt(usersWithoutReporter.size()));
+            if (!randomUsers.contains(newUser.getId())) randomUsers.add(newUser.getId());
+        }
+        return randomUsers;
+    }
+
+    private List<User> getUsers(){
+        try (
+                Connection conn = getConnection();
+                PreparedStatement stmt = conn.prepareStatement(SQL_SELECT_USERS)
+        ) {
+            return createUsers(stmt);
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, MSG_CANT_GET_USERS, ex);
+            throw new RepositoryException(MSG_CANT_GET_USERS);
+        }
+    }
 
     public Quote getQuote(int id) {
         try (
