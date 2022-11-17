@@ -120,6 +120,18 @@ class DefaultMarsControllerTest {
     }
 
     @Test
+    void getAggressorsFromIncident(){
+        // Arrange
+        MarsController sut = new DefaultMarsController();
+
+        // Act
+        List<User> aggressors = sut.getAggressorFromIncident(1);
+
+        //Assert
+        assertEquals(Collections.EMPTY_LIST, aggressors);
+    }
+
+    @Test
     void getQuote() {
         // Arrange
         MarsController sut = new DefaultMarsController();

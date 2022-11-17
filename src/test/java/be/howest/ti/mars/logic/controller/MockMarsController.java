@@ -87,4 +87,9 @@ public class MockMarsController implements MarsController {
         return List.of(new User("2000-08-12_DJ", "Dahlia", "Johns", false));
     }
 
+    @Override
+    public List<User> getAggressorFromIncident(int incidentId) {
+        return List.of(new User("2000-08-12_DJ", "Dahlia", "Johns", false));
+    }
+
 }

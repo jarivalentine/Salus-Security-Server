@@ -77,6 +77,9 @@ public class MarsOpenApiBridge {
         LOGGER.log(Level.INFO, "Installing handler for: getBystandersByIncidentId");
         routerBuilder.operation("getBystandersByIncidentId").handler(this::getBystandersByIncidentId);
 
+        LOGGER.log(Level.INFO, "Installing handler for: getAggressorsByIncidentId");
+        routerBuilder.operation("getAggressorsByIncidentId").handler(this::getAggressorsByIncidentId);
+
 
         LOGGER.log(Level.INFO, "All handlers are installed, creating router.");
         return routerBuilder.createRouter();
@@ -115,6 +118,11 @@ public class MarsOpenApiBridge {
     private void getBystandersByIncidentId(RoutingContext ctx) {
         int incidentId = Request.from(ctx).getIncidentId();
         Response.sendUsers(ctx, controller.getBystandersFromIncident(incidentId));
+    }
+
+    private void getAggressorsByIncidentId(RoutingContext ctx) {
+        int incidentId = Request.from(ctx).getIncidentId();
+        Response.sendUsers(ctx, controller.getAggressorFromIncident(incidentId));
     }
 
     private void getAllHelpedIncidentsByUserId(RoutingContext ctx) {
