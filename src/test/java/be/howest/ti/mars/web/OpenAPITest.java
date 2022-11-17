@@ -69,7 +69,7 @@ class OpenAPITest {
 
     @Test
     void subscribeUser(final VertxTestContext testContext) {
-        webClient.get(PORT, HOST, "/api/users/1989-01-28_AL/subscribe").send()
+        webClient.put(PORT, HOST, "/api/users/1989-01-28_AL/subscribe").send()
                 .onFailure(testContext::failNow)
                 .onSuccess(response -> testContext.verify(() -> {
                     System.out.println(response.bodyAsJsonObject());
