@@ -87,7 +87,6 @@ class OpenAPITest {
         webClient.put(PORT, HOST, "/api/users/1989-01-28_AL/unsubscribe").send()
                 .onFailure(testContext::failNow)
                 .onSuccess(response -> testContext.verify(() -> {
-                    //System.out.println(response.bodyAsJsonObject());
                     assertEquals(200, response.statusCode(), MSG_200_EXPECTED);
                     assertTrue(
                             StringUtils.isNotBlank(String.valueOf(response.bodyAsJsonObject().getBoolean("subscribed"))),
@@ -134,6 +133,20 @@ class OpenAPITest {
                     assertTrue(
                             StringUtils.isNotBlank(response.bodyAsJsonObject().getString("reporterId")),
                             "1989-01-28_AL"
+                    );
+                    testContext.completeNow();
+                }));
+    }
+
+    @Test
+    void getBystandersFromIncident(final VertxTestContext testContext) {
+        webClient.get(PORT, HOST, "/api/incidents/1/bystanders").send()
+                .onFailure(testContext::failNow)
+                .onSuccess(response -> testContext.verify(() -> {
+                    assertEquals(200, response.statusCode(), MSG_200_EXPECTED);
+                    assertTrue(
+                            StringUtils.isNotBlank(String.valueOf(response.bodyAsJsonArray().getJsonObject(0).getString("id"))),
+                            "1"
                     );
                     testContext.completeNow();
                 }));
