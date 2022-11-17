@@ -42,9 +42,13 @@ class MarsH2RepositoryExceptionsTest {
         Assertions.assertThrows(RepositoryException.class, () -> repo.deleteQuote(id));
         Assertions.assertThrows(RepositoryException.class, () -> repo.updateQuote(id, "update"));
         Assertions.assertThrows(RepositoryException.class, () -> repo.updateQuote(id, "update"));
-        Assertions.assertThrows(RepositoryException.class, () -> repo.getUser("USERID"));
+        Assertions.assertThrows(RepositoryException.class, () -> repo.getUser("1989-01-28_AL"));
         Assertions.assertThrows(RepositoryException.class, repo::getIncidents);
-        Assertions.assertThrows(RepositoryException.class, () -> repo.insertIncident("dit", "en", "dat"));
+        Assertions.assertThrows(RepositoryException.class, () -> repo.insertIncident("1989-01-28_AL", "53", "32"));
+        Assertions.assertThrows(RepositoryException.class, () -> repo.helpIncident("1989-01-28_AL", 1));
+        Assertions.assertThrows(RepositoryException.class, () -> repo.subscribeUser("1989-01-28_AL"));
+        Assertions.assertThrows(RepositoryException.class, () -> repo.unSubscribeUser("1989-01-28_AL"));
+        Assertions.assertThrows(RepositoryException.class, () -> repo.insertIncident("1989-01-28_AL", "53", "32"));
     }
 
 

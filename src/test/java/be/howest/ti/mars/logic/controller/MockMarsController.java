@@ -3,14 +3,9 @@ package be.howest.ti.mars.logic.controller;
 import be.howest.ti.mars.logic.domain.Incident;
 import be.howest.ti.mars.logic.domain.Quote;
 import be.howest.ti.mars.logic.domain.User;
-import java.util.Collections;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
-import io.vertx.core.Future;
-import io.vertx.core.Promise;
 
 public class MockMarsController implements MarsController {
     private static final String SOME_QUOTE = "quote";
@@ -75,6 +70,11 @@ public class MockMarsController implements MarsController {
         User user = getUser(id);
         user.unsubscribe();
         return user;
+    }
+
+    @Override
+    public Incident helpIncident(String id, int incidentId) {
+        return getIncident(incidentId);
     }
 
 }
