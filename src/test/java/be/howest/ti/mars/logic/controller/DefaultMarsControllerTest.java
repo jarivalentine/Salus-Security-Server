@@ -108,6 +108,18 @@ class DefaultMarsControllerTest {
     }
 
     @Test
+    void getBystandersFromIncident(){
+        // Arrange
+        MarsController sut = new DefaultMarsController();
+
+        // Act
+        List<User> bystanders = sut.getBystandersFromIncident(1);
+
+        //Assert
+        assertEquals(Collections.EMPTY_LIST, bystanders);
+    }
+
+    @Test
     void getQuote() {
         // Arrange
         MarsController sut = new DefaultMarsController();
