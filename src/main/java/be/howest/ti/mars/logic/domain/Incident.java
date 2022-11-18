@@ -70,8 +70,8 @@ public class Incident {
         int amountOfLabels = random.nextInt(Incident.RANDOM_LABELS_LIST.size() + INDEX_CORRECTION);
         List<String> randomLabels = new ArrayList<>();
         for (int i = 0; i < amountOfLabels; i++) {
-            String newIncident = Incident.RANDOM_LABELS_LIST.get(random.nextInt(Incident.RANDOM_LABELS_LIST.size()));
-            if (!randomLabels.contains(newIncident)) randomLabels.add(newIncident);
+            String newLabel = Incident.RANDOM_LABELS_LIST.get(random.nextInt(Incident.RANDOM_LABELS_LIST.size()));
+            if (!randomLabels.contains(newLabel)) randomLabels.add(newLabel);
         }
         return randomLabels;
     }
@@ -119,19 +119,5 @@ public class Incident {
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Incident{" +
-                "id=" + id +
-                ", type='" + type + '\'' +
-                ", datetime='" + getDatetime() + '\'' +
-                ", longitude='" + longitude + '\'' +
-                ", latitude='" + latitude + '\'' +
-                ", validated=" + validated +
-                ", labels=" + labels +
-                ", reporter='" + reporterId + '\'' +
-                '}';
     }
 }
