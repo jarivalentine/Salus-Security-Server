@@ -38,10 +38,6 @@ class MarsH2RepositoryExceptionsTest {
         repo.cleanUp();
 
         // Act + Assert
-        Assertions.assertThrows(RepositoryException.class, () -> repo.getQuote(id));
-        Assertions.assertThrows(RepositoryException.class, () -> repo.deleteQuote(id));
-        Assertions.assertThrows(RepositoryException.class, () -> repo.updateQuote(id, "update"));
-        Assertions.assertThrows(RepositoryException.class, () -> repo.updateQuote(id, "update"));
         Assertions.assertThrows(RepositoryException.class, () -> repo.getUser("1989-01-28_AL"));
         Assertions.assertThrows(RepositoryException.class, repo::getIncidents);
         Assertions.assertThrows(RepositoryException.class, () -> repo.insertIncident("1989-01-28_AL", "53", "32"));

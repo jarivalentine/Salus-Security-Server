@@ -2,9 +2,7 @@ package be.howest.ti.mars.logic.controller;
 
 import be.howest.ti.mars.logic.data.Repositories;
 import be.howest.ti.mars.logic.domain.Incident;
-import be.howest.ti.mars.logic.domain.Quote;
 import be.howest.ti.mars.logic.domain.User;
-import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -24,49 +22,9 @@ import static java.lang.Integer.parseInt;
  * Do not be afraid to create your own Java classes if needed.
  */
 public class DefaultMarsController implements MarsController {
-    private static final String MSG_QUOTE_ID_UNKNOWN = "No quote with id: %d";
     private static final String MSG_USER_ID_UNKNOWN = "No user with id: %s";
 
     private static final String MSG_INCIDENT_ID_UNKNOWN = "No such incident with incidentId: %d";
-
-    @Override
-    public Quote getQuote(int quoteId) {
-        Quote quote = Repositories.getH2Repo().getQuote(quoteId);
-        if (null == quote)
-            throw new NoSuchElementException(String.format(MSG_QUOTE_ID_UNKNOWN, quoteId));
-
-        return quote;
-    }
-
-    @Override
-    public Quote createQuote(String quote) {
-        if (StringUtils.isBlank(quote))
-            throw new IllegalArgumentException("An empty quote is not allowed.");
-
-        return Repositories.getH2Repo().insertQuote(quote);
-    }
-
-    @Override
-    public Quote updateQuote(int quoteId, String quote) {
-        if (StringUtils.isBlank(quote))
-            throw new IllegalArgumentException("No quote provided!");
-
-        if (quoteId < 0)
-            throw new IllegalArgumentException("No valid quote ID provided");
-
-        if (null == Repositories.getH2Repo().getQuote(quoteId))
-            throw new NoSuchElementException(String.format(MSG_QUOTE_ID_UNKNOWN, quoteId));
-
-        return Repositories.getH2Repo().updateQuote(quoteId, quote);
-    }
-
-    @Override
-    public void deleteQuote(int quoteId) {
-        if (null == Repositories.getH2Repo().getQuote(quoteId))
-            throw new NoSuchElementException(String.format(MSG_QUOTE_ID_UNKNOWN, quoteId));
-
-        Repositories.getH2Repo().deleteQuote(quoteId);
-    }
 
     @Override
     public List<Incident> getIncidents() {
