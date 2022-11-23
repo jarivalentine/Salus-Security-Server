@@ -1,33 +1,12 @@
 package be.howest.ti.mars.logic.controller;
 
 import be.howest.ti.mars.logic.domain.Incident;
-import be.howest.ti.mars.logic.domain.Quote;
 import be.howest.ti.mars.logic.domain.User;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class MockMarsController implements MarsController {
-    private static final String SOME_QUOTE = "quote";
-    @Override
-    public Quote getQuote(int quoteId) {
-        return new Quote(quoteId, SOME_QUOTE);
-    }
-
-    @Override
-    public Quote createQuote(String quote) {
-        return new Quote(1, quote);
-    }
-
-    @Override
-    public Quote updateQuote(int quoteId, String quote) {
-        return new Quote(quoteId, quote);
-    }
-
-    @Override
-    public void deleteQuote(int quoteId) {
-    }
-
     @Override
     public List<Incident> getIncidents() {
         return List.of(new Incident("1989-01-28_AL", "3", "53"));

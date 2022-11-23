@@ -67,7 +67,7 @@ public class Incident {
     }
 
     private List<String> getRandomLabels() {
-        int amountOfLabels = random.nextInt(Incident.RANDOM_LABELS_LIST.size() + INDEX_CORRECTION);
+        int amountOfLabels = random.nextInt(Incident.RANDOM_LABELS_LIST.size()) + INDEX_CORRECTION;
         List<String> randomLabels = new ArrayList<>();
         for (int i = 0; i < amountOfLabels; i++) {
             String newLabel = Incident.RANDOM_LABELS_LIST.get(random.nextInt(Incident.RANDOM_LABELS_LIST.size()));
