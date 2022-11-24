@@ -74,7 +74,7 @@ class OpenAPITest {
                 .onSuccess(response -> testContext.verify(() -> {
                     assertEquals(200, response.statusCode(), MSG_200_EXPECTED);
                     assertTrue(
-                            StringUtils.isNotBlank(response.bodyAsJsonArray().getJsonObject(0).getString("userId")),
+                            StringUtils.isNotBlank(response.bodyAsJsonArray().getJsonObject(0).getString("id")),
                             "1989-01-28_AL"
                     );
                     testContext.completeNow();
