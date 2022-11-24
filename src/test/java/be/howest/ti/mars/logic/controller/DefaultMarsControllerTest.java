@@ -131,4 +131,16 @@ class DefaultMarsControllerTest {
         assertEquals(Collections.EMPTY_LIST, aggressors);
     }
 
+    @Test
+    void getUsers(){
+        // Arrange
+        MarsController sut = new DefaultMarsController();
+
+        // Act
+        List<User> allUsers = sut.getUsers();
+
+        //Assert
+        assertNotEquals(Collections.EMPTY_LIST, allUsers);
+    }
+
 }

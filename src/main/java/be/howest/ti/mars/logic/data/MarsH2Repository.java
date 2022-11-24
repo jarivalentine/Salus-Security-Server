@@ -342,7 +342,7 @@ public class MarsH2Repository {
         return randomUsers;
     }
 
-    private List<User> getUsers(){
+    public List<User> getUsers(){
         try (
                 Connection conn = getConnection();
                 PreparedStatement stmt = conn.prepareStatement(SQL_SELECT_USERS)

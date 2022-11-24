@@ -110,4 +110,9 @@ public class DefaultMarsController implements MarsController {
             throw new NoSuchElementException(String.format(MSG_INCIDENT_ID_UNKNOWN, incidentId));
         return Repositories.getH2Repo().getAggressorFromIncident(incidentId);
     }
+
+    @Override
+    public List<User> getUsers() {
+        return Repositories.getH2Repo().getUsers();
+    }
 }
