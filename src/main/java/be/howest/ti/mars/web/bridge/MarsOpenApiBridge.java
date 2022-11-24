@@ -34,6 +34,10 @@ public class MarsOpenApiBridge {
         LOGGER.log(Level.INFO, "Installing failure handlers for all operations");
         routerBuilder.operations().forEach(op -> op.failureHandler(this::onFailedRequest));
 
+        LOGGER.log(Level.INFO, "Installing handler for: getUsers");
+        routerBuilder.operation("getUsers").handler(this::getUsers);
+
+
         LOGGER.log(Level.INFO, "Installing handler for: getUser");
         routerBuilder.operation("getUser").handler(this::getUser);
 
@@ -78,6 +82,10 @@ public class MarsOpenApiBridge {
 
     public MarsOpenApiBridge(MarsController controller) {
         this.controller = controller;
+    }
+
+    private void getUsers(RoutingContext ctx) {
+        Response.sendUsers(ctx, controller.getUsers());
     }
 
     private void subscribeUser(RoutingContext ctx) {

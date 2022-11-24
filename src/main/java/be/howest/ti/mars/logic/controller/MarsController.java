@@ -17,4 +17,5 @@ public interface MarsController {
     List<Incident> getHelpedIncidents(String id);
     List<User> getBystandersFromIncident(int incidentId);
     List<User> getAggressorFromIncident(int incidentId);
+    List<User> getUsers();
 }
