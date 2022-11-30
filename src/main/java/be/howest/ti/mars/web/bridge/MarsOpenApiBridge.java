@@ -115,7 +115,9 @@ public class MarsOpenApiBridge {
 
     private void deleteIncident(RoutingContext ctx) {
         int incidentId = Request.from(ctx).getIncidentId();
-        Response.sendJsonResponse(ctx, 200, new JsonObject(String.format("%s: %d", "removed incident with id", incidentId)));
+        controller.removeIncident(incidentId);
+        JsonObject response = new JsonObject().put("Incident removed", incidentId);
+        Response.sendJsonResponse(ctx, 200, response);
     }
 
     private void getBystandersByIncidentId(RoutingContext ctx) {

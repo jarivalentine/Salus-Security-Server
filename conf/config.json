@@ -9,6 +9,6 @@
     "webconsole.port": 9000
   },
   "api" : {
-    "url": "../../documentation/api-spec/openapi-mars.yaml"
+    "url": "../documentation/api-spec/openapi-mars.yaml"
   }
 }
