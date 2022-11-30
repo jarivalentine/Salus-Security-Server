@@ -1,7 +1,6 @@
 package be.howest.ti.mars.web.bridge;
 
 import be.howest.ti.mars.logic.domain.Incident;
-import be.howest.ti.mars.logic.domain.Quote;
 import be.howest.ti.mars.logic.domain.User;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.json.Json;
@@ -17,22 +16,6 @@ import java.util.List;
 public class Response {
 
     private Response() { }
-
-    public static void sendQuote(RoutingContext ctx, Quote quote) {
-        sendOkJsonResponse(ctx, JsonObject.mapFrom(quote));
-    }
-
-    public static void sendQuoteCreated(RoutingContext ctx, Quote quote) {
-        sendJsonResponse(ctx, 201, JsonObject.mapFrom(quote));
-    }
-
-    public static void sendQuoteDeleted(RoutingContext ctx) {
-        sendEmptyResponse(ctx, 204);
-    }
-
-    public static void sendQuoteUpdated(RoutingContext ctx, Quote quote) {
-        sendOkJsonResponse(ctx, JsonObject.mapFrom(quote));
-    }
 
     public static void sendUser(RoutingContext ctx, User user) {
         sendOkJsonResponse(ctx, JsonObject.mapFrom(user));

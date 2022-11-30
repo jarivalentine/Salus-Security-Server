@@ -1,14 +1,10 @@
 package be.howest.ti.mars.logic.data;
 
-import be.howest.ti.mars.logic.domain.Quote;
 import be.howest.ti.mars.logic.exceptions.RepositoryException;
-import io.netty.util.internal.StringUtil;
 import io.vertx.core.json.JsonObject;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLException;
 import java.util.Map;
 
 class MarsH2RepositoryExceptionsTest {
@@ -47,6 +43,7 @@ class MarsH2RepositoryExceptionsTest {
         Assertions.assertThrows(RepositoryException.class, () -> repo.getHelpedIncidents("1989-01-28_AL"));
         Assertions.assertThrows(RepositoryException.class, () -> repo.getBystandersFromIncident(1));
         Assertions.assertThrows(RepositoryException.class, () -> repo.getAggressorFromIncident(1));
+        Assertions.assertThrows(RepositoryException.class, () -> repo.removeIncident(1));
     }
 
 
