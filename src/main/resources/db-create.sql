@@ -1,11 +1,3 @@
-drop table if exists quotes;
-create table quotes
-(
-    id    int auto_increment,
-    quote varchar(255)
-);
-
-
 drop table if exists bystander_incidents;
 drop table if exists aggressor_incidents;
 drop table if exists incidents_labels;

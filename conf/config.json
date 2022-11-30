@@ -9,6 +9,6 @@
     "webconsole.port": 9000
   },
   "api" : {
-    "url": "http://project-ii.ti.howest.be/monitor/apis/group-11"
+    "url": "../../documentation/api-spec/openapi-mars.yaml"
   }
 }
