@@ -115,4 +115,9 @@ public class DefaultMarsController implements MarsController {
     public List<User> getUsers() {
         return Repositories.getH2Repo().getUsers();
     }
+
+    @Override
+    public void removeIncident(int incidentId) {
+        Repositories.getH2Repo().removeIncident(incidentId);
+    }
 }

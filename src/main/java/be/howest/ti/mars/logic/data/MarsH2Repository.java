@@ -46,6 +46,25 @@ public class MarsH2Repository {
     private static final String SQL_SELECT_AGGRESSORS_BY_INCIDENT_ID =
             "select u.* from users u join aggressor_incidents bi on bi.userId = u.id where bi.incidentId = ?;";
 
+    private static final String INCIDENT_STRING_FORMAT = "%s %s %s %s";
+
+    private static final String SQL_DELETE_INCIDENT_BY_INCIDENT_ID = String.format(INCIDENT_STRING_FORMAT,
+            "delete from incidents where id = ?;",
+            "delete from aggressor_incidents where INCIDENTID = ?;",
+            "delete from bystander_incidents where INCIDENTID = ?;",
+            "delete from incidents_labels where INCIDENTID = ?;");
+    private static final String SQL_REMOVE_CONSTRAINTS = String.format(INCIDENT_STRING_FORMAT,
+            "alter table incidents drop constraint CONSTRAINT_46D;",
+            "alter table incidents_labels drop constraint CONSTRAINT_EA5;",
+            "alter table bystander_incidents drop constraint CONSTRAINT_36E;",
+            "alter table aggressor_incidents drop constraint CONSTRAINT_233;");
+
+    private static final String SQL_ADD_CONSTRAINTS = String.format(INCIDENT_STRING_FORMAT,
+            "alter table incidents add foreign key (reporterId) references users(id);",
+            "alter table incidents_labels add foreign key (incidentId) references incidents(id);",
+            "alter table bystander_incidents add foreign key (incidentId) references incidents(id);",
+            "alter table aggressor_incidents add foreign key (incidentId) references incidents(id);");
+
     private static final String SQL_SELECT_USERS = "select * from users";
 
     private static final String MSG_CANT_GET_INCIDENTS = "Failed to retrieve incidents.";
@@ -351,6 +370,29 @@ public class MarsH2Repository {
         } catch (SQLException ex) {
             LOGGER.log(Level.SEVERE, MSG_CANT_GET_USERS, ex);
             throw new RepositoryException(MSG_CANT_GET_USERS);
+        }
+    }
+
+    public void removeIncident(int incidentId) {
+        try (Connection conn = getConnection();
+             PreparedStatement incidentStmt = conn.prepareStatement(SQL_DELETE_INCIDENT_BY_INCIDENT_ID);
+             PreparedStatement removeConstraintsStmt = conn.prepareStatement(SQL_REMOVE_CONSTRAINTS);
+             PreparedStatement addConstraintsStmt = conn.prepareStatement(SQL_ADD_CONSTRAINTS))
+        {
+            if (getIncidentWithId(incidentId) == null) {throw new RepositoryException("Failed to retrieve incident"); }
+               removeConstraintsStmt.executeUpdate();
+
+               incidentStmt.setInt(1, incidentId);
+               incidentStmt.setInt(2, incidentId);
+               incidentStmt.setInt(3, incidentId);
+               incidentStmt.setInt(4, incidentId);
+               incidentStmt.executeUpdate();
+
+               addConstraintsStmt.executeUpdate();
+
+            } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Failed to remove incident.", ex);
+            throw new RepositoryException("Failed to remove incident.");
         }
     }
 

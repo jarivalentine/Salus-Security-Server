@@ -4,6 +4,7 @@ import be.howest.ti.mars.logic.controller.DefaultMarsController;
 import be.howest.ti.mars.logic.controller.MarsController;
 import be.howest.ti.mars.web.exceptions.MalformedRequestException;
 import io.vertx.core.http.HttpMethod;
+import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.CorsHandler;
@@ -71,6 +72,8 @@ public class MarsOpenApiBridge {
         LOGGER.log(Level.INFO, "Installing handler for: getAggressorsByIncidentId");
         routerBuilder.operation("getAggressorsByIncidentId").handler(this::getAggressorsByIncidentId);
 
+        LOGGER.log(Level.INFO, "Installing handler for: deleteIncident");
+        routerBuilder.operation("deleteIncident").handler(this::deleteIncident);
 
         LOGGER.log(Level.INFO, "All handlers are installed, creating router.");
         return routerBuilder.createRouter();
@@ -108,6 +111,13 @@ public class MarsOpenApiBridge {
     private void getAllIncidentsByUserId(RoutingContext ctx) {
         String id = Request.from(ctx).getUserId();
         Response.sendIncidents(ctx, controller.getIncidentsFromUser(id));
+    }
+
+    private void deleteIncident(RoutingContext ctx) {
+        int incidentId = Request.from(ctx).getIncidentId();
+        controller.removeIncident(incidentId);
+        JsonObject response = new JsonObject().put("Incident removed", incidentId);
+        Response.sendJsonResponse(ctx, 200, response);
     }
 
     private void getBystandersByIncidentId(RoutingContext ctx) {
