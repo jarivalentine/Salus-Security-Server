@@ -113,9 +113,9 @@ class DefaultMarsControllerTest {
 
         // Act
         List<User> bystanders = sut.getBystandersFromIncident(1);
-
+        int size_of_bystanders = 3;
         //Assert
-        assertEquals(Collections.EMPTY_LIST, bystanders);
+        assertEquals(size_of_bystanders, bystanders.size());
     }
 
     @Test
@@ -125,9 +125,10 @@ class DefaultMarsControllerTest {
 
         // Act
         List<User> aggressors = sut.getAggressorFromIncident(1);
-
+        int first_user = 0;
+        String aggressor_id = "1976-11-09_MA";
         //Assert
-        assertEquals(Collections.EMPTY_LIST, aggressors);
+        assertEquals(aggressor_id, aggressors.get(first_user).getId());
     }
 
     @Test

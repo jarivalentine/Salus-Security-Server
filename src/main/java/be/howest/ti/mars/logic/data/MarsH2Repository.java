@@ -1,6 +1,7 @@
 package be.howest.ti.mars.logic.data;
 
 import be.howest.ti.mars.logic.domain.Incident;
+import be.howest.ti.mars.logic.domain.State;
 import be.howest.ti.mars.logic.domain.User;
 import be.howest.ti.mars.logic.exceptions.RepositoryException;
 import org.h2.tools.Server;
@@ -33,7 +34,7 @@ public class MarsH2Repository {
     private static final String SQL_SELECT_INCIDENTS = "select * from incidents;";
     private static final String SQL_SELECT_LABELS_BY_INCIDENT_ID = "select * from incidents_labels where incidentId = ?;";
     private static final String SQL_USER_BY_ID = "select * from users where id = ?;";
-    private static final String SQL_INSERT_INCIDENT = "insert into incidents (`type`, `longitude`, `latitude`, `validated`, `reporterId`) values (?, ?, ?, ?, ?);";
+    private static final String SQL_INSERT_INCIDENT = "insert into incidents (`type`, `longitude`, `latitude`, `state`, `reporterId`) values (?, ?, ?, ?, ?);";
     private static final String SQL_INSERT_LABELS = "insert into incidents_labels (label, incidentId) values (?, ?);";
     private static final String SQL_INSERT_BYSTANDER = "insert into bystander_incidents (userId, incidentId) values (?, ?);";
     private static final String SQL_INSERT_AGGRESSORS = "insert into aggressor_incidents (userId, incidentId) values(? ,?);";
@@ -50,9 +51,9 @@ public class MarsH2Repository {
 
     private static final String SQL_DELETE_INCIDENT_BY_INCIDENT_ID = String.format(INCIDENT_STRING_FORMAT,
             "delete from incidents where id = ?;",
-            "delete from aggressor_incidents where INCIDENTID = ?;",
-            "delete from bystander_incidents where INCIDENTID = ?;",
-            "delete from incidents_labels where INCIDENTID = ?;");
+            "delete from aggressor_incidents where incidentId = ?;",
+            "delete from bystander_incidents where incidentId = ?;",
+            "delete from incidents_labels where incidentId = ?;");
     private static final String SQL_REMOVE_CONSTRAINTS = String.format(INCIDENT_STRING_FORMAT,
             "alter table incidents drop constraint CONSTRAINT_46D;",
             "alter table incidents_labels drop constraint CONSTRAINT_EA5;",
@@ -183,7 +184,7 @@ public class MarsH2Repository {
             stmt.setString(1, newIncident.getType());
             stmt.setString(2, newIncident.getLongitude());
             stmt.setString(3, newIncident.getLatitude());
-            stmt.setBoolean(4, newIncident.isValidated());
+            stmt.setString(4, newIncident.getState().toString());
             stmt.setString(5, newIncident.getReporterId());
 
             int affectedRows = stmt.executeUpdate();
@@ -317,7 +318,7 @@ public class MarsH2Repository {
                         rs.getString("longitude"),
                         rs.getString("latitude"),
                         rs.getTimestamp("datetime"),
-                        rs.getBoolean("validated"),
+                        State.valueOf(rs.getString("state")),
                         rs.getString("reporterId")
                 );
                 newIncident.setLabels(getLabelsFromIncidents(newIncident.getId()));
