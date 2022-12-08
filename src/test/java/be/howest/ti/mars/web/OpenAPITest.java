@@ -111,6 +111,20 @@ class OpenAPITest {
     }
 
     @Test
+    void validateIncident(final VertxTestContext testContext) {
+        webClient.put(PORT, HOST, "/api/incidents/2/validate").send()
+                .onFailure(testContext::failNow)
+                .onSuccess(response -> testContext.verify(() -> {
+                    assertEquals(200, response.statusCode(), MSG_200_EXPECTED);
+                    assertTrue(
+                            StringUtils.isNotBlank(String.valueOf(response.bodyAsJsonObject().getString("id"))),
+                            String.valueOf(1)
+                    );
+                    testContext.completeNow();
+                }));
+    }
+
+    @Test
     void getIncidentsFromUserId(final VertxTestContext testContext) {
         webClient.get(PORT, HOST, "/api/users/1989-01-28_AL/incidents").send()
                 .onFailure(testContext::failNow)

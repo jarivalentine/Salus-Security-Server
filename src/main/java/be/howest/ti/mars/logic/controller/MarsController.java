@@ -19,4 +19,5 @@ public interface MarsController {
     List<User> getAggressorFromIncident(int incidentId);
     List<User> getUsers();
     void removeIncident(int incidentId);
+    Incident validateIncident(int incidentId);
 }

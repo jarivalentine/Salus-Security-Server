@@ -66,6 +66,8 @@ public class MarsH2Repository {
             "alter table bystander_incidents add foreign key (incidentId) references incidents(id);",
             "alter table aggressor_incidents add foreign key (incidentId) references incidents(id);");
 
+    private static final String SQL_UPDATE_INCIDENT_STATE = "update incidents set state = ? where id = ?;";
+
     private static final String SQL_SELECT_USERS = "select * from users";
 
     private static final String MSG_CANT_GET_INCIDENTS = "Failed to retrieve incidents.";
@@ -394,6 +396,24 @@ public class MarsH2Repository {
             } catch (SQLException ex) {
             LOGGER.log(Level.SEVERE, "Failed to remove incident.", ex);
             throw new RepositoryException("Failed to remove incident.");
+        }
+    }
+
+    public Incident validateIncident(int incidentId) {
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(SQL_UPDATE_INCIDENT_STATE)) {
+            String state = getIncidentWithId(incidentId).getState().toString();
+            if (Objects.equals(state, State.CONFIRMED.toString()) || Objects.equals(state, State.DECLINED.toString())) throw new IllegalArgumentException("cannot validate something that has been validated already");
+
+            getIncidentWithId(incidentId).getSuperComplexAISHA256HashedAndDecryptedAIValidation();
+
+            stmt.setString(1, state);
+            stmt.executeUpdate();
+            return getIncidentWithId(incidentId);
+
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Failed to update state.", ex);
+            throw new RepositoryException("Could not update state.");
         }
     }
 
