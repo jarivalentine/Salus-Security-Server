@@ -81,4 +81,9 @@ public class MockMarsController implements MarsController {
 
     }
 
+    @Override
+    public Incident validateIncident(int incidentId) {
+        return getIncident(incidentId);
+    }
+
 }
