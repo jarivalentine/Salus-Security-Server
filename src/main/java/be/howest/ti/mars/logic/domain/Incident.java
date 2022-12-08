@@ -61,7 +61,7 @@ public class Incident {
         return Incident.RANDOM_TYPES_LIST.get(random.nextInt(Incident.RANDOM_TYPES_LIST.size()));
     }
 
-    public void getSuperComplexAISHA256HashedAndDecryptedAIValidation() { // Quantum AI calculating the complex validity of an incident
+    public void setSuperComplexAISHA256HashedAndDecryptedAIValidation() { // Quantum AI calculating the complex validity of an incident
         int odds = random.nextInt(10); // 0-8 = true, 9 = false
         if (odds <= 8){
             this.state = State.CONFIRMED;
@@ -100,7 +100,9 @@ public class Incident {
         return latitude;
     }
 
-    public State getState(){return state;}
+    public State getState(){
+        return state;
+    }
 
     public List<String> getLabels() {
         return labels;

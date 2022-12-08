@@ -49,17 +49,16 @@ public class MarsH2Repository {
 
     private static final String INCIDENT_STRING_FORMAT = "%s %s %s %s";
 
-    private static final String SQL_DELETE_INCIDENT_BY_INCIDENT_ID = String.format(INCIDENT_STRING_FORMAT,
-            "delete from incidents where id = ?;",
-            "delete from aggressor_incidents where incidentId = ?;",
-            "delete from bystander_incidents where incidentId = ?;",
-            "delete from incidents_labels where incidentId = ?;");
     private static final String SQL_REMOVE_CONSTRAINTS = String.format(INCIDENT_STRING_FORMAT,
             "alter table incidents drop constraint CONSTRAINT_46D;",
             "alter table incidents_labels drop constraint CONSTRAINT_EA5;",
             "alter table bystander_incidents drop constraint CONSTRAINT_36E;",
             "alter table aggressor_incidents drop constraint CONSTRAINT_233;");
-
+    private static final String SQL_DELETE_INCIDENT_BY_INCIDENT_ID = String.format(INCIDENT_STRING_FORMAT,
+            "delete from incidents where id = ?;",
+            "delete from aggressor_incidents where incidentId = ?;",
+            "delete from bystander_incidents where incidentId = ?;",
+            "delete from incidents_labels where incidentId = ?;");
     private static final String SQL_ADD_CONSTRAINTS = String.format(INCIDENT_STRING_FORMAT,
             "alter table incidents add foreign key (reporterId) references users(id);",
             "alter table incidents_labels add foreign key (incidentId) references incidents(id);",
@@ -192,7 +191,7 @@ public class MarsH2Repository {
             int affectedRows = stmt.executeUpdate();
 
             if (affectedRows == 0) {
-                throw new SQLException("Creating user failed, no rows affected.");
+                throw new SQLException("Creating incident failed, no rows affected.");
             }
 
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
@@ -204,7 +203,7 @@ public class MarsH2Repository {
                     return newIncident;
                 }
                 else {
-                    throw new SQLException("Creating quote failed, no ID obtained.");
+                    throw new SQLException("Creating incident failed, no keys obtained.");
                 }
             }
         } catch (SQLException ex) {
@@ -402,12 +401,14 @@ public class MarsH2Repository {
     public Incident validateIncident(int incidentId) {
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(SQL_UPDATE_INCIDENT_STATE)) {
-            String state = getIncidentWithId(incidentId).getState().toString();
-            if (Objects.equals(state, State.CONFIRMED.toString()) || Objects.equals(state, State.DECLINED.toString())) throw new IllegalArgumentException("cannot validate something that has been validated already");
+            Incident incident = getIncidentWithId(incidentId);
+            if (!Objects.equals(incident.getState().toString(), State.ACTIVE.toString())) throw new IllegalArgumentException("cannot validate something that has been validated already");
 
-            getIncidentWithId(incidentId).getSuperComplexAISHA256HashedAndDecryptedAIValidation();
+            incident.setSuperComplexAISHA256HashedAndDecryptedAIValidation();
 
-            stmt.setString(1, state);
+            stmt.setString(1, incident.getState().toString());
+            stmt.setInt(2, incidentId);
+
             stmt.executeUpdate();
             return getIncidentWithId(incidentId);
 

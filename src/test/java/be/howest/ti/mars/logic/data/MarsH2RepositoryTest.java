@@ -1,12 +1,15 @@
 package be.howest.ti.mars.logic.data;
 
+import be.howest.ti.mars.logic.domain.Incident;
+import be.howest.ti.mars.logic.domain.State;
 import be.howest.ti.mars.logic.domain.User;
 import io.vertx.core.json.JsonObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Map;
+import java.util.*;
+
 
 class MarsH2RepositoryTest {
     private static final String URL = "jdbc:h2:./db-11";
@@ -22,66 +25,171 @@ class MarsH2RepositoryTest {
     }
 
     @Test
-    void dummyTestForSonar(){
+    void getIncidents(){
         // Arrange
-        int id = 1;
-
+        int lengthOfIncidentsList = 7;
         // Act
-        User user = new User("1989-01-28_AL", "Adison", "Lopez", false);
+        List<Incident> incidentList = Repositories.getH2Repo().getIncidents();
+        //Assert
+        Assertions.assertEquals(lengthOfIncidentsList, incidentList.size());
+    }
+
+    @Test
+    void getLabelsFromIncidents(){
+        // Arrange
+        int incidentId = 1;
+        List<String> listOfLabels = List.of("Armed", "Child Danger", "Critical Condition");
+        // Act
+        Incident incidentFromDB = Repositories.getH2Repo().getIncidents().stream().filter(incident -> incident.getId() == incidentId).findAny().orElseThrow(() -> new NoSuchElementException("Incident with this id doesn't exist"));
+        ;
+        //Assert
+        Assertions.assertEquals(listOfLabels, incidentFromDB.getLabels());
+    }
+
+    @Test
+    void getExceptionFromOneIncident(){
+        // Arrange
+        int incidentId = -1;
+
+        //Act + Assert
+        Assertions.assertThrows(NoSuchElementException.class, () -> Repositories.getH2Repo().getIncidents().stream().filter(incident -> incident.getId() == incidentId).findAny().orElseThrow(() -> new NoSuchElementException("Incident with this id doesn't exist")));
+    }
+
+    @Test
+    void getUser(){
+        //Arrange
+        String userId = "1989-01-28_AL";
+        String firstname = "Adison";
+        String lastname = "Lopez";
+        boolean subscribed = false;
+        //Act
+        User user = Repositories.getH2Repo().getUser(userId);
+        //Assert
+        Assertions.assertEquals(firstname, user.getFirstname());
+        Assertions.assertEquals(lastname, user.getLastname());
+        Assertions.assertEquals(subscribed, user.isSubscribed());
+    }
+
+    @Test
+    void subscribeUser(){
+        //Arrange
+        String userId = "1989-01-28_AL";
+        boolean subscribed = true;
+        //Act
+        User user = Repositories.getH2Repo().subscribeUser(userId);
+        //Assert
+        Assertions.assertEquals(subscribed, user.isSubscribed());
+
+    }
+
+    @Test
+    void unSubscribeUser(){
+        //Arrange
+        String userId = "1989-01-28_AL";
+        boolean subscribed = false;
+        //Act
+        User user = Repositories.getH2Repo().unSubscribeUser(userId);
+        //Assert
+        Assertions.assertEquals(subscribed, user.isSubscribed());
+
+    }
+
+    @Test
+    void insertIncident(){
+        //Arrange
+        String reporterId = "1992-02-04_SH";
+        String latitude = "2.4243";
+        String longitude = "52.9875";
+        int newIncidentId = 8;
+        //Act
+        Incident incident = Repositories.getH2Repo().insertIncident(reporterId, latitude, longitude);
+        //Assert
+        Assertions.assertEquals(reporterId, incident.getReporterId());
+        Assertions.assertEquals(latitude, incident.getLatitude());
+        Assertions.assertEquals(longitude, incident.getLongitude());
+        Assertions.assertEquals(newIncidentId, incident.getId());
+        Assertions.assertEquals(State.ACTIVE, incident.getState());
+        Assertions.assertNotEquals(Collections.EMPTY_LIST, incident.getLabels());
+    }
+
+    @Test
+    void helpIncidentAndGetBystandersFromIncident(){
+        //Arrange
+        String userId = "1989-01-28_AL";
+        int incidentId = 5;
+        int lengthOfIncidentBystandersList = 1;
+        //Act
+        Repositories.getH2Repo().helpIncident(userId, incidentId);
+        List<User> bystanders = Repositories.getH2Repo().getBystandersFromIncident(incidentId);
+        User user = Repositories.getH2Repo().getUser(userId);
+        //Assert
+        Assertions.assertEquals(lengthOfIncidentBystandersList, bystanders.size());
+        Assertions.assertTrue(bystanders.contains(user));
+    }
+
+    @Test
+    void getHelpedIncidents(){
+        //Arrange
+        String userId = "1989-01-28_AL";
+        int incidentId = 5;
+        int indexCorrection = 1;
+        //Act
+        Repositories.getH2Repo().helpIncident(userId, incidentId);
+        List<Incident> helpedIncidents = Repositories.getH2Repo().getHelpedIncidents(userId);
+        List<Incident> incidents = List.of(Repositories.getH2Repo().getIncidents().get(incidentId-indexCorrection));
 
         //Assert
-        Assertions.assertEquals("Adison", user.getFirstname());
-    }
-/* STILL NEEDED, NO TESTS MADE YET USING OUR VERSION
-    @Test
-    void getQuote() {
-        // Arrange
-        int id = 1;
-
-        // Act
-        Quote quote = Repositories.getH2Repo().getQuote(id);
-
-        // Assert
-        Assertions.assertTrue(quote != null && !StringUtil.isNullOrEmpty(quote.getValue()));
+        Assertions.assertEquals(incidents, helpedIncidents);
     }
 
     @Test
-    void updateQuote() {
-        // Arrange
-        int id = 1;
-        String quoteValue = "some value";
-
-        // Act
-        Quote quote = Repositories.getH2Repo().updateQuote(id, quoteValue);
-
-        // Assert
-        Assertions.assertNotNull(quote);
-        Assertions.assertEquals(quoteValue, quote.getValue());
+    void getAggressorsFromIncident(){
+        //Arrange
+        int incidentId = 1;
+        String aggressorId = "1976-11-09_MA";
+        //Act
+        List<User> aggressorsFromIncident = Repositories.getH2Repo().getAggressorFromIncident(incidentId);
+        List<User> aggressors = List.of(Repositories.getH2Repo().getUser(aggressorId));
+        //Assert
+        Assertions.assertEquals(aggressors, aggressorsFromIncident);
     }
 
     @Test
-    void insertQuote() {
-        // Arrange
-        String quoteValue = "some value";
-
-        // Act
-        Quote quote = Repositories.getH2Repo().insertQuote(quoteValue);
-
-        // Assert
-        Assertions.assertNotNull(quote);
-        Assertions.assertEquals(quoteValue, quote.getValue());
+    void getUsers(){
+        //Arrange
+        int lengthOfUsersList = 10;
+        //Act
+        List<User> users = Repositories.getH2Repo().getUsers();
+        //Assert
+        Assertions.assertEquals(lengthOfUsersList, users.size());
     }
 
     @Test
-    void deleteQuote() {
-        // Arrange
-        int id = 1;
-
-        // Act
-        Repositories.getH2Repo().deleteQuote(id);
-
-        // Assert
-        Assertions.assertNull(Repositories.getH2Repo().getQuote(id));
+    void removeIncident(){
+        //Arrange
+        int incidentId = 4;
+        //Act
+        Repositories.getH2Repo().removeIncident(incidentId);
+        //Assert
+        Assertions.assertThrows(NoSuchElementException.class, () -> Repositories.getH2Repo().getIncidents().stream().filter(incident -> incident.getId() == incidentId).findAny().orElseThrow(()-> new NoSuchElementException("cannot find incident with this id")));
     }
-*/
+
+    @Test
+    void validateIncident(){
+        //Arrange
+        int incidentId = 3;
+        //Act
+        Incident incident = Repositories.getH2Repo().validateIncident(incidentId);
+        //Assert
+        Assertions.assertNotEquals(State.ACTIVE, incident.getState());
+    }
+
+    @Test
+    void validateIncidentThatHasBeenValidatedAlready(){
+        //Arrange
+        int incidentId = 1;
+
+        //Act + Assert
+        Assertions.assertThrows(IllegalArgumentException.class, () -> Repositories.getH2Repo().validateIncident(incidentId));
+    }
 }
