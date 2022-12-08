@@ -72,4 +72,14 @@ class IncidentTest {
 
         assertEquals(incident2, incident); //equals and hash on id
     }
+
+    @Test
+    void checkValidation(){
+        User user = new User("1989-01-28_AL", "Alison", "Lopez", false);
+        Incident incident = new Incident(user.getId(), "53", "32");
+
+        incident.setSuperComplexAISHA256HashedAndDecryptedAIValidation();
+
+        assertNotEquals(State.ACTIVE, incident.getState());
+    }
 }

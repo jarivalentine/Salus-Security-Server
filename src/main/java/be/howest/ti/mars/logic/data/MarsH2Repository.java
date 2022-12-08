@@ -402,8 +402,7 @@ public class MarsH2Repository {
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(SQL_UPDATE_INCIDENT_STATE)) {
             Incident incident = getIncidentWithId(incidentId);
-            String state = incident.getState().toString();
-            if (!Objects.equals(state, State.ACTIVE.toString())) throw new IllegalArgumentException("cannot validate something that has been validated already");
+            if (!Objects.equals(incident.getState().toString(), State.ACTIVE.toString())) throw new IllegalArgumentException("cannot validate something that has been validated already");
 
             incident.setSuperComplexAISHA256HashedAndDecryptedAIValidation();
 
