@@ -13,7 +13,7 @@ public class Incident {
     private Timestamp datetime;
     private final String longitude;
     private final String latitude;
-    private final boolean validated;
+    private State state;
     private List<String> labels;
     private final String reporterId;
     private static final int NO_ID = -1;
@@ -29,18 +29,18 @@ public class Incident {
         this.datetime = NO_DATE;
         this.longitude = Objects.requireNonNull(longitude);
         this.latitude = Objects.requireNonNull(latitude);
-        this.validated = getSuperComplexAISHA256HashedAndDecryptedAIValidation();
+        this.state = State.ACTIVE;
         this.labels = getRandomLabels();
         this.reporterId = Objects.requireNonNull(reporter);
     }
 
-    public Incident(int id, String type, String longitude, String latitude, Timestamp datetime, boolean validated, String reporterId) {
+    public Incident(int id, String type, String longitude, String latitude, Timestamp datetime, State state, String reporterId) {
         this.id = id;
         this.type = type;
         this.datetime = datetime;
         this.longitude = longitude;
         this.latitude = latitude;
-        this.validated = validated;
+        this.state = state;
         this.labels = new ArrayList<>();
         this.reporterId = reporterId;
     }
@@ -61,9 +61,13 @@ public class Incident {
         return Incident.RANDOM_TYPES_LIST.get(random.nextInt(Incident.RANDOM_TYPES_LIST.size()));
     }
 
-    private boolean getSuperComplexAISHA256HashedAndDecryptedAIValidation() { // Quantum AI calculating the complex validity of an incident
+    public void getSuperComplexAISHA256HashedAndDecryptedAIValidation() { // Quantum AI calculating the complex validity of an incident
         int odds = random.nextInt(10); // 0-8 = true, 9 = false
-        return odds <= 8;
+        if (odds <= 8){
+            this.state = State.CONFIRMED;
+        } else {
+            this.state = State.DECLINED;
+        }
     }
 
     private List<String> getRandomLabels() {
@@ -96,9 +100,7 @@ public class Incident {
         return latitude;
     }
 
-    public boolean isValidated() {
-        return validated;
-    }
+    public State getState(){return state;}
 
     public List<String> getLabels() {
         return labels;

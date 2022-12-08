@@ -1,11 +1,3 @@
-drop table if exists quotes;
-create table quotes
-(
-    id    int auto_increment,
-    quote varchar(255)
-);
-
-
 drop table if exists bystander_incidents;
 drop table if exists aggressor_incidents;
 drop table if exists incidents_labels;
@@ -29,7 +21,7 @@ create table incidents
     longitude   varchar(255),
     latitude    varchar(255),
     datetime    datetime default current_timestamp,
-    validated   boolean,
+    state       varchar(50),
     reporterId  varchar(16) not null,
     primary key (id),
     foreign key (reporterId) references users(id)

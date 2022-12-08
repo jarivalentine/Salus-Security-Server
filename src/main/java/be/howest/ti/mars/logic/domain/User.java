@@ -48,6 +48,11 @@ public class User {
     }
 
     @Override
+    public String toString() {
+        return String.format("(%s) %s %s (%b)", id, firstname, lastname, subscribed);
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(id);
     }

@@ -37,12 +37,6 @@ public class Response {
         sendJsonResponse(ctx, 200, response);
     }
 
-    private static void sendEmptyResponse(RoutingContext ctx, int statusCode) {
-        ctx.response()
-                .setStatusCode(statusCode)
-                .end();
-    }
-
     public static void sendJsonResponse(RoutingContext ctx, int statusCode, Object response) {
         ctx.response()
                 .putHeader(HttpHeaders.CONTENT_TYPE, "application/json")
