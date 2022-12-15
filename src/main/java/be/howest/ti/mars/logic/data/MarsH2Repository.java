@@ -350,7 +350,9 @@ public class MarsH2Repository {
 
     private List<String> getRandomUsersIds(String reporterId) {
         SecureRandom random = new SecureRandom();
-        int bound = random.nextInt(getUsers().size() + INDEX_CORRECTION);
+        int min = 1;
+        int max = getUsers().size();
+        int bound = random.nextInt((max - min) + INDEX_CORRECTION) + min ;
         List<String> randomUsers = new ArrayList<>();
         List<User> usersWithoutReporter = getUsers().stream()
                 .filter(user -> !Objects.equals(user.getId(), reporterId))
