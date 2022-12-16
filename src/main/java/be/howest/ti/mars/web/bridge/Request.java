@@ -53,11 +53,11 @@ public class Request {
     }
 
     public String getLatitude() {
-        return params.body().getJsonObject().getString(SPEC_INCIDENT_LONGITUDE);
+        return params.body().getJsonObject().getString(SPEC_INCIDENT_LATITUDE);
     }
 
     public String getLongitude() {
-        return params.body().getJsonObject().getString(SPEC_INCIDENT_LATITUDE);
+        return params.body().getJsonObject().getString(SPEC_INCIDENT_LONGITUDE);
     }
 
     public int getIncidentId() {return  params.pathParameter(SPEC_INCIDENT_ID).getInteger();}

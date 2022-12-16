@@ -18,8 +18,8 @@ create table incidents
 (
     id          int auto_increment,
     type        varchar(255),
-    longitude   varchar(255),
     latitude    varchar(255),
+    longitude   varchar(255),
     datetime    datetime default current_timestamp,
     state       varchar(50),
     reporterId  varchar(16) not null,

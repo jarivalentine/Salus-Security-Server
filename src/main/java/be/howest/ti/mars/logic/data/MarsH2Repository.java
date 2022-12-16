@@ -34,7 +34,7 @@ public class MarsH2Repository {
     private static final String SQL_SELECT_INCIDENTS = "select * from incidents;";
     private static final String SQL_SELECT_LABELS_BY_INCIDENT_ID = "select * from incidents_labels where incidentId = ?;";
     private static final String SQL_USER_BY_ID = "select * from users where id = ?;";
-    private static final String SQL_INSERT_INCIDENT = "insert into incidents (`type`, `longitude`, `latitude`, `state`, `reporterId`) values (?, ?, ?, ?, ?);";
+    private static final String SQL_INSERT_INCIDENT = "insert into incidents (`type`,`latitude`, `longitude`, `state`, `reporterId`) values (?, ?, ?, ?, ?);";
     private static final String SQL_INSERT_LABELS = "insert into incidents_labels (label, incidentId) values (?, ?);";
     private static final String SQL_INSERT_BYSTANDER = "insert into bystander_incidents (userId, incidentId) values (?, ?);";
     private static final String SQL_INSERT_AGGRESSORS = "insert into aggressor_incidents (userId, incidentId) values(? ,?);";
@@ -180,11 +180,11 @@ public class MarsH2Repository {
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(SQL_INSERT_INCIDENT, Statement.RETURN_GENERATED_KEYS))
         {
-            Incident newIncident = new Incident(reportedId, longitude, latitude);
+            Incident newIncident = new Incident(reportedId, latitude, longitude);
 
             stmt.setString(1, newIncident.getType());
-            stmt.setString(2, newIncident.getLongitude());
-            stmt.setString(3, newIncident.getLatitude());
+            stmt.setString(2, newIncident.getLatitude());
+            stmt.setString(3, newIncident.getLongitude());
             stmt.setString(4, newIncident.getState().toString());
             stmt.setString(5, newIncident.getReporterId());
 
@@ -316,8 +316,8 @@ public class MarsH2Repository {
                 Incident newIncident = new Incident(
                         rs.getInt("id"),
                         rs.getString("type"),
-                        rs.getString("longitude"),
                         rs.getString("latitude"),
+                        rs.getString("longitude"),
                         rs.getTimestamp("datetime"),
                         State.valueOf(rs.getString("state")),
                         rs.getString("reporterId")
