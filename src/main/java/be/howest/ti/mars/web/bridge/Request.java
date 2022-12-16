@@ -1,12 +1,8 @@
 package be.howest.ti.mars.web.bridge;
 
-import be.howest.ti.mars.web.exceptions.MalformedRequestException;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.validation.RequestParameters;
 import io.vertx.ext.web.validation.ValidationHandler;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * The Request class is responsible for translating information that is part of the
@@ -28,7 +24,6 @@ import java.util.logging.Logger;
  * you will need a second one with a different name.
  */
 public class Request {
-    private static final Logger LOGGER = Logger.getLogger(Request.class.getName());
     public static final String SPEC_USER_ID = "id";
     public static final String SPEC_INCIDENT_USER_ID = "reporterId";
     public static final String SPEC_INCIDENT_LONGITUDE = "longitude";
