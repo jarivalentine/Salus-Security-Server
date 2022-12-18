@@ -23,23 +23,23 @@ public class Incident {
     private final SecureRandom random = new SecureRandom();
     private static final int INDEX_CORRECTION = 1;
 
-    public Incident(String reporter, String longitude, String latitude) {
+    public Incident(String reporter, String latitude, String longitude) {
         this.id = NO_ID;
         this.type = getRandomType();
         this.datetime = NO_DATE;
-        this.longitude = Objects.requireNonNull(longitude);
         this.latitude = Objects.requireNonNull(latitude);
+        this.longitude = Objects.requireNonNull(longitude);
         this.state = State.ACTIVE;
         this.labels = getRandomLabels();
         this.reporterId = Objects.requireNonNull(reporter);
     }
 
-    public Incident(int id, String type, String longitude, String latitude, Timestamp datetime, State state, String reporterId) {
+    public Incident(int id, String type, String latitude, String longitude, Timestamp datetime, State state, String reporterId) {
         this.id = id;
         this.type = type;
         this.datetime = datetime;
-        this.longitude = longitude;
         this.latitude = latitude;
+        this.longitude = longitude;
         this.state = state;
         this.labels = new ArrayList<>();
         this.reporterId = reporterId;
