@@ -425,10 +425,11 @@ public class MarsH2Repository {
         return !listOfIncident.isEmpty();
     }
 
-    public Incident validateIncident(int incidentId) {
+    public Incident validateIncident(int incidentId, String userId) {
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(SQL_UPDATE_INCIDENT_STATE)) {
             Incident incident = getIncidentWithId(incidentId);
+            if (!Objects.equals(incident.getReporterId(), userId)) throw new IllegalArgumentException("User that is not the reporter cannot stop a recording and validate it!");
             if (!Objects.equals(incident.getState().toString(), State.ACTIVE.toString())) throw new IllegalArgumentException("cannot validate something that has been validated already");
 
             incident.setSuperComplexAISHA256HashedAndDecryptedAIValidation();

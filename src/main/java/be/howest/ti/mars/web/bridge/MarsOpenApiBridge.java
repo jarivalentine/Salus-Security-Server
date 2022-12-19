@@ -105,7 +105,8 @@ public class MarsOpenApiBridge {
 
     private void validateIncident(RoutingContext ctx) {
         int incidentId = Request.from(ctx).getIncidentId();
-        Response.sendIncident(ctx, controller.validateIncident(incidentId));
+        String userId = Request.from(ctx).getUserId();
+        Response.sendIncident(ctx, controller.validateIncident(incidentId, userId));
     }
 
     private void unSubscribeUser(RoutingContext ctx) {
