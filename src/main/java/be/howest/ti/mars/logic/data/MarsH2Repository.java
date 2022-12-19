@@ -41,6 +41,9 @@ public class MarsH2Repository {
     private static final String SQL_UPDATE_SUBSCRIPTION = "update users set subscribed = ? where id = ?;";
     private static final String SQL_SELECT_BYSTANDERS_BY_USER_ID =
             "select i.* from bystander_incidents join incidents i on bystander_incidents.incidentId = i.id where userId = ?;";
+
+    private static final String SQL_SELECT_AGGRESSORS_BY_USER_ID =
+            "select i.* from aggressor_incidents join incidents i on aggressor_incidents.incidentId = i.id where userId = ?;";
     private static final String SQL_SELECT_BYSTANDERS_BY_INCIDENT_ID =
             "select u.* from users u join bystander_incidents bi on bi.userId = u.id where bi.incidentId = ?;";
 
@@ -264,6 +267,19 @@ public class MarsH2Repository {
             }
     }
 
+    public List<Incident> getAggressionIncidents(String userId) {
+        try (
+                Connection conn = getConnection();
+                PreparedStatement stmt = conn.prepareStatement(SQL_SELECT_AGGRESSORS_BY_USER_ID)
+        ) {
+            stmt.setString(1, userId);
+            return createIncidents(stmt);
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, MSG_CANT_GET_INCIDENTS, ex);
+            throw new RepositoryException(MSG_CANT_GET_INCIDENTS);
+        }
+    }
+
     public List<User> getBystandersFromIncident(int incidentId) {
         try (
                 Connection conn = getConnection();
@@ -398,6 +414,15 @@ public class MarsH2Repository {
             LOGGER.log(Level.SEVERE, "Failed to remove incident.", ex);
             throw new RepositoryException("Failed to remove incident.");
         }
+    }
+
+
+    public boolean validateUser(String userId, String type) {
+        List<Incident> listOfIncident = getAggressionIncidents(userId)
+                .stream()
+                .filter(incident -> Objects.equals(incident.getType(), type))
+                .collect(Collectors.toList());
+        return !listOfIncident.isEmpty();
     }
 
     public Incident validateIncident(int incidentId) {

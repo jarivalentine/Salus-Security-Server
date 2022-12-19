@@ -29,6 +29,7 @@ public class Request {
     public static final String SPEC_INCIDENT_LONGITUDE = "longitude";
     public static final String SPEC_INCIDENT_LATITUDE = "latitude";
     private static final String SPEC_INCIDENT_ID = "incidentId";
+    private static final String SPEC_TYPE = "type";
     private final RequestParameters params;
 
     public static Request from(RoutingContext ctx) {
@@ -56,4 +57,6 @@ public class Request {
     }
 
     public int getIncidentId() {return  params.pathParameter(SPEC_INCIDENT_ID).getInteger();}
+
+    public String getType() {return  params.pathParameter(SPEC_TYPE).getString();}
 }

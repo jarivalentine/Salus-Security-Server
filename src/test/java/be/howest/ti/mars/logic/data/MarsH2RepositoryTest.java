@@ -192,4 +192,17 @@ class MarsH2RepositoryTest {
         //Act + Assert
         Assertions.assertThrows(IllegalArgumentException.class, () -> Repositories.getH2Repo().validateIncident(incidentId));
     }
+
+    @Test
+    void validateUser(){
+        //Arrange
+        String userId = "1976-11-09_MA";
+        String type = "Murder";
+
+        //Act
+        boolean validUser = Repositories.getH2Repo().validateUser(userId, type);
+        //Assert
+        Assertions.assertTrue(validUser);
+
+    }
 }

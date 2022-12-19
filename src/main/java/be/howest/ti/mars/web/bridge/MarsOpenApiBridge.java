@@ -78,6 +78,9 @@ public class MarsOpenApiBridge {
         LOGGER.log(Level.INFO, "Installing handler for: validateIncident");
         routerBuilder.operation("validateIncident").handler(this::validateIncident);
 
+        LOGGER.log(Level.INFO, "Installing handler for: validateUser");
+        routerBuilder.operation("validateUser").handler(this::validateUser);
+
         LOGGER.log(Level.INFO, "All handlers are installed, creating router.");
         return routerBuilder.createRouter();
     }
@@ -125,6 +128,13 @@ public class MarsOpenApiBridge {
         int incidentId = Request.from(ctx).getIncidentId();
         controller.removeIncident(incidentId);
         JsonObject response = new JsonObject().put("Incident removed", incidentId);
+        Response.sendJsonResponse(ctx, 200, response);
+    }
+
+    private void validateUser(RoutingContext ctx) {
+        String userId = Request.from(ctx).getUserId();
+        String type = Request.from(ctx).getType();
+        JsonObject response = new JsonObject().put(userId, controller.validateUser(userId, type));
         Response.sendJsonResponse(ctx, 200, response);
     }
 
