@@ -253,4 +253,18 @@ class OpenAPITest {
                     testContext.completeNow();
                 }));
     }
+
+    @Test
+    void validateUser(final VertxTestContext testContext) {
+        webClient.get(PORT, HOST, "/api/users/1978-12-22_JVD/validate/Murder").send()
+                .onFailure(testContext::failNow)
+                .onSuccess(response -> testContext.verify(() -> {
+                    assertEquals(200, response.statusCode(), MSG_200_EXPECTED);
+                    assertTrue(
+                            StringUtils.isNotBlank(String.valueOf(response.bodyAsJsonObject().getString("userId"))),
+                            "true"
+                    );
+                    testContext.completeNow();
+                }));
+    }
 }

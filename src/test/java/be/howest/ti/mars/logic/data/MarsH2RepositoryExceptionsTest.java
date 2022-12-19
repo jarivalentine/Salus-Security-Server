@@ -45,6 +45,7 @@ class MarsH2RepositoryExceptionsTest {
         Assertions.assertThrows(RepositoryException.class, () -> repo.getAggressorFromIncident(1));
         Assertions.assertThrows(RepositoryException.class, () -> repo.removeIncident(1));
         Assertions.assertThrows(RepositoryException.class, () -> repo.validateIncident(1));
+        Assertions.assertThrows(RepositoryException.class, () -> repo.validateUser("1989-01-28_AL", "Murder"));
     }
 
 

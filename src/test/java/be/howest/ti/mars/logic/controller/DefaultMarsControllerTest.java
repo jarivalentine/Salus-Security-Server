@@ -132,6 +132,19 @@ class DefaultMarsControllerTest {
     }
 
     @Test
+    void validateUser(){
+        // Arrange
+        MarsController sut = new DefaultMarsController();
+        String userId = "1976-11-09_MA";
+        String type = "Murder";
+
+        // Act
+        boolean validateUser = sut.validateUser(userId, type);
+        //Assert
+        assertTrue(validateUser);
+    }
+
+    @Test
     void getUsers(){
         // Arrange
         MarsController sut = new DefaultMarsController();
