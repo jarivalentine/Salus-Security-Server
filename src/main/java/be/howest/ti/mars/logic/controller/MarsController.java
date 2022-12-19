@@ -1,6 +1,7 @@
 package be.howest.ti.mars.logic.controller;
 
 import be.howest.ti.mars.logic.domain.Incident;
+import be.howest.ti.mars.logic.domain.Subscription;
 import be.howest.ti.mars.logic.domain.User;
 
 import java.util.List;
@@ -21,4 +22,5 @@ public interface MarsController {
     void removeIncident(int incidentId);
     Incident validateIncident(int incidentId, String userId);
     boolean validateUser(String userId, String type);
+    void addSubscription(Subscription subscription);
 }

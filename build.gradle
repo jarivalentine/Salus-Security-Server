@@ -46,6 +46,10 @@ dependencies {
 
     // https://groups.google.com/forum/#!topic/vertx/MNb8-tvdp7s
     implementation "io.vertx:vertx-codegen:$vertxVersion"
+
+    implementation group: 'nl.martijndwars', name: 'web-push', version: '5.1.1'
+// https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on
+    implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.64'
 }
 
 test {
