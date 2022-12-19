@@ -2,10 +2,10 @@ package be.howest.ti.mars.logic.controller;
 
 import be.howest.ti.mars.logic.data.Repositories;
 import be.howest.ti.mars.logic.domain.Incident;
+import be.howest.ti.mars.logic.domain.Subscription;
 import be.howest.ti.mars.logic.domain.User;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -25,6 +25,16 @@ public class DefaultMarsController implements MarsController {
     private static final String MSG_USER_ID_UNKNOWN = "No user with id: %s";
 
     private static final String MSG_INCIDENT_ID_UNKNOWN = "No such incident with incidentId: %d";
+
+    private final Set<Subscription> subscriptions;
+
+    public DefaultMarsController() {
+        subscriptions = new HashSet<>();
+    }
+
+    public void addSubscription(Subscription subscription) {
+        subscriptions.add(subscription);
+    }
 
     @Override
     public List<Incident> getIncidents() {

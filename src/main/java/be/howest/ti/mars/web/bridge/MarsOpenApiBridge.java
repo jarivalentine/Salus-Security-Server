@@ -2,6 +2,7 @@ package be.howest.ti.mars.web.bridge;
 
 import be.howest.ti.mars.logic.controller.DefaultMarsController;
 import be.howest.ti.mars.logic.controller.MarsController;
+import be.howest.ti.mars.logic.domain.Subscription;
 import be.howest.ti.mars.web.exceptions.MalformedRequestException;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
@@ -81,6 +82,9 @@ public class MarsOpenApiBridge {
         LOGGER.log(Level.INFO, "Installing handler for: validateUser");
         routerBuilder.operation("validateUser").handler(this::validateUser);
 
+        LOGGER.log(Level.INFO, "Installing handler for: postSubscription");
+        routerBuilder.operation("postSubscription").handler(this::postSubscription);
+
         LOGGER.log(Level.INFO, "All handlers are installed, creating router.");
         return routerBuilder.createRouter();
     }
@@ -91,6 +95,12 @@ public class MarsOpenApiBridge {
 
     public MarsOpenApiBridge(MarsController controller) {
         this.controller = controller;
+    }
+
+    private void postSubscription(RoutingContext ctx) {
+        Subscription subscription = new Subscription(ctx.getBodyAsJson());
+        controller.addSubscription(subscription);
+        Response.sendJsonResponse(ctx, 200, null);
     }
 
     private void getUsers(RoutingContext ctx) {
