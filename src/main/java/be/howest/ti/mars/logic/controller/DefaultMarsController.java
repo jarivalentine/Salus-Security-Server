@@ -78,13 +78,15 @@ public class DefaultMarsController implements MarsController {
     }
 
     private void sendNotification(Incident incident) {
+        User user = getUser(incident.getReporterId());
+        String message = "New incident reported by " + user.getFirstname() + " " + user.getLastname();
         subscriptions.forEach(subscription -> {
             try {
                 Notification notification = new Notification(
                         subscription.getEndpoint(),
                         subscription.getUserPublicKey(),
                         subscription.getAuthAsBytes(),
-                        ("New incident reported by " + getUser(incident.getReporterId()).getFirstname()).getBytes());
+                        message.getBytes());
                 pushService.send(notification);
             } catch (Exception e) { //NOSONAR
                 throw new IllegalStateException("Unable to send notification", e);
