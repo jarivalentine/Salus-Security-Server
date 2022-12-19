@@ -8,6 +8,7 @@ import nl.martijndwars.webpush.Notification;
 import nl.martijndwars.webpush.PushService;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import java.security.GeneralSecurityException;
 import java.security.Security;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -43,7 +44,7 @@ public class DefaultMarsController implements MarsController {
             pushService.setSubject("mailto:jari.valentine@student.howest.be");
             pushService.setPrivateKey("AP5pxaIKUir89NHRITzauBdlm7GKwjD4SXyk1fe3QODb");
             pushService.setPublicKey("BDrFN6INkPapFsXAaF5fH4e6-gGKM9dQJYW2-PhzP1lJl9yTMKyQuQy8fZ919EvKjFj-iUMPaZ6Hwdw0ofXXiHc=");
-        } catch (Exception e) {
+        } catch (GeneralSecurityException e) {
             throw new IllegalStateException("Unable to initialize push service", e);
         }
     }
@@ -83,7 +84,7 @@ public class DefaultMarsController implements MarsController {
                         subscription.getEndpoint(),
                         subscription.getUserPublicKey(),
                         subscription.getAuthAsBytes(),
-                        "New incident reported".getBytes());
+                        ("New incident reported by " + getUser(incident.getReporterId()).getFirstname()).getBytes());
                 pushService.send(notification);
             } catch (Exception e) { //NOSONAR
                 throw new IllegalStateException("Unable to send notification", e);
