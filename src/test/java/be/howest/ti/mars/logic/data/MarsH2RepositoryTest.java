@@ -178,19 +178,29 @@ class MarsH2RepositoryTest {
     void validateIncident(){
         //Arrange
         int incidentId = 3;
+        String userId = "1989-01-28_AL";
         //Act
-        Incident incident = Repositories.getH2Repo().validateIncident(incidentId);
+        Incident incident = Repositories.getH2Repo().validateIncident(incidentId, userId);
         //Assert
         Assertions.assertNotEquals(State.ACTIVE, incident.getState());
+    }
+
+    @Test
+    void validateIncidentInvalidUser(){
+        //Arrange
+        int incidentId = 1;
+        String userId = "1978-12-22_JVD"; //not the reporter of incident 1.
+        //Act + Assert
+        Assertions.assertThrows(IllegalArgumentException.class, () -> Repositories.getH2Repo().validateIncident(incidentId, userId));
     }
 
     @Test
     void validateIncidentThatHasBeenValidatedAlready(){
         //Arrange
         int incidentId = 1;
-
+        String userId = "1989-01-28_AL";
         //Act + Assert
-        Assertions.assertThrows(IllegalArgumentException.class, () -> Repositories.getH2Repo().validateIncident(incidentId));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> Repositories.getH2Repo().validateIncident(incidentId, userId));
     }
 
     @Test
@@ -203,6 +213,5 @@ class MarsH2RepositoryTest {
         boolean validUser = Repositories.getH2Repo().validateUser(userId, type);
         //Assert
         Assertions.assertTrue(validUser);
-
     }
 }

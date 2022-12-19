@@ -122,8 +122,8 @@ public class DefaultMarsController implements MarsController {
     }
 
     @Override
-    public Incident validateIncident(int incidentId) {
-        return Repositories.getH2Repo().validateIncident(incidentId);
+    public Incident validateIncident(int incidentId, String userId) {
+        return Repositories.getH2Repo().validateIncident(incidentId, userId);
     }
 
     @Override
