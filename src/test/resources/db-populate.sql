@@ -53,7 +53,7 @@ insert into aggressor_incidents(userId, incidentId)
 values  ('2004-08-01_BB', (select max(id) from incidents));
 
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Vandalism', '51.21162', '3.214377', 'ACTIVE', '1989-01-28_AL');
+values ('Vandalism', '51.21162', '3.214377', 'CONFIRMED', '1989-01-28_AL');
 
 insert into incidents_labels (label, incidentId)
 values ('Child Danger', (select max(id) from incidents)),
@@ -63,7 +63,7 @@ insert into aggressor_incidents(userId, incidentId)
 values  ('2004-08-01_BB', (select max(id) from incidents));
 
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Assault', '51.23162', '3.214377', 'ACTIVE', '1989-01-28_AL');
+values ('Assault', '51.23162', '3.214377', 'CONFIRMED', '1989-01-28_AL');
 
 insert into incidents_labels (label, incidentId)
 values ('Armed', (select max(id) from incidents)),
@@ -124,3 +124,132 @@ values  ('1976-11-09_MA', (select max(id) from incidents)),
 
 
 -- END INCIDENTS WHERE REPORTERID = 1978-12-22_JVD
+-- ################################################
+-- BEGIN INCIDENTS WHERE REPORTERID = 2004-08-01_BB
+
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Murder', '51.174812', '3.176589', 'CONFIRMED', '2004-08-01_BB');
+
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents)),
+       ('Child Danger', (select max(id) from incidents));
+
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB2', (select max(id) from incidents));
+
+insert into aggressor_incidents(userId, incidentId)
+values  ('1976-11-09_MA', (select max(id) from incidents)),
+        ('1989-01-28_AL', (select max(id) from incidents));
+
+
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Vandalism', '51.974125', '3.147586', 'ACTIVE', '2004-08-01_BB');
+
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents));
+
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-10-31_LS', (select max(id) from incidents));
+
+insert into aggressor_incidents(userId, incidentId)
+values  ('1989-01-28_AL', (select max(id) from incidents)),
+        ('1997-04-18_CB', (select max(id) from incidents));
+
+-- END INCIDENTS WHERE REPORTERID = 2004-08-01_BB
+-- ################################################
+-- BEGIN INCIDENTS WHERE REPORTERID = 2000-10-31_LS
+
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Murder', '51.236485', '3.236485', 'DECLINED', '2000-10-31_LS');
+
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents)),
+       ('Critical Condition', (select max(id) from incidents));
+
+insert into bystander_incidents(userId, incidentId)
+values  ('2004-08-01_BB', (select max(id) from incidents));
+
+insert into aggressor_incidents(userId, incidentId)
+values  ('1976-11-09_MA', (select max(id) from incidents)),
+        ('1989-01-28_AL', (select max(id) from incidents));
+
+
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Assault', '51.958594', '3.958594', 'CONFIRMED', '2000-10-31_LS');
+
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents)),
+       ('Child Danger', (select max(id) from incidents)),
+       ('Critical Condition', (select max(id) from incidents));
+
+insert into bystander_incidents(userId, incidentId)
+values  ('2004-08-01_BB', (select max(id) from incidents));
+
+insert into aggressor_incidents(userId, incidentId)
+values  ('1989-01-28_AL', (select max(id) from incidents)),
+        ('1997-04-18_CB', (select max(id) from incidents));
+
+-- END INCIDENTS WHERE REPORTERID = 2000-10-31_LS
+-- ################################################
+-- BEGIN INCIDENTS WHERE REPORTERID = 1997-04-18_CB2
+
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Murder', '51.174812', '3.176589', 'CONFIRMED', '2004-08-01_BB');
+
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents)),
+       ('Child Danger', (select max(id) from incidents));
+
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB2', (select max(id) from incidents));
+
+insert into aggressor_incidents(userId, incidentId)
+values  ('1976-11-09_MA', (select max(id) from incidents)),
+        ('1989-01-28_AL', (select max(id) from incidents));
+
+
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Vandalism', '51.974125', '3.147586', 'ACTIVE', '2004-08-01_BB');
+
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents));
+
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-10-31_LS', (select max(id) from incidents));
+
+insert into aggressor_incidents(userId, incidentId)
+values  ('1989-01-28_AL', (select max(id) from incidents)),
+        ('1997-04-18_CB', (select max(id) from incidents));
+
+-- END INCIDENTS WHERE REPORTERID = 2004-08-01_BB
+-- ################################################
+-- BEGIN INCIDENTS WHERE REPORTERID = 2000-10-31_LS
+
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Murder', '51.236485', '3.236485', 'ACTIVE', '1997-04-18_CB2');
+
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents)),
+       ('Critical Condition', (select max(id) from incidents));
+
+insert into bystander_incidents(userId, incidentId)
+values  ('2004-08-01_BB', (select max(id) from incidents));
+
+insert into aggressor_incidents(userId, incidentId)
+values  ('1976-11-09_MA', (select max(id) from incidents)),
+        ('2000-10-31_LS', (select max(id) from incidents));
+
+
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Assault', '51.123456', '3.123456', 'CONFIRMED', '1997-04-18_CB2');
+
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents)),
+       ('Child Danger', (select max(id) from incidents));
+
+insert into bystander_incidents(userId, incidentId)
+values  ('2004-08-01_BB', (select max(id) from incidents));
+
+insert into aggressor_incidents(userId, incidentId)
+values  ('2000-10-31_LS', (select max(id) from incidents)),
+        ('1997-04-18_CB', (select max(id) from incidents));
