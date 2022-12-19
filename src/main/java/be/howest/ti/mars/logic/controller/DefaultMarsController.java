@@ -85,7 +85,7 @@ public class DefaultMarsController implements MarsController {
                         subscription.getAuthAsBytes(),
                         "New incident reported".getBytes());
                 pushService.send(notification);
-            } catch (Exception e) {
+            } catch (Exception e) { //NOSONAR
                 throw new IllegalStateException("Unable to send notification", e);
             }
         });
