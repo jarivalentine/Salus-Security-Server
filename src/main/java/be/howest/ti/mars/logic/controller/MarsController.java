@@ -20,4 +20,5 @@ public interface MarsController {
     List<User> getUsers();
     void removeIncident(int incidentId);
     Incident validateIncident(int incidentId);
+    boolean validateUser(String userId, String type);
 }

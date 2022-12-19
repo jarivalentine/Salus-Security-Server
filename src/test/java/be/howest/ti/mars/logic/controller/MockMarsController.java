@@ -86,4 +86,9 @@ public class MockMarsController implements MarsController {
         return getIncident(incidentId);
     }
 
+    @Override
+    public boolean validateUser(String userId, String type) {
+        return false;
+    }
+
 }
