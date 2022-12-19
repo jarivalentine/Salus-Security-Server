@@ -1,7 +1,10 @@
 package be.howest.ti.mars.logic.controller;
 
 import be.howest.ti.mars.logic.domain.Incident;
+import be.howest.ti.mars.logic.domain.Subscription;
 import be.howest.ti.mars.logic.domain.User;
+import io.vertx.core.json.JsonObject;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -89,6 +92,11 @@ public class MockMarsController implements MarsController {
     @Override
     public boolean validateUser(String userId, String type) {
         return false;
+    }
+
+    @Override
+    public void addSubscription(Subscription subscription) {
+
     }
 
 }
