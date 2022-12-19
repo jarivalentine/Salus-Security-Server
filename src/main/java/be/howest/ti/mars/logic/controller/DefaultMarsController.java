@@ -4,7 +4,11 @@ import be.howest.ti.mars.logic.data.Repositories;
 import be.howest.ti.mars.logic.domain.Incident;
 import be.howest.ti.mars.logic.domain.Subscription;
 import be.howest.ti.mars.logic.domain.User;
+import nl.martijndwars.webpush.Notification;
+import nl.martijndwars.webpush.PushService;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import java.security.Security;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -14,7 +18,7 @@ import static java.lang.Integer.parseInt;
 /**
  * DefaultMarsController is the default implementation for the MarsController interface.
  * The controller shouldn't even know that it is used in an API context..
- *
+ * <p>
  * This class and all other classes in the logic-package (or future sub-packages)
  * should use 100% plain old Java Objects (POJOs). The use of Json, JsonObject or
  * Strings that contain encoded/json data should be avoided here.
@@ -27,9 +31,21 @@ public class DefaultMarsController implements MarsController {
     private static final String MSG_INCIDENT_ID_UNKNOWN = "No such incident with incidentId: %d";
 
     private final Set<Subscription> subscriptions;
+    private final PushService pushService;
 
     public DefaultMarsController() {
         subscriptions = new HashSet<>();
+        pushService = new PushService();
+        try {
+            if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
+                Security.addProvider(new BouncyCastleProvider());
+            }
+            pushService.setSubject("mailto:jari.valentine@student.howest.be");
+            pushService.setPrivateKey("AP5pxaIKUir89NHRITzauBdlm7GKwjD4SXyk1fe3QODb");
+            pushService.setPublicKey("BDrFN6INkPapFsXAaF5fH4e6-gGKM9dQJYW2-PhzP1lJl9yTMKyQuQy8fZ919EvKjFj-iUMPaZ6Hwdw0ofXXiHc=");
+        } catch (Exception e) {
+            throw new IllegalStateException("Unable to initialize push service", e);
+        }
     }
 
     public void addSubscription(Subscription subscription) {
@@ -55,7 +71,24 @@ public class DefaultMarsController implements MarsController {
 
     @Override
     public Incident createIncident(String reportedId, String latitude, String longitude) {
-        return Repositories.getH2Repo().insertIncident(reportedId, latitude, longitude);
+        Incident incident = Repositories.getH2Repo().insertIncident(reportedId, latitude, longitude);
+        sendNotification(incident);
+        return incident;
+    }
+
+    private void sendNotification(Incident incident) {
+        subscriptions.forEach(subscription -> {
+            try {
+                Notification notification = new Notification(
+                        subscription.getEndpoint(),
+                        subscription.getUserPublicKey(),
+                        subscription.getAuthAsBytes(),
+                        "New incident reported".getBytes());
+                pushService.send(notification);
+            } catch (Exception e) {
+                throw new IllegalStateException("Unable to send notification", e);
+            }
+        });
     }
 
     @Override
