@@ -18,7 +18,7 @@ public class Incident {
     private final String reporterId;
     private static final int NO_ID = -1;
     private static final Timestamp NO_DATE = Timestamp.valueOf(LocalDateTime.of(1970, 1, 1, 0, 0, 0));
-    private static final List<String> RANDOM_TYPES_LIST = List.of("Murder", "Theft", "Vandalism", "Assault");
+    private static final List<String> RANDOM_TYPES_LIST = List.of("Murder", "Theft", "Vandalism", "Assault", "Blackmail","Arson","Pirating","Robbery","Armed-Robbery","Stalking","Drug-Smuggling","Abusive-sexual-Contact","Assassination","Bomber","First-Degree-Murder","Rape","Manslaughter","Torturer");
     private static final List<String> RANDOM_LABELS_LIST = List.of("Armed", "Child Danger", "Critical Condition", "Under Control");
     private final SecureRandom random = new SecureRandom();
     private static final int INDEX_CORRECTION = 1;
