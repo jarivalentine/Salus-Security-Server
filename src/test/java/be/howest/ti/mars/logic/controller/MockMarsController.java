@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class MockMarsController implements MarsController {
     @Override
-    public List<Incident> getIncidents() {
+    public List<Incident> getIncidents(boolean active) {
         return List.of(new Incident("1989-01-28_AL", "3", "53"));
     }
 
@@ -27,14 +27,14 @@ public class MockMarsController implements MarsController {
 
     @Override
     public Incident getIncident(int incidentId) {
-        Incident incident = getIncidents().get(0);
+        Incident incident = getIncidents(false).get(0);
         incident.setId(1);
         return incident;
     }
 
     @Override
     public List<Incident> getIncidentsFromUser(String id){
-        return getIncidents()
+        return getIncidents(false)
                 .stream()
                 .filter(incident -> Objects.equals(incident.getReporterId(), id))
                 .collect(Collectors.toList());

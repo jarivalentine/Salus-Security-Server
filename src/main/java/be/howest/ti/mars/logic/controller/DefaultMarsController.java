@@ -2,6 +2,7 @@ package be.howest.ti.mars.logic.controller;
 
 import be.howest.ti.mars.logic.data.Repositories;
 import be.howest.ti.mars.logic.domain.Incident;
+import be.howest.ti.mars.logic.domain.State;
 import be.howest.ti.mars.logic.domain.Subscription;
 import be.howest.ti.mars.logic.domain.User;
 import nl.martijndwars.webpush.Notification;
@@ -54,12 +55,12 @@ public class DefaultMarsController implements MarsController {
     }
 
     @Override
-    public List<Incident> getIncidents() {
+    public List<Incident> getIncidents(boolean active) {
         List<Incident> incidents = Repositories.getH2Repo().getIncidents();
         if (incidents.isEmpty())
             throw new NoSuchElementException("Could not retrieve incidents");
 
-        return incidents;
+        return active ? incidents.stream().filter(i -> i.getState() == State.ACTIVE).collect(Collectors.toList()) : incidents;
     }
 
     @Override
@@ -96,7 +97,7 @@ public class DefaultMarsController implements MarsController {
 
     @Override
     public Incident getIncident(int incidentId) {
-        return getIncidents()
+        return getIncidents(false)
                 .stream()
                 .filter(incident -> incident.getId() == incidentId)
                 .findAny()
@@ -105,7 +106,7 @@ public class DefaultMarsController implements MarsController {
 
     @Override
     public List<Incident> getIncidentsFromUser(String id) {
-        return getIncidents()
+        return getIncidents(false)
                 .stream()
                 .filter(incident -> Objects.equals(incident.getReporterId(), id))
                 .collect(Collectors.toList());

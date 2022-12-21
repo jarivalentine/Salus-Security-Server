@@ -92,7 +92,7 @@ insert into aggressor_incidents(userId, incidentId)
 values ('1978-12-22_JVD', (select max(id) from incidents));
 
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Blackmail', '51.22162', '3.234377', 'ACTIVE', '2003-06-30_CM');
+values ('Blackmail', '51.22162', '3.234377', 'CONFIRMED', '2003-06-30_CM');
 
 insert into incidents_labels (label, incidentId)
 values ('Under Control', (select max(id) from incidents)),
@@ -143,7 +143,7 @@ values  ('1976-11-09_MA', (select max(id) from incidents)),
 
 
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Vandalism', '51.974125', '3.147586', 'ACTIVE', '2004-08-01_BB');
+values ('Vandalism', '51.974125', '3.147586', 'CONFIRMED', '2004-08-01_BB');
 
 insert into incidents_labels (label, incidentId)
 values ('Armed', (select max(id) from incidents));
@@ -209,7 +209,7 @@ values  ('1976-11-09_MA', (select max(id) from incidents)),
 
 
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Abusive-sexual-Contact', '51.174125', '3.197586', 'ACTIVE', '2004-08-01_BB');
+values ('Abusive-sexual-Contact', '51.974125', '3.147586', 'DECLINED', '2004-08-01_BB');
 
 insert into incidents_labels (label, incidentId)
 values ('Armed', (select max(id) from incidents));
@@ -226,7 +226,7 @@ values  ('1989-01-28_AL', (select max(id) from incidents)),
 -- BEGIN INCIDENTS WHERE REPORTERID = 2000-10-31_LS
 
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Murder', '51.236485', '3.236485', 'ACTIVE', '1997-04-18_CB2');
+values ('Murder', '51.236485', '3.236485', 'DECLINED', '1997-04-18_CB2');
 
 insert into incidents_labels (label, incidentId)
 values ('Child Danger', (select max(id) from incidents)),
