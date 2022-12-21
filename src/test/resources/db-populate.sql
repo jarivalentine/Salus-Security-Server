@@ -37,7 +37,7 @@ insert into aggressor_incidents(userId, incidentId)
 values  ('1976-11-09_MA', (select max(id) from incidents));
 
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Pirating', '51.29162', '3.314377', 'DECLINED', '1989-01-28_AL');
+values ('Pirating', '51.29162', '3.314377', 'ACTIVE', '1989-01-28_AL');
 
 insert into incidents_labels (label, incidentId)
 values ('Child Danger', (select max(id) from incidents)),

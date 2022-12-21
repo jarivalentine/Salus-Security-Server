@@ -153,7 +153,7 @@ class OpenAPITest {
 
     @Test
     void getIncidents(final VertxTestContext testContext) {
-        webClient.get(PORT, HOST, "/api/incidents").send()
+        webClient.get(PORT, HOST, "/api/incidents?active=false").send()
                 .onFailure(testContext::failNow)
                 .onSuccess(response -> testContext.verify(() -> {
                     assertEquals(200, response.statusCode(), MSG_200_EXPECTED);
