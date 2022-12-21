@@ -209,7 +209,7 @@ values  ('1976-11-09_MA', (select max(id) from incidents)),
 
 
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Abusive-sexual-Contact', '51.974125', '3.147586', 'ACTIVE', '2004-08-01_BB');
+values ('Abusive-sexual-Contact', '51.174125', '3.197586', 'ACTIVE', '2004-08-01_BB');
 
 insert into incidents_labels (label, incidentId)
 values ('Armed', (select max(id) from incidents));
