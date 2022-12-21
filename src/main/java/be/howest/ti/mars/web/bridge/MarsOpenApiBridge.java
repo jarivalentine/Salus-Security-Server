@@ -179,7 +179,8 @@ public class MarsOpenApiBridge {
     }
 
     private void getIncidents(RoutingContext ctx){
-        Response.sendIncidents(ctx, controller.getIncidents());
+        boolean active = Request.from(ctx).isActive();
+        Response.sendIncidents(ctx, controller.getIncidents(active));
     }
 
     private void getIncident(RoutingContext ctx) {

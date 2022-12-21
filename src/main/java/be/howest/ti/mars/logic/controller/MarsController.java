@@ -7,7 +7,7 @@ import be.howest.ti.mars.logic.domain.User;
 import java.util.List;
 
 public interface MarsController {
-    List<Incident> getIncidents();
+    List<Incident> getIncidents(boolean active);
     User getUser(String id);
     Incident createIncident(String reportedId, String latitude, String longitude);
     Incident getIncident(int incidentId);

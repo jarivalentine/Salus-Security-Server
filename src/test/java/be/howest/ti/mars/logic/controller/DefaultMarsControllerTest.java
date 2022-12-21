@@ -76,7 +76,7 @@ class DefaultMarsControllerTest {
         MarsController sut = new DefaultMarsController();
 
         // Act
-        var incidents = sut.getIncidents();
+        var incidents = sut.getIncidents(false);
 
         //Assert
         assertTrue(incidents != null && incidents.size() > 0);
