@@ -103,7 +103,7 @@ class DefaultMarsControllerTest {
         List<Incident> helpedIncidents = sut.getHelpedIncidents("1989-01-28_AL");
 
         //Assert
-        assertEquals(Collections.EMPTY_LIST, helpedIncidents);
+        assertNotEquals(Collections.EMPTY_LIST, helpedIncidents);
     }
 
     @Test

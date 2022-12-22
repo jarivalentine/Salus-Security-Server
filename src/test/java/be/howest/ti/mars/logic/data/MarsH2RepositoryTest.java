@@ -132,14 +132,15 @@ class MarsH2RepositoryTest {
         //Arrange
         String userId = "1989-01-28_AL";
         int incidentId = 5;
-        int indexCorrection = 1;
-        //Act
-        Repositories.getH2Repo().helpIncident(userId, incidentId);
-        List<Incident> helpedIncidents = Repositories.getH2Repo().getHelpedIncidents(userId);
-        List<Incident> incidents = List.of(Repositories.getH2Repo().getIncidents().get(incidentId-indexCorrection));
+        int amountOfHelpedIncidents = 12;
+        //Act + Assert
+        List<Incident> helpedIncidentsBefore = Repositories.getH2Repo().getHelpedIncidents(userId);
+        Assertions.assertEquals(amountOfHelpedIncidents, helpedIncidentsBefore.size());
 
-        //Assert
-        Assertions.assertEquals(incidents, helpedIncidents);
+        Repositories.getH2Repo().helpIncident(userId, incidentId);
+
+        List<Incident> helpedIncidentsAfter = Repositories.getH2Repo().getHelpedIncidents(userId);
+        Assertions.assertEquals(amountOfHelpedIncidents + 1, helpedIncidentsAfter.size());
     }
 
     @Test

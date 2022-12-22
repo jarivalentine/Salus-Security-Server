@@ -259,602 +259,802 @@ values  ('2000-10-31_LS', (select max(id) from incidents)),
 -- BEGIN MOCK DATA GEOAID
 
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Robbery', '85.062237629', '-65.5531745024', 'CONFIRMED', '1997-04-18_CB');
-insert into incidents_labels (label, incidentId)
-values ('Critical Condition', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1978-12-22_JVD', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Blackmail', '-17.0493829169', '88.1304317496', 'DECLINED', '2000-10-31_LS');
-insert into incidents_labels (label, incidentId)
-values ('Child Danger', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1997-04-18_CB', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Robbery', '-67.3746955112', '-44.777439037', 'CONFIRMED', '1992-02-04_SH');
-insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2004-08-01_BB', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Torturer', '-89.9516186999', '157.951458161', 'CONFIRMED', '1976-11-09_MA');
-insert into incidents_labels (label, incidentId)
-values ('Child Danger', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2004-08-01_BB', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Vandalism', '35.8288027812', '3.9315206479', 'CONFIRMED', '2000-08-12_DJ');
-insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2003-06-30_CM', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Assault', '-75.2118199106', '15.6759300177', 'CONFIRMED', '2000-10-31_LS');
+values ('Armed-Robbery', '65.0821283155', '86.2245663425', 'DECLINED', '1978-12-22_JVD');
 insert into incidents_labels (label, incidentId)
 values ('Armed', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1978-12-22_JVD', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Vandalism', '8.5271916378', '-136.2893874081', 'DECLINED', '2000-10-31_LS');
-insert into incidents_labels (label, incidentId)
-values ('Critical Condition', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2004-08-01_BB', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Assassination', '-37.2005366721', '-127.556585992', 'CONFIRMED', '1997-04-18_CB');
-insert into incidents_labels (label, incidentId)
-values ('Armed', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1976-11-09_MA', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Bomber', '-34.4601951514', '-138.7933260777', 'CONFIRMED', '2003-06-30_CM');
-insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-10-31_LS', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('1997-04-18_CB2', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Vandalism', '-33.5330165428', '-28.6701600454', 'CONFIRMED', '1997-04-18_CB');
+values ('Murder', '-0.8489568524', '42.1898702827', 'CONFIRMED', '1997-04-18_CB');
 insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2000-08-12_DJ', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Theft', '15.0963783758', '2.1424878025', 'CONFIRMED', '2000-10-31_LS');
-insert into incidents_labels (label, incidentId)
-values ('Critical Condition', (select max(id) from incidents));
+values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1976-11-09_MA', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('1992-02-04_SH', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Stalking', '35.7288871792', '114.4218052814', 'CONFIRMED', '1997-04-18_CB2');
+values ('Assassination', '63.4426917787', '-161.405828151', 'CONFIRMED', '2000-08-12_DJ');
 insert into incidents_labels (label, incidentId)
-values ('Child Danger', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2004-08-01_BB', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Vandalism', '-68.9076034616', '167.4226722364', 'CONFIRMED', '2003-06-30_CM');
-insert into incidents_labels (label, incidentId)
-values ('Critical Condition', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1997-04-18_CB2', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Manslaughter', '24.6253220177', '-148.9451102291', 'CONFIRMED', '2004-08-01_BB');
-insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
+values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-10-31_LS', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('2003-06-30_CM', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Robbery', '-25.3404576709', '-12.6427623591', 'CONFIRMED', '2000-08-12_DJ');
+values ('Bomber', '-18.8679402971', '-119.6658221685', 'CONFIRMED', '2000-10-31_LS');
 insert into incidents_labels (label, incidentId)
 values ('Armed', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1978-12-22_JVD', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Murder', '85.9264494354', '156.1063512834', 'CONFIRMED', '2004-08-01_BB');
-insert into incidents_labels (label, incidentId)
-values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2003-06-30_CM', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('1997-04-18_CB2', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Theft', '-41.1586097174', '-34.1067603982', 'CONFIRMED', '2004-08-01_BB');
+values ('Torturer', '3.0369556868', '104.6260571895', 'CONFIRMED', '1992-02-04_SH');
 insert into incidents_labels (label, incidentId)
-values ('Armed', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1997-04-18_CB2', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Vandalism', '15.5227795161', '20.9863833085', 'CONFIRMED', '1997-04-18_CB');
-insert into incidents_labels (label, incidentId)
-values ('Critical Condition', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1997-04-18_CB2', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Drug-Smuggling', '73.8699337502', '-170.4308361068', 'CONFIRMED', '2000-10-31_LS');
-insert into incidents_labels (label, incidentId)
-values ('Armed', (select max(id) from incidents));
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1976-11-09_MA', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('1989-01-28_AL', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Stalking', '-44.3490809984', '38.5348769202', 'CONFIRMED', '1989-01-28_AL');
-insert into incidents_labels (label, incidentId)
-values ('Critical Condition', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1997-04-18_CB2', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Abusive-sexual-Contact', '38.7181682462', '110.4542539351', 'CONFIRMED', '2003-06-30_CM');
-insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1976-11-09_MA', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Manslaughter', '88.4767744114', '39.2190678451', 'DECLINED', '2000-08-12_DJ');
-insert into incidents_labels (label, incidentId)
-values ('Critical Condition', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1978-12-22_JVD', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Arson', '75.467404698', '98.1128365498', 'CONFIRMED', '2004-08-01_BB');
-insert into incidents_labels (label, incidentId)
-values ('Child Danger', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1978-12-22_JVD', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Rape', '16.5524923442', '97.2887244366', 'CONFIRMED', '1997-04-18_CB');
+values ('Rape', '-27.7242562298', '95.4690827253', 'CONFIRMED', '2004-08-01_BB');
 insert into incidents_labels (label, incidentId)
 values ('Armed', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1976-11-09_MA', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Stalking', '82.9181164884', '156.7395592107', 'CONFIRMED', '1989-01-28_AL');
-insert into incidents_labels (label, incidentId)
-values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1989-01-28_AL', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('1992-02-04_SH', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Rape', '60.0002474891', '-143.5725659571', 'CONFIRMED', '2000-10-31_LS');
+values ('Assault', '55.9719339538', '-60.9720156447', 'CONFIRMED', '2000-08-12_DJ');
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB2', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1976-11-09_MA', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Drug-Smuggling', '23.2289547976', '-104.0654669796', 'CONFIRMED', '2000-10-31_LS');
 insert into incidents_labels (label, incidentId)
 values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1976-11-09_MA', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1989-01-28_AL', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Armed-Robbery', '-67.4866790302', '56.3948795029', 'CONFIRMED', '1997-04-18_CB');
+insert into incidents_labels (label, incidentId)
+values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-10-31_LS', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1978-12-22_JVD', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Theft', '-24.8182856247', '172.1251053281', 'CONFIRMED', '2000-08-12_DJ');
+insert into incidents_labels (label, incidentId)
+values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-10-31_LS', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2004-08-01_BB', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Robbery', '-63.7558164317', '116.0567537841', 'CONFIRMED', '2000-10-31_LS');
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB2', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1978-12-22_JVD', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Bomber', '-5.2976294148', '-125.6847343209', 'CONFIRMED', '1978-12-22_JVD');
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB2', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2004-08-01_BB', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Abusive-sexual-Contact', '-17.8857742594', '77.8556070978', 'CONFIRMED', '1976-11-09_MA');
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2004-08-01_BB', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1997-04-18_CB', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Murder', '62.3976005072', '159.7073446252', 'CONFIRMED', '1997-04-18_CB2');
+insert into incidents_labels (label, incidentId)
+values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1976-11-09_MA', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2004-08-01_BB', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Assassination', '-1.644212036', '-57.0909463006', 'CONFIRMED', '2004-08-01_BB');
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2000-10-31_LS', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Torturer', '-68.9655367416', '7.9147800451', 'CONFIRMED', '1976-11-09_MA');
+insert into incidents_labels (label, incidentId)
+values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-10-31_LS', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2004-08-01_BB', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Assault', '-79.7743847578', '91.9928808398', 'CONFIRMED', '1976-11-09_MA');
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1989-01-28_AL', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Abusive-sexual-Contact', '-12.2797824972', '-151.0190425672', 'CONFIRMED', '1989-01-28_AL');
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1978-12-22_JVD', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Stalking', '-64.2978755113', '72.5149408914', 'CONFIRMED', '1989-01-28_AL');
+insert into incidents_labels (label, incidentId)
+values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2004-08-01_BB', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('1992-02-04_SH', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Theft', '-79.7050715628', '107.1665179323', 'CONFIRMED', '2000-08-12_DJ');
+values ('Pirating', '-22.0337473333', '48.6811640349', 'CONFIRMED', '1992-02-04_SH');
 insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
+values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB2', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
-values ('2000-10-31_LS', (select max(id) from incidents));
+values ('1976-11-09_MA', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Robbery', '21.3333064779', '49.0498009286', 'CONFIRMED', '2000-10-31_LS');
+values ('First-Degree-Murder', '-85.1748371583', '58.014737548', 'CONFIRMED', '1997-04-18_CB');
 insert into incidents_labels (label, incidentId)
 values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1989-01-28_AL', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2003-06-30_CM', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Manslaughter', '-25.4803258803', '-158.894388008', 'CONFIRMED', '2000-08-12_DJ');
+insert into incidents_labels (label, incidentId)
+values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB2', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2003-06-30_CM', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Robbery', '-78.3533750433', '6.1708830359', 'CONFIRMED', '1997-04-18_CB2');
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2003-06-30_CM', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1976-11-09_MA', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Torturer', '82.1342403758', '127.6780464022', 'CONFIRMED', '2000-10-31_LS');
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1989-01-28_AL', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1997-04-18_CB', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Pirating', '82.2000109139', '165.5376725284', 'CONFIRMED', '1976-11-09_MA');
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1978-12-22_JVD', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2003-06-30_CM', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Vandalism', '73.885618933', '5.2668504222', 'CONFIRMED', '1989-01-28_AL');
+insert into incidents_labels (label, incidentId)
+values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-10-31_LS', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1997-04-18_CB2', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Blackmail', '-27.6750394386', '-66.482501989', 'CONFIRMED', '1997-04-18_CB');
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1978-12-22_JVD', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1989-01-28_AL', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Torturer', '-17.9736675335', '149.6444734279', 'CONFIRMED', '1997-04-18_CB2');
+insert into incidents_labels (label, incidentId)
+values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1989-01-28_AL', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1978-12-22_JVD', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Drug-Smuggling', '87.1946365588', '30.4638311048', 'CONFIRMED', '2000-10-31_LS');
+insert into incidents_labels (label, incidentId)
+values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2004-08-01_BB', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1989-01-28_AL', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Torturer', '71.8763327988', '-98.5221982653', 'CONFIRMED', '2004-08-01_BB');
+insert into incidents_labels (label, incidentId)
+values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB2', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2003-06-30_CM', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Murder', '43.0527880256', '117.300621502', 'CONFIRMED', '1997-04-18_CB');
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1992-02-04_SH', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1978-12-22_JVD', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Vandalism', '-20.6052364615', '65.2667208016', 'CONFIRMED', '1997-04-18_CB2');
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1989-01-28_AL', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('2004-08-01_BB', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Murder', '42.7884068696', '159.3115668067', 'CONFIRMED', '1978-12-22_JVD');
+values ('Assault', '-70.5142241753', '56.940455513', 'DECLINED', '2000-10-31_LS');
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-08-12_DJ', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2003-06-30_CM', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Assassination', '-33.4043225907', '-43.6769132231', 'CONFIRMED', '2000-08-12_DJ');
 insert into incidents_labels (label, incidentId)
 values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-10-31_LS', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1976-11-09_MA', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Stalking', '76.3470524845', '-140.1583605654', 'CONFIRMED', '1976-11-09_MA');
+insert into incidents_labels (label, incidentId)
+values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1978-12-22_JVD', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1989-01-28_AL', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Manslaughter', '-36.9630303209', '-36.0223187409', 'CONFIRMED', '1997-04-18_CB2');
+insert into incidents_labels (label, incidentId)
+values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-10-31_LS', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2004-08-01_BB', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Armed-Robbery', '-83.947776062', '-160.8228878709', 'CONFIRMED', '2004-08-01_BB');
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-08-12_DJ', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1989-01-28_AL', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Murder', '81.3967877839', '-156.7876941518', 'CONFIRMED', '2000-08-12_DJ');
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1989-01-28_AL', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2000-10-31_LS', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Murder', '-80.9968179523', '-85.5749776478', 'DECLINED', '1997-04-18_CB2');
+insert into incidents_labels (label, incidentId)
+values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-08-12_DJ', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1989-01-28_AL', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Arson', '-17.2097647373', '-64.5709133854', 'CONFIRMED', '1992-02-04_SH');
+insert into incidents_labels (label, incidentId)
+values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB2', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1989-01-28_AL', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Bomber', '-8.656653758', '102.5951391813', 'CONFIRMED', '1989-01-28_AL');
+insert into incidents_labels (label, incidentId)
+values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2004-08-01_BB', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2003-06-30_CM', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Theft', '-82.8568953204', '-46.6776624946', 'CONFIRMED', '1978-12-22_JVD');
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-08-12_DJ', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2000-10-31_LS', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Stalking', '-85.9448335194', '-86.8795043966', 'CONFIRMED', '1976-11-09_MA');
+insert into incidents_labels (label, incidentId)
+values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-10-31_LS', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1989-01-28_AL', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Armed-Robbery', '72.1886833315', '102.4166624573', 'CONFIRMED', '1997-04-18_CB');
+insert into incidents_labels (label, incidentId)
+values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1978-12-22_JVD', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2004-08-01_BB', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Assault', '70.22500892', '68.1209463117', 'CONFIRMED', '1989-01-28_AL');
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2003-06-30_CM', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2000-10-31_LS', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Torturer', '13.8024242792', '138.735895146', 'DECLINED', '1997-04-18_CB2');
+insert into incidents_labels (label, incidentId)
+values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1989-01-28_AL', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1976-11-09_MA', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Torturer', '73.9341061167', '-13.0781054778', 'CONFIRMED', '2000-10-31_LS');
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-08-12_DJ', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1978-12-22_JVD', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Manslaughter', '-67.9923937469', '-113.5748475038', 'CONFIRMED', '1997-04-18_CB');
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB2', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2000-08-12_DJ', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Drug-Smuggling', '-81.0783136844', '4.5271939905', 'CONFIRMED', '1978-12-22_JVD');
+insert into incidents_labels (label, incidentId)
+values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2004-08-01_BB', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1997-04-18_CB', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Blackmail', '5.0934939326', '-148.3278889147', 'DECLINED', '1976-11-09_MA');
+insert into incidents_labels (label, incidentId)
+values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2003-06-30_CM', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1989-01-28_AL', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Rape', '76.2285286245', '-89.2219647717', 'CONFIRMED', '1997-04-18_CB2');
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1978-12-22_JVD', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2000-10-31_LS', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Assault', '-78.7658617308', '-173.0858091695', 'CONFIRMED', '2004-08-01_BB');
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB2', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2003-06-30_CM', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Assassination', '17.6797103039', '21.5344760015', 'CONFIRMED', '1997-04-18_CB');
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-10-31_LS', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1997-04-18_CB2', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Blackmail', '0.4379294508', '-33.1377909309', 'CONFIRMED', '1992-02-04_SH');
+insert into incidents_labels (label, incidentId)
+values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-10-31_LS', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1976-11-09_MA', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Stalking', '-63.3807338865', '92.1628063286', 'CONFIRMED', '1997-04-18_CB');
+insert into incidents_labels (label, incidentId)
+values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1989-01-28_AL', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2004-08-01_BB', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Pirating', '-68.3394875237', '-53.7738606192', 'CONFIRMED', '2004-08-01_BB');
+insert into incidents_labels (label, incidentId)
+values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB2', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1976-11-09_MA', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Armed-Robbery', '-68.5785138304', '-94.2632710123', 'CONFIRMED', '2004-08-01_BB');
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1992-02-04_SH', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2000-08-12_DJ', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Bomber', '55.2710312058', '-51.7126175738', 'CONFIRMED', '2003-06-30_CM');
+insert into incidents_labels (label, incidentId)
+values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB2', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('1992-02-04_SH', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Armed-Robbery', '54.1781195784', '62.7820856734', 'CONFIRMED', '2003-06-30_CM');
+values ('Assault', '5.8739230006', '69.603835801', 'CONFIRMED', '1997-04-18_CB');
 insert into incidents_labels (label, incidentId)
-values ('Critical Condition', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2000-08-12_DJ', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Robbery', '-89.4867364359', '133.0793266938', 'CONFIRMED', '2003-06-30_CM');
-insert into incidents_labels (label, incidentId)
-values ('Armed', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2000-10-31_LS', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Drug-Smuggling', '-19.985367746', '159.252873479', 'CONFIRMED', '1997-04-18_CB');
-insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2003-06-30_CM', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Theft', '19.3143146734', '-128.7176271841', 'CONFIRMED', '2004-08-01_BB');
-insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1989-01-28_AL', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('1992-02-04_SH', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Robbery', '43.6567475356', '12.5146257973', 'CONFIRMED', '2000-08-12_DJ');
+values ('Assault', '-20.9346095669', '56.958501319', 'CONFIRMED', '1976-11-09_MA');
 insert into incidents_labels (label, incidentId)
-values ('Armed', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1989-01-28_AL', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Torturer', '-8.0155551891', '-63.0965387713', 'CONFIRMED', '2004-08-01_BB');
-insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2000-08-12_DJ', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Vandalism', '69.4005514951', '-48.6343061376', 'CONFIRMED', '1976-11-09_MA');
-insert into incidents_labels (label, incidentId)
-values ('Armed', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2004-08-01_BB', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Pirating', '85.7521328516', '-155.6252667312', 'CONFIRMED', '1976-11-09_MA');
-insert into incidents_labels (label, incidentId)
-values ('Armed', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2000-10-31_LS', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Arson', '-29.1859604914', '-107.5581203285', 'CONFIRMED', '2003-06-30_CM');
-insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2000-08-12_DJ', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Bomber', '-20.2959276421', '-129.4390521447', 'CONFIRMED', '1989-01-28_AL');
-insert into incidents_labels (label, incidentId)
-values ('Child Danger', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1978-12-22_JVD', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Pirating', '60.8967967155', '103.8369269153', 'CONFIRMED', '2000-08-12_DJ');
-insert into incidents_labels (label, incidentId)
-values ('Armed', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1989-01-28_AL', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Assassination', '-74.8282962232', '-135.9770122596', 'CONFIRMED', '1978-12-22_JVD');
-insert into incidents_labels (label, incidentId)
-values ('Armed', (select max(id) from incidents));
+values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-08-12_DJ', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('1992-02-04_SH', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Bomber', '-47.5266971974', '-103.2660461549', 'CONFIRMED', '2000-10-31_LS');
+values ('Bomber', '-25.8569124421', '-115.430746667', 'CONFIRMED', '2000-08-12_DJ');
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB2', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2004-08-01_BB', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Assassination', '54.0566886348', '133.4185444372', 'CONFIRMED', '1992-02-04_SH');
 insert into incidents_labels (label, incidentId)
 values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-10-31_LS', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2000-08-12_DJ', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Pirating', '43.902447547', '74.7345549592', 'CONFIRMED', '1978-12-22_JVD');
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-08-12_DJ', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1989-01-28_AL', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('First-Degree-Murder', '-30.479131725', '-43.1562263575', 'CONFIRMED', '2003-06-30_CM');
+insert into incidents_labels (label, incidentId)
+values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1978-12-22_JVD', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('1997-04-18_CB2', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Bomber', '-50.386867724', '49.4658575815', 'CONFIRMED', '1976-11-09_MA');
+values ('Murder', '36.696694408', '-54.884041499', 'DECLINED', '1989-01-28_AL');
 insert into incidents_labels (label, incidentId)
-values ('Child Danger', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2000-10-31_LS', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Manslaughter', '-9.9514741266', '51.6058930206', 'DECLINED', '1992-02-04_SH');
-insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
+values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB2', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('1978-12-22_JVD', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Stalking', '56.7190908138', '-17.1986043453', 'CONFIRMED', '1976-11-09_MA');
+values ('Bomber', '-85.9526100241', '126.6667279351', 'CONFIRMED', '1992-02-04_SH');
+insert into incidents_labels (label, incidentId)
+values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1989-01-28_AL', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2004-08-01_BB', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Assault', '-79.4191438778', '-75.398135127', 'CONFIRMED', '2000-08-12_DJ');
 insert into incidents_labels (label, incidentId)
 values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1976-11-09_MA', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('1997-04-18_CB', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Assault', '-7.438285697', '127.1001721663', 'DECLINED', '2004-08-01_BB');
+values ('Arson', '50.7528906739', '81.0476307491', 'CONFIRMED', '2003-06-30_CM');
 insert into incidents_labels (label, incidentId)
 values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-10-31_LS', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2000-08-12_DJ', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Assassination', '-58.41892457', '169.6933293668', 'CONFIRMED', '1997-04-18_CB2');
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-10-31_LS', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1997-04-18_CB', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Assault', '-77.711257031', '-42.4383859128', 'CONFIRMED', '2000-10-31_LS');
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2003-06-30_CM', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1997-04-18_CB2', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Torturer', '37.5018564182', '-16.6063644818', 'CONFIRMED', '2003-06-30_CM');
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1976-11-09_MA', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2000-08-12_DJ', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Abusive-sexual-Contact', '-38.0838676414', '140.490966521', 'DECLINED', '1997-04-18_CB2');
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1978-12-22_JVD', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1989-01-28_AL', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Drug-Smuggling', '8.7257024609', '-104.7940947059', 'CONFIRMED', '2000-10-31_LS');
+insert into incidents_labels (label, incidentId)
+values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1989-01-28_AL', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('1992-02-04_SH', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Drug-Smuggling', '20.600542986', '-67.9673879683', 'CONFIRMED', '1989-01-28_AL');
-insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1997-04-18_CB2', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Robbery', '-84.2273174346', '30.0132978052', 'CONFIRMED', '1997-04-18_CB2');
-insert into incidents_labels (label, incidentId)
-values ('Armed', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2003-06-30_CM', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Assassination', '-57.6005477106', '-16.635185023', 'CONFIRMED', '1978-12-22_JVD');
-insert into incidents_labels (label, incidentId)
-values ('Armed', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1989-01-28_AL', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Blackmail', '72.0687564048', '-54.352871067', 'CONFIRMED', '1978-12-22_JVD');
-insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1997-04-18_CB', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Theft', '81.8471327299', '175.3794947682', 'CONFIRMED', '1997-04-18_CB');
-insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2000-10-31_LS', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Assassination', '73.0201133723', '111.0311364988', 'CONFIRMED', '1978-12-22_JVD');
-insert into incidents_labels (label, incidentId)
-values ('Child Danger', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1976-11-09_MA', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Blackmail', '34.5618225112', '-73.5496407973', 'CONFIRMED', '1997-04-18_CB2');
-insert into incidents_labels (label, incidentId)
-values ('Child Danger', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2004-08-01_BB', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Vandalism', '-38.787317799', '-12.0432226923', 'CONFIRMED', '1997-04-18_CB2');
+values ('Stalking', '-45.9658311155', '-161.4973603412', 'CONFIRMED', '2003-06-30_CM');
 insert into incidents_labels (label, incidentId)
 values ('Critical Condition', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2000-10-31_LS', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Pirating', '17.8546380805', '-93.2756311022', 'CONFIRMED', '1992-02-04_SH');
-insert into incidents_labels (label, incidentId)
-values ('Critical Condition', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1997-04-18_CB', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Rape', '-79.7914317141', '-149.794190926', 'CONFIRMED', '1976-11-09_MA');
-insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB2', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('2000-08-12_DJ', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Vandalism', '-5.8042165086', '-33.8588454179', 'CONFIRMED', '1976-11-09_MA');
+values ('Stalking', '36.930758045', '27.4926778926', 'CONFIRMED', '1997-04-18_CB2');
 insert into incidents_labels (label, incidentId)
-values ('Armed', (select max(id) from incidents));
+values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2004-08-01_BB', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2003-06-30_CM', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Abusive-sexual-Contact', '41.5279212692', '109.9599613375', 'CONFIRMED', '2000-08-12_DJ');
+insert into incidents_labels (label, incidentId)
+values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB2', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('2000-10-31_LS', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Abusive-sexual-Contact', '-89.3754401595', '83.6277702756', 'CONFIRMED', '2003-06-30_CM');
+insert into incidents_labels (label, incidentId)
+values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB2', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('1989-01-28_AL', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Murder', '47.8158273139', '37.9794950746', 'CONFIRMED', '2000-10-31_LS');
+values ('Robbery', '79.2650083171', '-35.3075278058', 'CONFIRMED', '2000-10-31_LS');
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2003-06-30_CM', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1992-02-04_SH', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Manslaughter', '-21.4735675368', '36.5917648171', 'CONFIRMED', '2000-10-31_LS');
 insert into incidents_labels (label, incidentId)
 values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1978-12-22_JVD', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
-values ('1978-12-22_JVD', (select max(id) from incidents));
+values ('1997-04-18_CB', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Stalking', '2.0243447168', '10.4838703435', 'CONFIRMED', '1978-12-22_JVD');
-insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2000-10-31_LS', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Murder', '-14.5452038382', '-43.6837034722', 'CONFIRMED', '1976-11-09_MA');
+values ('Rape', '2.676127564', '-46.1270865151', 'CONFIRMED', '1992-02-04_SH');
 insert into incidents_labels (label, incidentId)
 values ('Armed', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1978-12-22_JVD', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Bomber', '19.3112547676', '-64.8763998043', 'DECLINED', '1997-04-18_CB');
-insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1978-12-22_JVD', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Armed-Robbery', '0.7479747374', '150.3733761765', 'CONFIRMED', '1997-04-18_CB');
-insert into incidents_labels (label, incidentId)
-values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2004-08-01_BB', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('1997-04-18_CB2', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Murder', '80.9427713588', '-5.4746743221', 'CONFIRMED', '1989-01-28_AL');
-insert into incidents_labels (label, incidentId)
-values ('Armed', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2000-10-31_LS', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('First-Degree-Murder', '59.2576974902', '-146.2927884539', 'CONFIRMED', '1997-04-18_CB');
+values ('Vandalism', '-66.1549060666', '53.9680810755', 'DECLINED', '1992-02-04_SH');
 insert into incidents_labels (label, incidentId)
 values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-08-12_DJ', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1978-12-22_JVD', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('First-Degree-Murder', '-68.2058157886', '34.7600273479', 'CONFIRMED', '2000-10-31_LS');
+insert into incidents_labels (label, incidentId)
+values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1992-02-04_SH', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('2004-08-01_BB', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Assassination', '-41.6591271372', '-35.4238157647', 'CONFIRMED', '1997-04-18_CB');
+values ('Armed-Robbery', '84.2009588865', '138.6076629099', 'CONFIRMED', '1976-11-09_MA');
 insert into incidents_labels (label, incidentId)
 values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1978-12-22_JVD', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
-values ('1976-11-09_MA', (select max(id) from incidents));
+values ('1997-04-18_CB', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Vandalism', '-34.5057275385', '126.4336378432', 'CONFIRMED', '2003-06-30_CM');
+values ('Robbery', '-74.1860510449', '-97.3801819993', 'CONFIRMED', '2003-06-30_CM');
 insert into incidents_labels (label, incidentId)
-values ('Armed', (select max(id) from incidents));
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1978-12-22_JVD', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Abusive-sexual-Contact', '-7.9705697139', '-76.5310180499', 'CONFIRMED', '2000-10-31_LS');
+insert into incidents_labels (label, incidentId)
+values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('1989-01-28_AL', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Bomber', '38.1372773221', '2.6169947524', 'CONFIRMED', '2004-08-01_BB');
+values ('Bomber', '-0.1248257012', '11.8348682085', 'CONFIRMED', '1978-12-22_JVD');
 insert into incidents_labels (label, incidentId)
 values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1989-01-28_AL', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('2003-06-30_CM', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Theft', '-38.2799236555', '-0.4551184618', 'CONFIRMED', '1989-01-28_AL');
-insert into incidents_labels (label, incidentId)
-values ('Child Danger', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2003-06-30_CM', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Assassination', '40.4353748733', '-110.447446846', 'CONFIRMED', '2000-08-12_DJ');
+values ('Assassination', '-18.07335429', '179.1429165916', 'CONFIRMED', '1992-02-04_SH');
 insert into incidents_labels (label, incidentId)
 values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-10-31_LS', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('1997-04-18_CB2', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Blackmail', '13.039337057', '-159.2965488386', 'CONFIRMED', '2000-08-12_DJ');
+values ('Robbery', '-44.6919983101', '156.9737362206', 'CONFIRMED', '1992-02-04_SH');
 insert into incidents_labels (label, incidentId)
-values ('Child Danger', (select max(id) from incidents));
+values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-08-12_DJ', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('2003-06-30_CM', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Bomber', '61.5830880178', '-105.6428189862', 'CONFIRMED', '1978-12-22_JVD');
+values ('First-Degree-Murder', '-84.5469613433', '-89.4525260367', 'CONFIRMED', '2004-08-01_BB');
 insert into incidents_labels (label, incidentId)
 values ('Under Control', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1997-04-18_CB', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Theft', '34.6470207859', '-49.5933432153', 'CONFIRMED', '2000-08-12_DJ');
-insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-10-31_LS', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('1989-01-28_AL', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Stalking', '24.3985365869', '-171.3432095271', 'CONFIRMED', '2000-08-12_DJ');
-insert into incidents_labels (label, incidentId)
-values ('Child Danger', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1978-12-22_JVD', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('First-Degree-Murder', '42.9581674645', '-166.9212703218', 'DECLINED', '1976-11-09_MA');
-insert into incidents_labels (label, incidentId)
-values ('Child Danger', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2000-08-12_DJ', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Abusive-sexual-Contact', '-81.1988629202', '102.292790724', 'CONFIRMED', '2004-08-01_BB');
-insert into incidents_labels (label, incidentId)
-values ('Critical Condition', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2000-08-12_DJ', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Torturer', '-80.8729627751', '-27.9298721733', 'CONFIRMED', '2003-06-30_CM');
-insert into incidents_labels (label, incidentId)
-values ('Critical Condition', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2004-08-01_BB', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Drug-Smuggling', '-67.8393839719', '130.7908232467', 'CONFIRMED', '2004-08-01_BB');
-insert into incidents_labels (label, incidentId)
-values ('Critical Condition', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1997-04-18_CB', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Vandalism', '-42.9718522732', '-157.5991799668', 'CONFIRMED', '1992-02-04_SH');
+values ('Assassination', '-68.7975125941', '145.7022288549', 'CONFIRMED', '2003-06-30_CM');
 insert into incidents_labels (label, incidentId)
 values ('Under Control', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1976-11-09_MA', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Arson', '-5.1972801972', '-160.9070921447', 'CONFIRMED', '2000-10-31_LS');
-insert into incidents_labels (label, incidentId)
-values ('Armed', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1997-04-18_CB2', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Stalking', '38.1513122799', '139.2319689266', 'CONFIRMED', '1976-11-09_MA');
-insert into incidents_labels (label, incidentId)
-values ('Armed', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2000-10-31_LS', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Murder', '30.6783636907', '70.122062136', 'CONFIRMED', '1997-04-18_CB');
-insert into incidents_labels (label, incidentId)
-values ('Child Danger', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1978-12-22_JVD', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Pirating', '4.7124936517', '63.5358654751', 'DECLINED', '1976-11-09_MA');
-insert into incidents_labels (label, incidentId)
-values ('Critical Condition', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1997-04-18_CB', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Pirating', '-48.2840497887', '167.7692566039', 'CONFIRMED', '1997-04-18_CB');
-insert into incidents_labels (label, incidentId)
-values ('Child Danger', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1976-11-09_MA', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Bomber', '-27.0689038491', '-158.9788021434', 'CONFIRMED', '1989-01-28_AL');
-insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1997-04-18_CB', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Torturer', '36.669393753', '163.0230912669', 'CONFIRMED', '1976-11-09_MA');
-insert into incidents_labels (label, incidentId)
-values ('Child Danger', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1978-12-22_JVD', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Abusive-sexual-Contact', '-68.1350339906', '162.5159972617', 'CONFIRMED', '1997-04-18_CB');
-insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('2003-06-30_CM', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Bomber', '44.2744465271', '-123.4796345703', 'CONFIRMED', '2000-10-31_LS');
-insert into incidents_labels (label, incidentId)
-values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('1989-01-28_AL', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Assassination', '31.7279214789', '87.0053846533', 'DECLINED', '1989-01-28_AL');
+values ('Blackmail', '38.7192258105', '-6.1242517426', 'CONFIRMED', '1997-04-18_CB');
 insert into incidents_labels (label, incidentId)
-values ('Critical Condition', (select max(id) from incidents));
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2003-06-30_CM', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('1997-04-18_CB2', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Murder', '52.5776550284', '-164.9009923741', 'CONFIRMED', '2000-10-31_LS');
+values ('Armed-Robbery', '16.7113547895', '111.3381789909', 'CONFIRMED', '1989-01-28_AL');
 insert into incidents_labels (label, incidentId)
-values ('Child Danger', (select max(id) from incidents));
+values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB2', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
-values ('1976-11-09_MA', (select max(id) from incidents));
+values ('2003-06-30_CM', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Murder', '87.8607713776', '-93.3167573906', 'CONFIRMED', '2004-08-01_BB');
-insert into incidents_labels (label, incidentId)
-values ('Child Danger', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1976-11-09_MA', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Blackmail', '29.3639962448', '-178.5937526296', 'CONFIRMED', '2004-08-01_BB');
+values ('Robbery', '58.2822687849', '-170.9747998361', 'CONFIRMED', '1997-04-18_CB');
 insert into incidents_labels (label, incidentId)
 values ('Critical Condition', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2000-10-31_LS', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
-values ('2000-08-12_DJ', (select max(id) from incidents));
+values ('1989-01-28_AL', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Abusive-sexual-Contact', '9.7132605699', '128.781110847', 'CONFIRMED', '2000-08-12_DJ');
+values ('First-Degree-Murder', '1.7175791551', '164.7132709921', 'CONFIRMED', '1997-04-18_CB2');
 insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1976-11-09_MA', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Blackmail', '-88.182628938', '121.6053619333', 'CONFIRMED', '1997-04-18_CB');
-insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1976-11-09_MA', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Theft', '58.4647965056', '-161.6446410219', 'DECLINED', '2000-10-31_LS');
-insert into incidents_labels (label, incidentId)
-values ('Armed', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1976-11-09_MA', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Armed-Robbery', '-19.0746621992', '-139.9867632338', 'CONFIRMED', '2004-08-01_BB');
-insert into incidents_labels (label, incidentId)
-values ('Under Control', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1997-04-18_CB', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Pirating', '79.4945283606', '139.1614376863', 'CONFIRMED', '1978-12-22_JVD');
-insert into incidents_labels (label, incidentId)
-values ('Armed', (select max(id) from incidents));
-insert into aggressor_incidents(userId, incidentId)
-values ('1976-11-09_MA', (select max(id) from incidents));
-insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Arson', '-35.1412576433', '-55.5708694297', 'CONFIRMED', '1976-11-09_MA');
-insert into incidents_labels (label, incidentId)
-values ('Armed', (select max(id) from incidents));
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('2000-10-31_LS', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Murder', '59.7547684316', '-87.365132124', 'CONFIRMED', '2000-08-12_DJ');
+values ('Stalking', '-37.9607826695', '83.4328423434', 'CONFIRMED', '1992-02-04_SH');
+insert into incidents_labels (label, incidentId)
+values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1989-01-28_AL', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Manslaughter', '-47.4651430944', '-146.0403570259', 'CONFIRMED', '1989-01-28_AL');
 insert into incidents_labels (label, incidentId)
 values ('Armed', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2004-08-01_BB', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('1978-12-22_JVD', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Arson', '-7.2658016114', '-105.083454645', 'CONFIRMED', '1992-02-04_SH');
+values ('Assault', '72.0363901431', '-7.6241967522', 'CONFIRMED', '2004-08-01_BB');
 insert into incidents_labels (label, incidentId)
 values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('2003-06-30_CM', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
-values ('2004-08-01_BB', (select max(id) from incidents));
+values ('1989-01-28_AL', (select max(id) from incidents));
 insert into incidents (type, latitude, longitude, state, reporterId)
-values ('Manslaughter', '-70.6144465154', '-75.0211900154', 'CONFIRMED', '2003-06-30_CM');
+values ('Vandalism', '-73.7778699503', '-77.1452167667', 'CONFIRMED', '1997-04-18_CB2');
 insert into incidents_labels (label, incidentId)
-values ('Critical Condition', (select max(id) from incidents));
+values ('Under Control', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1978-12-22_JVD', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Bomber', '-39.2631175663', '-54.1141154567', 'CONFIRMED', '1992-02-04_SH');
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1997-04-18_CB2', (select max(id) from incidents));
 insert into aggressor_incidents(userId, incidentId)
 values ('2000-10-31_LS', (select max(id) from incidents));
+insert into incidents (type, latitude, longitude, state, reporterId)
+values ('Torturer', '11.1606233495', '128.8337234146', 'CONFIRMED', '2004-08-01_BB');
+insert into incidents_labels (label, incidentId)
+values ('Child Danger', (select max(id) from incidents));
+insert into bystander_incidents(userId, incidentId)
+values  ('1978-12-22_JVD', (select max(id) from incidents));
+insert into aggressor_incidents(userId, incidentId)
+values ('1989-01-28_AL', (select max(id) from incidents));
