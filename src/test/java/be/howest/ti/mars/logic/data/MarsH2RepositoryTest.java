@@ -27,7 +27,7 @@ class MarsH2RepositoryTest {
     @Test
     void getIncidents(){
         // Arrange
-        int lengthOfIncidentsList = 15;
+        int lengthOfIncidentsList = 115;
         // Act
         List<Incident> incidentList = Repositories.getH2Repo().getIncidents();
         //Assert
@@ -100,7 +100,7 @@ class MarsH2RepositoryTest {
         String reporterId = "1992-02-04_SH";
         String latitude = "2.4243";
         String longitude = "52.9875";
-        int newIncidentId = 16;
+        int newIncidentId = 116;
         //Act
         Incident incident = Repositories.getH2Repo().insertIncident(reporterId, latitude, longitude);
         //Assert
