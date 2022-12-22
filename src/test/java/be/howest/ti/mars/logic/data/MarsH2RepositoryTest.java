@@ -165,16 +165,6 @@ class MarsH2RepositoryTest {
     }
 
     @Test
-    void removeIncident(){
-        //Arrange
-        int incidentId = 4;
-        //Act
-        Repositories.getH2Repo().removeIncident(incidentId);
-        //Assert
-        Assertions.assertThrows(NoSuchElementException.class, () -> Repositories.getH2Repo().getIncidents().stream().filter(incident -> incident.getId() == incidentId).findAny().orElseThrow(()-> new NoSuchElementException("cannot find incident with this id")));
-    }
-
-    @Test
     void validateIncident(){
         //Arrange
         int incidentId = 2;

@@ -80,11 +80,6 @@ public class MockMarsController implements MarsController {
     }
 
     @Override
-    public void removeIncident(int incidentId) {
-
-    }
-
-    @Override
     public Incident validateIncident(int incidentId, String userId) {
         return getIncident(incidentId);
     }
