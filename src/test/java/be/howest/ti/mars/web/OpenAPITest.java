@@ -139,19 +139,6 @@ class OpenAPITest {
     }
 
     @Test
-    void removeIncident(final VertxTestContext testContext) {
-        webClient.delete(PORT, HOST, "/api/incidents/5").send()
-                .onFailure(testContext::failNow)
-                .onSuccess(response -> testContext.verify(() -> {
-                    assertEquals(200, response.statusCode(), MSG_200_EXPECTED);
-                    assertTrue(
-                            StringUtils.isNotBlank(response.bodyAsJsonObject().getString("Incident removed")),
-                            "5");
-                    testContext.completeNow();
-                }));
-    }
-
-    @Test
     void getIncidents(final VertxTestContext testContext) {
         webClient.get(PORT, HOST, "/api/incidents?active=false").send()
                 .onFailure(testContext::failNow)

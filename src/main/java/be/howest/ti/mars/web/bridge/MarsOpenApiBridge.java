@@ -73,9 +73,6 @@ public class MarsOpenApiBridge {
         LOGGER.log(Level.INFO, "Installing handler for: getAggressorsByIncidentId");
         routerBuilder.operation("getAggressorsByIncidentId").handler(this::getAggressorsByIncidentId);
 
-        LOGGER.log(Level.INFO, "Installing handler for: deleteIncident");
-        routerBuilder.operation("deleteIncident").handler(this::deleteIncident);
-
         LOGGER.log(Level.INFO, "Installing handler for: validateIncident");
         routerBuilder.operation("validateIncident").handler(this::validateIncident);
 
@@ -133,13 +130,6 @@ public class MarsOpenApiBridge {
     private void getAllIncidentsByUserId(RoutingContext ctx) {
         String id = Request.from(ctx).getUserId();
         Response.sendIncidents(ctx, controller.getIncidentsFromUser(id));
-    }
-
-    private void deleteIncident(RoutingContext ctx) {
-        int incidentId = Request.from(ctx).getIncidentId();
-        controller.removeIncident(incidentId);
-        JsonObject response = new JsonObject().put("Incident removed", incidentId);
-        Response.sendJsonResponse(ctx, 200, response);
     }
 
     private void validateUser(RoutingContext ctx) {
